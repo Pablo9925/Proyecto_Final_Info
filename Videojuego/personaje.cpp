@@ -99,10 +99,12 @@ void personaje::shot(){
 
 
 
-    contp=31;
+    if(contp<=30) contp=31;
     setPixmap(QPixmap(spriPers[contp]).scaled(size/5,size/5));
     contp++;
-    contp=30;
+    if(contp==34){
+        setPixmap(QPixmap(spriPers[7]).scaled(size/5,size/5));
+    }
 }
 
 float personaje::getPosx() const
