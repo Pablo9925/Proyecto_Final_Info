@@ -22,6 +22,7 @@ public:
     void keyPressEvent(QKeyEvent *i);
 
 
+
 private:
     QGraphicsEllipseItem *ellipse;
     QTimer *time;

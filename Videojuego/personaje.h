@@ -19,14 +19,16 @@ public:
     void melee();
     float getPosx() const;
 
+    float getPosy() const;
+
 public slots:
     void shot();
 private:
     QTimer *time2;
     QString spriPers[35];
     QString spriPersL[35];
-
-    int vidas=3, ammo=0, damage=1, puntaje=0, size, contp,contp2=31;
+    bool derecha=true;
+    int vidas=3, ammo=0, damage=1, puntaje=0, size, contp=30,contp2=31;
     float posx=60, posy=180;
 
 };
