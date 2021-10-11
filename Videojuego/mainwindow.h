@@ -5,6 +5,7 @@
 #include <QGraphicsScene>
 #include <QKeyEvent>
 #include <QIcon>
+#include <QMediaPlayer>
 #include "personaje.h"
 
 namespace Ui {
@@ -25,13 +26,13 @@ public slots:
     void movimientobala();
 
 private:
-    QGraphicsEllipseItem *ellipse;
-    QTimer *time;
-    int sizex,sizey,contbala=20;
-    personaje *possx;
+    int sizex,sizey;
+    bool bulletAct=false,direc;
     Ui::MainWindow *ui;
     QGraphicsScene *escena;
     personaje *advGirl;
+    QTimer *time;
+    QMediaPlayer * bsound;
 
 };
 

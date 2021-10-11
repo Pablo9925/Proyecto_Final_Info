@@ -5,19 +5,20 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui(new Ui::MainWindow)
 {
-
     ui->setupUi(this);
     setup_mainwindow();
     advGirl=new personaje(sizey);
     advGirl->setPos(60,sizey-180);
     escena->addItem(advGirl);
+    bsound= new QMediaPlayer();
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
     delete advGirl;
-    delete ellipse;
+    delete time;
+    delete bsound;
 }
 
 void MainWindow::setup_mainwindow()
@@ -44,22 +45,36 @@ void MainWindow::keyPressEvent(QKeyEvent *i)
         advGirl->setX(advGirl->x()-20);
     }
     else if(i->key()==Qt::Key_E){
-
-
-        advGirl->shot();
-        contbala=30;
-        ellipse= new QGraphicsEllipseItem(20,20,30,30);
-        escena->addItem(ellipse);
-        time= new QTimer;
-        time->start(1);
-        connect(time,SIGNAL(timeout()),this,SLOT(movimientobala()));
+        if(bulletAct==false){
+            bsound->setMedia(QUrl("qrc:/sonidos/bala.mp3"));
+            bsound->play();
+            bulletAct=true;
+            direc=advGirl->get_direc();
+            advGirl->shot();
+            escena->addItem(advGirl->getBullet());
+            if(advGirl->get_direc()==true) advGirl->getBullet()->setPos(advGirl->get_posx()+sizey/5,sizey-advGirl->get_posy()/2-(sizey/48));
+            else advGirl->getBullet()->setPos(advGirl->get_posx(),sizey-advGirl->get_posy()/2-(sizey/48));
+            time= new QTimer;
+            time->start(25);
+            connect(time,SIGNAL(timeout()),this,SLOT(movimientobala()));
+        }
     }
 }
 
 void MainWindow::movimientobala()
 {
-    ellipse->setX(contbala);
-    contbala=contbala+1;
+    if(direc==true) advGirl->getBullet()->actualiza_posR();
+    else advGirl->getBullet()->actualiza_posL();
+    if(advGirl->getBullet()->get_posx()>advGirl->get_posx()+sizex && direc==true){
+        time->stop();
+        escena->removeItem(advGirl->getBullet());
+        bulletAct=false;
+    }
+    else if (advGirl->getBullet()->get_posx()<advGirl->get_posx()-sizex && direc==false){
+        time->stop();
+        escena->removeItem(advGirl->getBullet());
+        bulletAct=false;
+    }
 }
 
 

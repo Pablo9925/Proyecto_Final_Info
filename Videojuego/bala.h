@@ -1,17 +1,21 @@
 #ifndef BALA_H
 #define BALA_H
 
-#include <QObject>
-#include <QGraphicsPixmapItem>
-#include <QString>
-#include<personaje.h>
-class bala
+#include <QPainter>
+#include <QGraphicsItem>
+#include <QGraphicsScene>
+
+class bala: public QGraphicsItem
 {
 public:
-    bala();
+    bala(float x, float y);
+    QRectF boundingRect() const;
+    void paint(QPainter *painter,const QStyleOptionGraphicsItem *option, QWidget *widget);
+    void actualiza_posR();
+    void actualiza_posL();
+    float get_posx();
 private:
-    QString spritbala[1];
-    float posbalax=60, posbalay=180;
+    float posbalax, posbalay;
 };
 
 #endif // BALA_H

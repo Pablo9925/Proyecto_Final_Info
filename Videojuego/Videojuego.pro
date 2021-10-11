@@ -5,6 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui widgets
+QT += multimedia
 
 TARGET = Videojuego
 TEMPLATE = app
@@ -43,4 +44,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     sprites.qrc \
-    escena.qrc
+    escena.qrc \
+    sonidos.qrc

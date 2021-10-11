@@ -78,6 +78,32 @@ personaje::personaje(int tamv)
     setPixmap(QPixmap(spriPers[7]).scaled(size/5,size/5));
 }
 
+personaje::~personaje()
+{
+    delete timeshot;
+    delete bullet;
+}
+
+bala *personaje::getBullet()
+{
+    return bullet;
+}
+
+float personaje::get_posx()
+{
+    return posx;
+}
+
+float personaje::get_posy()
+{
+    return posy;
+}
+
+bool personaje::get_direc()
+{
+    return derecha;
+}
+
 void personaje::mov_izq()
 {
     if(contp>30 || contp<23) contp=30;
@@ -97,28 +123,22 @@ void personaje::mov_der()
     if(contp==22) setPixmap(QPixmap(spriPers[7]).scaled(size/5,size/5));
     posx+=20;
 }
-void personaje::shot(){
-
-
-
-    if(contp<=30) contp=31;
-    if(derecha==true){
-        setPixmap(QPixmap(spriPers[contp]).scaled(size/5,size/5));
-        contp++;
-        if(contp==34){
-            setPixmap(QPixmap(spriPers[7]).scaled(size/5,size/5));
-            contp=31;
-    }
-  }
-    else{
-        setPixmap(QPixmap(spriPersL[contp]).scaled(size/5,size/5));
-        contp++;
-        if(contp==34){
-            setPixmap(QPixmap(spriPersL[7]).scaled(size/5,size/5));
-            contp=31;
-
-    }
-  }
+void personaje::shot()
+{
+    if(derecha==true) bullet=new bala(posx+size/5,size-posy);
+    else bullet=new bala(posx-size/5,size-posy);
+    timeshot = new QTimer;
+    timeshot->start(100);
+    connect(timeshot,SIGNAL(timeout()),this,SLOT(disparar()));
 }
 
-
+void personaje::disparar()
+{
+    if(derecha==true) setPixmap(QPixmap(spriPers[conts]).scaled(size/5,size/5));
+    else setPixmap(QPixmap(spriPersL[conts]).scaled(size/5,size/5));
+    conts++;
+    if(conts==34){
+        timeshot->stop();
+        conts=31;
+    }
+}
