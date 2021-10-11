@@ -80,7 +80,7 @@ personaje::personaje(int tamv)
 
 void personaje::mov_izq()
 {
-
+    if(contp>30 || contp<23) contp=30;
     setPixmap(QPixmap(spriPersL[contp]).scaled(size/5,size/5));
     contp--;
     if(contp==22) setPixmap(QPixmap(spriPersL[7]).scaled(size/5,size/5));
@@ -102,9 +102,7 @@ void personaje::shot(){
     contp=31;
     setPixmap(QPixmap(spriPers[contp]).scaled(size/5,size/5));
     contp++;
-    if(contp==34){
-        contp=30;
-    }
+    contp=30;
 }
 
 float personaje::getPosx() const
