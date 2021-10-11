@@ -23,11 +23,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
+    bala.cpp \
         main.cpp \
         mainwindow.cpp \
     personaje.cpp
 
 HEADERS += \
+    bala.h \
         mainwindow.h \
     personaje.h
 
