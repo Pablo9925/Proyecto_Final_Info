@@ -1,6 +1,5 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
 
@@ -18,6 +17,7 @@ MainWindow::~MainWindow()
 {
     delete ui;
     delete advGirl;
+    delete ellipse;
 }
 
 void MainWindow::setup_mainwindow()
@@ -45,14 +45,21 @@ void MainWindow::keyPressEvent(QKeyEvent *i)
     }
     else if(i->key()==Qt::Key_E){
 
-        time= new QTimer;
-        time->start(250);
+
         advGirl->shot();
+        contbala=30;
         ellipse= new QGraphicsEllipseItem(20,20,30,30);
         escena->addItem(ellipse);
-
-        //connect(time,SIGNAL(timeout()),this,SLOT(shot()));
+        time= new QTimer;
+        time->start(1);
+        connect(time,SIGNAL(timeout()),this,SLOT(movimientobala()));
     }
+}
+
+void MainWindow::movimientobala()
+{
+    ellipse->setX(contbala);
+    contbala=contbala+1;
 }
 
 

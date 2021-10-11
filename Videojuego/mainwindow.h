@@ -21,13 +21,14 @@ public:
     void setup_mainwindow();
     void keyPressEvent(QKeyEvent *i);
 
-
+public slots:
+    void movimientobala();
 
 private:
     QGraphicsEllipseItem *ellipse;
     QTimer *time;
-    int sizex,sizey;
-    float possx,possy;
+    int sizex,sizey,contbala=20;
+    personaje *possx;
     Ui::MainWindow *ui;
     QGraphicsScene *escena;
     personaje *advGirl;
