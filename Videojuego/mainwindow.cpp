@@ -3,8 +3,10 @@
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
+
     ui(new Ui::MainWindow)
 {
+
     ui->setupUi(this);
     setup_mainwindow();
     advGirl=new personaje(sizey);
@@ -41,4 +43,16 @@ void MainWindow::keyPressEvent(QKeyEvent *i)
         advGirl->mov_izq();
         advGirl->setX(advGirl->x()-20);
     }
+    else if(i->key()==Qt::Key_E){
+
+        time= new QTimer;
+        time->start(250);
+        advGirl->shot();
+        ellipse= new QGraphicsEllipseItem(20,20,30,30);
+        escena->addItem(ellipse);
+
+        //connect(time,SIGNAL(timeout()),this,SLOT(shot()));
+    }
 }
+
+

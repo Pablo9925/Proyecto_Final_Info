@@ -70,5 +70,6 @@
         <file>sprites personaje/ShootL (2).png</file>
         <file>sprites personaje/ShootL (3).png</file>
         <file>sprites personaje/SlideL (1).png</file>
+        <file>sprites personaje/bala.png</file>
     </qresource>
 </RCC>

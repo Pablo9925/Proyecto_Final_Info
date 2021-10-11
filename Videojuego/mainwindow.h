@@ -21,11 +21,17 @@ public:
     void setup_mainwindow();
     void keyPressEvent(QKeyEvent *i);
 
+
+
 private:
+    QGraphicsEllipseItem *ellipse;
+    QTimer *time;
     int sizex,sizey;
+    float possx,possy;
     Ui::MainWindow *ui;
     QGraphicsScene *escena;
     personaje *advGirl;
+
 };
 
 #endif // MAINWINDOW_H
