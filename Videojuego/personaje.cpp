@@ -121,12 +121,4 @@ void personaje::shot(){
   }
 }
 
-float personaje::getPosy() const
-{
-    return posy;
-}
 
-float personaje::getPosx() const
-{
-    return posx;
-}

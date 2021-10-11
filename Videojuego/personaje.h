@@ -17,9 +17,6 @@ public:
     void jump();
 
     void melee();
-    float getPosx() const;
-
-    float getPosy() const;
 
 public slots:
     void shot();
