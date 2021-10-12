@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QGraphicsScene>
+#include <QGraphicsView>
 #include <QKeyEvent>
 #include <QIcon>
 #include <QMediaPlayer>
@@ -30,9 +31,11 @@ private:
     bool bulletAct=false, direc;
     Ui::MainWindow *ui;
     QGraphicsScene *escena;
+    QGraphicsView *view;
     personaje *advGirl;
     QTimer *time;
     QMediaPlayer * bsound;
+    QGraphicsLineItem *l1, *l2;
 
 };
 

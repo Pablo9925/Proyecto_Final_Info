@@ -31,5 +31,6 @@
         <file>escena/TombStone (1).png</file>
         <file>escena/TombStone (2).png</file>
         <file>escena/Tree.png</file>
+        <file>escena/BG2.png</file>
     </qresource>
 </RCC>

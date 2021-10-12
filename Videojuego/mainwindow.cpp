@@ -10,6 +10,10 @@ MainWindow::MainWindow(QWidget *parent) :
     advGirl=new personaje(sizey);
     advGirl->setPos(60,sizey-180);
     escena->addItem(advGirl);
+    view->setScene(escena);
+    view->resize(sizex,sizey);
+    this->resize(sizex,sizey);
+    view->centerOn(advGirl->x(),advGirl->y());
     bsound= new QMediaPlayer();
 }
 
@@ -19,19 +23,28 @@ MainWindow::~MainWindow()
     delete advGirl;
     delete time;
     delete bsound;
+    delete l1;
+    delete l2;
 }
 
 void MainWindow::setup_mainwindow()
 {
     sizex=1280;
     sizey=720;
-    escena = new QGraphicsScene;
+    escena = new QGraphicsScene(this);
+    view = new QGraphicsView(this);
     setGeometry(0,0,sizex,sizey);
     setWindowTitle("Rise of the tomb explorer");
     setWindowIcon(QIcon(":/escena/TombStone (2).png"));
-    ui->graphicsView->setGeometry(0,0,sizex+2,sizey+2);
-    escena->setSceneRect(0,0,sizex,sizey);
+    ui->graphicsView->setGeometry(0,0,sizex*5+2,sizey+2);
+    escena->setSceneRect(0,0,sizex*15,sizey);
+    escena->setBackgroundBrush(QBrush(QImage(":/escena/BG2.png")));
     ui->graphicsView->setScene(escena);
+    //Líneas para evitar que se salgan de los rangos de la escena
+    l1 = new QGraphicsLineItem(0,0,0,sizey); // <-- Línea izquierda
+    l2 = new QGraphicsLineItem(sizex*15,0,sizex*15,sizey); // <-- Línea derecha
+    escena->addItem(l1);
+    escena->addItem(l2);
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *i)
@@ -39,10 +52,20 @@ void MainWindow::keyPressEvent(QKeyEvent *i)
     if(i->key()==Qt::Key_D){
         advGirl->mov_der();
         advGirl->setX(advGirl->x()+20);
+        if(advGirl->collidesWithItem(l2)){
+            advGirl->mov_izq();
+            advGirl->setX(advGirl->x()-20);
+        }
+        view->centerOn(advGirl->x(),advGirl->y());
     }
     else if(i->key()==Qt::Key_A){
         advGirl->mov_izq();
         advGirl->setX(advGirl->x()-20);
+        if(advGirl->collidesWithItem(l1)){
+            advGirl->mov_der();
+            advGirl->setX(advGirl->x()+20);
+        }
+        view->centerOn(advGirl->x(),advGirl->y());
     }
     else if(i->key()==Qt::Key_P){
         if(bulletAct==false && advGirl->get_ammo()>0){
