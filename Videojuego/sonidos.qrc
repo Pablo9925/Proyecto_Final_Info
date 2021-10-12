@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>sonidos/bala.mp3</file>
+        <file>sonidos/battle015.mp3</file>
     </qresource>
 </RCC>

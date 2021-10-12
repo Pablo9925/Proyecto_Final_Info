@@ -27,7 +27,7 @@ public slots:
 
 private:
     int sizex,sizey;
-    bool bulletAct=false,direc;
+    bool bulletAct=false, direc;
     Ui::MainWindow *ui;
     QGraphicsScene *escena;
     personaje *advGirl;

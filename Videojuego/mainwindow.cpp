@@ -44,8 +44,11 @@ void MainWindow::keyPressEvent(QKeyEvent *i)
         advGirl->mov_izq();
         advGirl->setX(advGirl->x()-20);
     }
-    else if(i->key()==Qt::Key_E){
-        if(bulletAct==false){
+    else if(i->key()==Qt::Key_P){
+        if(bulletAct==false && advGirl->get_ammo()>0){
+            if(advGirl->get_direc()==true) advGirl->setPixmap((QPixmap(":/sprites personaje/Shoot (1).png").scaled(sizey/5,sizey/5)));
+            else advGirl->setPixmap((QPixmap(":/sprites personaje/ShootL (1).png").scaled(sizey/5,sizey/5)));
+            advGirl->set_ammo(advGirl->get_ammo()-1);
             bsound->setMedia(QUrl("qrc:/sonidos/bala.mp3"));
             bsound->play();
             bulletAct=true;
@@ -57,6 +60,11 @@ void MainWindow::keyPressEvent(QKeyEvent *i)
             time= new QTimer;
             time->start(25);
             connect(time,SIGNAL(timeout()),this,SLOT(movimientobala()));
+        }
+    }
+    else if(i->key()==Qt::Key_O){
+        if(advGirl->get_ActAttack()==false){
+            advGirl->melee();
         }
     }
 }

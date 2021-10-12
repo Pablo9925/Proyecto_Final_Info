@@ -20,13 +20,13 @@ void bala::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
 void bala::actualiza_posR()
 {
     setX(posbalax);
-    posbalax+=15;
+    posbalax+=30;
 }
 
 void bala::actualiza_posL()
 {
     setX(posbalax);
-    posbalax-=15;
+    posbalax-=30;
 }
 
 float bala::get_posx()
