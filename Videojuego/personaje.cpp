@@ -132,6 +132,13 @@ void personaje::shot()
     connect(timeshot,SIGNAL(timeout()),this,SLOT(disparar()));
 }
 
+void personaje::melee()
+{
+    timepunal= new QTimer;
+    timepunal->start(50);
+    connect(timepunal,SIGNAL(timeout()),this,SLOT(apunalar()));
+}
+
 void personaje::disparar()
 {
     if(derecha==true) setPixmap(QPixmap(spriPers[conts]).scaled(size/5,size/5));
@@ -141,4 +148,19 @@ void personaje::disparar()
         timeshot->stop();
         conts=31;
     }
+}
+
+void personaje::apunalar()
+{
+       if(derecha==true){
+           setPixmap(QPixmap(spriPers[contb]).scaled(size/5,size/5));
+       }
+       else{
+           setPixmap(QPixmap(spriPersL[contb]).scaled(size/5,size/5));
+       }
+       contb++;
+       if(contb>=23){
+           timepunal->stop();
+           contb=16;
+       }
 }

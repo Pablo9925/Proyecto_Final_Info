@@ -44,7 +44,7 @@ void MainWindow::keyPressEvent(QKeyEvent *i)
         advGirl->mov_izq();
         advGirl->setX(advGirl->x()-20);
     }
-    else if(i->key()==Qt::Key_E){
+    else if(i->key()==Qt::Key_P){
         if(bulletAct==false){
             bsound->setMedia(QUrl("qrc:/sonidos/bala.mp3"));
             bsound->play();
@@ -58,6 +58,10 @@ void MainWindow::keyPressEvent(QKeyEvent *i)
             time->start(25);
             connect(time,SIGNAL(timeout()),this,SLOT(movimientobala()));
         }
+    }
+    else if(i->key()==Qt::Key_O){
+        advGirl->melee();
+
     }
 }
 

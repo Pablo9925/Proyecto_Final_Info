@@ -218,7 +218,9 @@ Makefile: ../Videojuego/Videojuego.pro D:/qt/5.9.9/mingw53_32/mkspecs/win32-g++/
 		../Videojuego/Videojuego.pro \
 		D:/qt/5.9.9/mingw53_32/lib/qtmaind.prl \
 		D:/qt/5.9.9/mingw53_32/lib/Qt5Widgets.prl \
+		D:/qt/5.9.9/mingw53_32/lib/Qt5Multimedia.prl \
 		D:/qt/5.9.9/mingw53_32/lib/Qt5Gui.prl \
+		D:/qt/5.9.9/mingw53_32/lib/Qt5Network.prl \
 		D:/qt/5.9.9/mingw53_32/lib/Qt5Core.prl
 	$(QMAKE) -o Makefile ..\Videojuego\Videojuego.pro -spec win32-g++ "CONFIG+=debug" "CONFIG+=qml_debug"
 D:/qt/5.9.9/mingw53_32/mkspecs/features/spec_pre.prf:
@@ -378,7 +380,9 @@ D:/qt/5.9.9/mingw53_32/mkspecs/features/lex.prf:
 ../Videojuego/Videojuego.pro:
 D:/qt/5.9.9/mingw53_32/lib/qtmaind.prl:
 D:/qt/5.9.9/mingw53_32/lib/Qt5Widgets.prl:
+D:/qt/5.9.9/mingw53_32/lib/Qt5Multimedia.prl:
 D:/qt/5.9.9/mingw53_32/lib/Qt5Gui.prl:
+D:/qt/5.9.9/mingw53_32/lib/Qt5Network.prl:
 D:/qt/5.9.9/mingw53_32/lib/Qt5Core.prl:
 qmake: FORCE
 	@$(QMAKE) -o Makefile ..\Videojuego\Videojuego.pro -spec win32-g++ "CONFIG+=debug" "CONFIG+=qml_debug"
