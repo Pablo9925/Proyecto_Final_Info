@@ -27,12 +27,16 @@ SOURCES += \
     bala.cpp \
         main.cpp \
         mainwindow.cpp \
-    personaje.cpp
+    personaje.cpp \
+    logicamap.cpp \
+    map.cpp
 
 HEADERS += \
     bala.h \
         mainwindow.h \
-    personaje.h
+    personaje.h \
+    logicamap.h \
+    map.h
 
 FORMS += \
         mainwindow.ui

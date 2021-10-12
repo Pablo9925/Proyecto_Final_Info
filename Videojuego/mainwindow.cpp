@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <QDebug>
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
 
@@ -7,8 +8,9 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     setup_mainwindow();
+    generar_mapa();
     advGirl=new personaje(sizey);
-    advGirl->setPos(60,sizey-180);
+    advGirl->setPos(60,sizey*7/10); //Esa posición en y por la acumulación de la posición del personaje y la posición de los bloques del mapa
     escena->addItem(advGirl);
     view->setScene(escena);
     view->resize(sizex,sizey);
@@ -25,6 +27,8 @@ MainWindow::~MainWindow()
     delete bsound;
     delete l1;
     delete l2;
+    for(int x=0; x<columnas; x++) for(int y=0; y<filas; y++) delete mapa[x][y];
+    delete l_mapa;
 }
 
 void MainWindow::setup_mainwindow()
@@ -45,6 +49,24 @@ void MainWindow::setup_mainwindow()
     l2 = new QGraphicsLineItem(sizex*15,0,sizex*15,sizey); // <-- Línea derecha
     escena->addItem(l1);
     escena->addItem(l2);
+}
+
+void MainWindow::generar_mapa()
+{
+    int ** m_mapa;
+    l_mapa = new logicamap(columnas*15,filas);
+    m_mapa=l_mapa->generar_mapa();
+
+    for(int x=0;x<columnas*15;x++){
+        for(int y=0;y<filas;y++) {
+            mapa[x][y] = new map(sizex,sizey);
+            mapa[x][y]->setup_tipo(m_mapa[x][y]);
+            mapa[x][y]->setX((sizex/columnas)*x);
+            if(m_mapa[x][y]==3) mapa[x][y]->setY(((sizey/filas)*y)+(sizey/filas));
+            else mapa[x][y]->setY(((sizey/(filas))*y)+(sizey/filas)/2);
+            escena->addItem(mapa[x][y]);
+        }
+    }
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *i)
@@ -78,8 +100,8 @@ void MainWindow::keyPressEvent(QKeyEvent *i)
             direc=advGirl->get_direc();
             advGirl->shot();
             escena->addItem(advGirl->getBullet());
-            if(advGirl->get_direc()==true) advGirl->getBullet()->setPos(advGirl->get_posx()+sizey/5,sizey-advGirl->get_posy()/2-(sizey/48));
-            else advGirl->getBullet()->setPos(advGirl->get_posx(),sizey-advGirl->get_posy()/2-(sizey/48));
+            if(advGirl->get_direc()==true) advGirl->getBullet()->setPos(advGirl->get_posx()+sizey/5,sizey-advGirl->get_posy()/2-(sizey/20));
+            else advGirl->getBullet()->setPos(advGirl->get_posx(),sizey-advGirl->get_posy()/2-(sizey/20));
             time= new QTimer;
             time->start(25);
             connect(time,SIGNAL(timeout()),this,SLOT(movimientobala()));

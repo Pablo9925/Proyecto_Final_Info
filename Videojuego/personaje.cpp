@@ -75,6 +75,7 @@ personaje::personaje(int tamv)
     spriPersL[34]=":/sprites personaje/SlideL (1).png";
 
     size=tamv;
+    posy=size*3/10;
     setPixmap(QPixmap(spriPers[7]).scaled(size/5,size/5));
 }
 
@@ -139,8 +140,8 @@ void personaje::mov_der()
 }
 void personaje::shot()
 {
-    if(derecha==true) bullet=new bala(posx+size/5,size-posy);
-    else bullet=new bala(posx-size/5,size-posy);
+    if(derecha==true) bullet=new bala(posx+size/5,posy);
+    else bullet=new bala(posx-size/5,posy);
     timeshot = new QTimer;
     timeshot->start(100);
     connect(timeshot,SIGNAL(timeout()),this,SLOT(disparar()));

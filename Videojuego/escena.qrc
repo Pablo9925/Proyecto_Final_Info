@@ -2,35 +2,14 @@
     <qresource prefix="/">
         <file>escena/ArrowSign.png</file>
         <file>escena/BG.png</file>
-        <file>escena/Bone (1).png</file>
-        <file>escena/Bone (2).png</file>
-        <file>escena/Bone (3).png</file>
-        <file>escena/Bone (4).png</file>
-        <file>escena/Bush (1).png</file>
-        <file>escena/Bush (2).png</file>
         <file>escena/Crate.png</file>
         <file>escena/DeadBush.png</file>
-        <file>escena/Sign.png</file>
-        <file>escena/Skeleton.png</file>
-        <file>escena/Tile (1).png</file>
         <file>escena/Tile (2).png</file>
-        <file>escena/Tile (3).png</file>
-        <file>escena/Tile (4).png</file>
-        <file>escena/Tile (5).png</file>
-        <file>escena/Tile (6).png</file>
-        <file>escena/Tile (7).png</file>
-        <file>escena/Tile (8).png</file>
-        <file>escena/Tile (9).png</file>
-        <file>escena/Tile (10).png</file>
-        <file>escena/Tile (11).png</file>
-        <file>escena/Tile (12).png</file>
-        <file>escena/Tile (13).png</file>
         <file>escena/Tile (14).png</file>
         <file>escena/Tile (15).png</file>
         <file>escena/Tile (16).png</file>
         <file>escena/TombStone (1).png</file>
         <file>escena/TombStone (2).png</file>
-        <file>escena/Tree.png</file>
         <file>escena/BG2.png</file>
     </qresource>
 </RCC>

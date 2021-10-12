@@ -42,7 +42,7 @@ private:
     QString spriPersL[35];
     bool derecha=true, meleeAct=false;
     int vidas=3, ammo=6, damage=1, puntaje=0, size, contp=30, conts=31, contb=16;
-    float posx=60, posy=180;
+    float posx=60, posy;
 
 };
 
