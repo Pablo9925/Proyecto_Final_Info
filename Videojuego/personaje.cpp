@@ -138,6 +138,25 @@ void personaje::mov_der()
     contp--;
     posx+=20;
 }
+
+void personaje::jump()
+{
+
+   /* vx=v*cos(angulo);
+    vy=v*sin(angulo)-a*dt;
+    angulo=atan2(vy,vx);
+    v= sqrt(vx*vx+ vy*vy);
+    posx+=vx*dt;
+    posy+=vy*dt-(a/2)*dt*dt;
+
+    setX(posx);
+    setY(-posy);*/
+    timeshot = new QTimer;
+    timeshot->start(1);
+    connect(timeshot,SIGNAL(timeout()),this,SLOT(jumparabolico()));
+
+
+}
 void personaje::shot()
 {
     if(derecha==true) bullet=new bala(posx+size/5,posy);
@@ -153,6 +172,34 @@ void personaje::melee()
     timepunal= new QTimer;
     timepunal->start(50);
     connect(timepunal,SIGNAL(timeout()),this,SLOT(apunalar()));
+}
+
+void personaje::jumparabolico()
+{
+    if(derecha==true){
+        posxsalto = posx+vxo*n*(0.001*T); //salto a la derecha
+        posysalto = posy-(vyo*n*(0.001*T)-0.5*a*n*(0.001*T)*n*(0.001*T));
+        n++;
+    }
+    else{
+        posxsalto = posx-vxo*n*(0.001*T); //salto a la izquierda
+        posysalto = posy-(vyo*n*(0.001*T)-0.5*a*n*(0.001*T)*n*(0.001*T));
+        n++;
+    }
+
+    setX(posxsalto);
+    setY(posysalto);
+    /*setPixmap(QPixmap(spriPers[contjump]).scaled(size/5,size/5));
+    contjump++;
+    if(contjump==16){
+        contjump=8;
+    }*/
+    //posx=posxsalto;
+}
+
+void personaje::setPosy(float value)
+{
+    posy = value;
 }
 
 void personaje::disparar()
@@ -181,3 +228,11 @@ void personaje::apunalar()
        meleeAct=false;
    }
 }
+
+
+void personaje::setParabolico(bool value)
+{
+    parabolico = value;
+}
+
+

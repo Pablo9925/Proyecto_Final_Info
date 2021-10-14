@@ -12,6 +12,7 @@ MainWindow::MainWindow(QWidget *parent) :
     advGirl=new personaje(sizey);
     advGirl->setPos(60,sizey*7/10); //Esa posición en y por la acumulación de la posición del personaje y la posición de los bloques del mapa
     escena->addItem(advGirl);
+    advGirl->setPosy(sizey*7/10);
     view->setScene(escena);
     view->resize(sizex,sizey);
     this->resize(sizex,sizey);
@@ -112,6 +113,21 @@ void MainWindow::keyPressEvent(QKeyEvent *i)
             advGirl->melee();
         }
     }
+    else if(i->key()==Qt::Key_W){
+        /*if(i->key()==Qt::Key_D){
+            advGirl->setParabolico(true);
+        }
+        else{
+            advGirl->jump();
+            advGirl->setY(advGirl->y()-20);
+        }*/
+
+        advGirl->jump();
+
+
+    }
+
+
 }
 
 void MainWindow::movimientobala()

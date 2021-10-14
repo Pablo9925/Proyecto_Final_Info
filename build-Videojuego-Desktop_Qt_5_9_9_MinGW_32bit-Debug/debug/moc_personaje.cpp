@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_personaje_t {
-    QByteArrayData data[4];
-    char stringdata0[29];
+    QByteArrayData data[5];
+    char stringdata0[43];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -34,10 +34,11 @@ static const qt_meta_stringdata_personaje_t qt_meta_stringdata_personaje = {
 QT_MOC_LITERAL(0, 0, 9), // "personaje"
 QT_MOC_LITERAL(1, 10, 8), // "disparar"
 QT_MOC_LITERAL(2, 19, 0), // ""
-QT_MOC_LITERAL(3, 20, 8) // "apunalar"
+QT_MOC_LITERAL(3, 20, 8), // "apunalar"
+QT_MOC_LITERAL(4, 29, 13) // "jumparabolico"
 
     },
-    "personaje\0disparar\0\0apunalar"
+    "personaje\0disparar\0\0apunalar\0jumparabolico"
 };
 #undef QT_MOC_LITERAL
 
@@ -47,7 +48,7 @@ static const uint qt_meta_data_personaje[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       2,   14, // methods
+       3,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -55,10 +56,12 @@ static const uint qt_meta_data_personaje[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   24,    2, 0x0a /* Public */,
-       3,    0,   25,    2, 0x0a /* Public */,
+       1,    0,   29,    2, 0x0a /* Public */,
+       3,    0,   30,    2, 0x0a /* Public */,
+       4,    0,   31,    2, 0x0a /* Public */,
 
  // slots: parameters
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
 
@@ -73,6 +76,7 @@ void personaje::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, v
         switch (_id) {
         case 0: _t->disparar(); break;
         case 1: _t->apunalar(); break;
+        case 2: _t->jumparabolico(); break;
         default: ;
         }
     }
@@ -106,13 +110,13 @@ int personaje::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 2)
+        if (_id < 3)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 2;
+        _id -= 3;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 2)
+        if (_id < 3)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 2;
+        _id -= 3;
     }
     return _id;
 }
