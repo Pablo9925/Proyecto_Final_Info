@@ -120,6 +120,18 @@ void personaje::set_ammo(int muni)
 {
     ammo=muni;
 }
+void personaje::setParabolico(bool value)
+{
+    parabolico = value;
+}
+bool personaje::getParabolico() const
+{
+    return parabolico;
+}
+void personaje::setPosy(float value)
+{
+    posy = value;
+}
 
 void personaje::mov_izq()
 {
@@ -142,21 +154,19 @@ void personaje::mov_der()
 void personaje::jump()
 {
 
-   /* vx=v*cos(angulo);
-    vy=v*sin(angulo)-a*dt;
-    angulo=atan2(vy,vx);
-    v= sqrt(vx*vx+ vy*vy);
-    posx+=vx*dt;
-    posy+=vy*dt-(a/2)*dt*dt;
-
-    setX(posx);
-    setY(-posy);*/
-    timeshot = new QTimer;
-    timeshot->start(1);
-    connect(timeshot,SIGNAL(timeout()),this,SLOT(jumparabolico()));
+    parabolico=true;
+    //posx=posxsalto;
 
 
 }
+/*void personaje::jumparabolico()
+{
+
+
+
+}*/
+
+
 void personaje::shot()
 {
     if(derecha==true) bullet=new bala(posx+size/5,posy);
@@ -164,6 +174,7 @@ void personaje::shot()
     timeshot = new QTimer;
     timeshot->start(100);
     connect(timeshot,SIGNAL(timeout()),this,SLOT(disparar()));
+
 }
 
 void personaje::melee()
@@ -174,33 +185,8 @@ void personaje::melee()
     connect(timepunal,SIGNAL(timeout()),this,SLOT(apunalar()));
 }
 
-void personaje::jumparabolico()
-{
-    if(derecha==true){
-        posxsalto = posx+vxo*n*(0.001*T); //salto a la derecha
-        posysalto = posy-(vyo*n*(0.001*T)-0.5*a*n*(0.001*T)*n*(0.001*T));
-        n++;
-    }
-    else{
-        posxsalto = posx-vxo*n*(0.001*T); //salto a la izquierda
-        posysalto = posy-(vyo*n*(0.001*T)-0.5*a*n*(0.001*T)*n*(0.001*T));
-        n++;
-    }
 
-    setX(posxsalto);
-    setY(posysalto);
-    /*setPixmap(QPixmap(spriPers[contjump]).scaled(size/5,size/5));
-    contjump++;
-    if(contjump==16){
-        contjump=8;
-    }*/
-    //posx=posxsalto;
-}
 
-void personaje::setPosy(float value)
-{
-    posy = value;
-}
 
 void personaje::disparar()
 {
@@ -229,10 +215,10 @@ void personaje::apunalar()
    }
 }
 
-
-void personaje::setParabolico(bool value)
+bool personaje::getDerecha() const
 {
-    parabolico = value;
+    return derecha;
 }
+
 
 

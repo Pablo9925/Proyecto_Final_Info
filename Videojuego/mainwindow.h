@@ -26,11 +26,13 @@ public:
     void generar_mapa();
     void keyPressEvent(QKeyEvent *i);
 
+
 public slots:
     void movimientobala();
+    void saltoparabolico();
 
 private:
-    int sizex,sizey;
+    int sizex,sizey,n=0;
     bool bulletAct=false, direc;
     Ui::MainWindow *ui;
     QGraphicsScene *escena;
@@ -41,6 +43,8 @@ private:
     QGraphicsLineItem *l1, *l2;
     map *mapa[columnas*15][filas];
     logicamap *l_mapa;
+    float  posxsalto,posysalto,vxo=5,vyo=25,T=50;
+    double a=1;
 };
 
 #endif // MAINWINDOW_H
