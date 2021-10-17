@@ -75,7 +75,6 @@ personaje::personaje(int tamv)
     spriPersL[34]=":/sprites personaje/SlideL (1).png";
 
     size=tamv;
-    posy=size*3/10;
     setPixmap(QPixmap(spriPers[7]).scaled(size/5,size/5));
 }
 

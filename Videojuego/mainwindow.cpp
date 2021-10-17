@@ -86,7 +86,7 @@ void MainWindow::keyPressEvent(QKeyEvent *i)
         //if(matriz[int(advGirl->get_posx()/160)][int(advGirl->get_posy()/144)+1]==1 || matriz[int(advGirl->get_posx()/160)][int(advGirl->get_posy()/144)+1]==2){
             if(matriz[int(advGirl->get_posx()/160)][int(advGirl->get_posy()/144)+1]==0 && int(advGirl->get_posy()/144)+1==4){
                 timec=new QTimer;
-                timec->start(1);
+                timec->start(2);
                 connect(timec,SIGNAL(timeout()),this,SLOT(caida()));
             }
         //}
