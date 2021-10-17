@@ -214,16 +214,34 @@ void personaje::apunalar()
 
 void personaje::animacionsalto()
 {
-    setPixmap(QPixmap(spriPers[contjump]).scaled(size/5,size/5));
+    if(derecha==true){
+        setPixmap(QPixmap(spriPers[contjump]).scaled(size/5,size/5));
 
-    if(contjump<15){
-        contjump++;
+        if(contjump<15){
+            contjump++;
 
+
+        }
+        else{
+            timeshot->stop();
+            contjump=8;
+        }
 
     }
     else{
-        timeshot->stop();
+        setPixmap(QPixmap(spriPersL[contjump]).scaled(size/5,size/5));
+
+        if(contjump<15){
+            contjump++;
+
+
+        }
+        else{
+            timeshot->stop();
+            contjump=8;
+        }
     }
+
 
 }
 
