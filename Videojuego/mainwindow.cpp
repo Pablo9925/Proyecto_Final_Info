@@ -60,6 +60,7 @@ void MainWindow::generar_mapa()
 
     for(int x=0;x<columnas*15;x++){
         for(int y=0;y<filas;y++) {
+            matriz[x][y]=m_mapa[x][y];
             mapa[x][y] = new map(sizex,sizey);
             mapa[x][y]->setup_tipo(m_mapa[x][y]);
             mapa[x][y]->setX((sizex/columnas)*x);
@@ -82,6 +83,13 @@ void MainWindow::keyPressEvent(QKeyEvent *i)
             advGirl->setX(advGirl->x()-20);
         }
         view->centerOn(advGirl->x(),advGirl->y());
+        //if(matriz[int(advGirl->get_posx()/160)][int(advGirl->get_posy()/144)+1]==1 || matriz[int(advGirl->get_posx()/160)][int(advGirl->get_posy()/144)+1]==2){
+            if(matriz[int(advGirl->get_posx()/160)][int(advGirl->get_posy()/144)+1]==0 && int(advGirl->get_posy()/144)+1==4){
+                timec=new QTimer;
+                timec->start(1);
+                connect(timec,SIGNAL(timeout()),this,SLOT(caida()));
+            }
+        //}
     }
     else if(i->key()==Qt::Key_A){
         if(advGirl->getParabolico()==false){
@@ -122,12 +130,8 @@ void MainWindow::keyPressEvent(QKeyEvent *i)
             time=new QTimer;
             time->start(1);
             connect(time,SIGNAL(timeout()),this,SLOT(saltoparabolico()));
-
         }
-
     }
-
-
 }
 
 void MainWindow::saltoparabolico()
@@ -145,6 +149,13 @@ void MainWindow::saltoparabolico()
     advGirl->setX(posxsalto);
     advGirl->setY(posysalto);
 
+}
+
+void MainWindow::caida()
+{
+    posysalto = (sizey-advGirl->get_posy())-0.5*a*n*(0.001*T)*n*(0.001*T);
+    n++;
+    advGirl->setY(sizey-posysalto);
 }
 
 void MainWindow::movimientobala()

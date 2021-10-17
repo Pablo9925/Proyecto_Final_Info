@@ -30,15 +30,18 @@ public:
 public slots:
     void movimientobala();
     void saltoparabolico();
+    void caida();
 
 private:
     int sizex,sizey,n=0;
+    int matriz[columnas*15][filas];
     bool bulletAct=false, direc;
     Ui::MainWindow *ui;
     QGraphicsScene *escena;
     QGraphicsView *view;
     personaje *advGirl;
     QTimer *time;
+    QTimer *timec;
     QMediaPlayer * bsound;
     QGraphicsLineItem *l1, *l2;
     map *mapa[columnas*15][filas];
