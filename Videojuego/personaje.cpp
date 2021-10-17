@@ -1,4 +1,3 @@
-
 #include "personaje.h"
 
 personaje::personaje(int tamv)
@@ -76,7 +75,6 @@ personaje::personaje(int tamv)
     spriPersL[34]=":/sprites personaje/SlideL (1).png";
 
     size=tamv;
-    posy=size*3/10;
     setPixmap(QPixmap(spriPers[7]).scaled(size/5,size/5));
 }
 
@@ -161,6 +159,9 @@ void personaje::jump()
 }
 /*void personaje::jumparabolico()
 {
+
+
+
 }*/
 
 
@@ -220,32 +221,29 @@ void personaje::animacionsalto()
         if(contjump<15){
             contjump++;
 
-
         }
         else{
             timeshot->stop();
             contjump=8;
         }
-
     }
     else{
         setPixmap(QPixmap(spriPersL[contjump]).scaled(size/5,size/5));
 
         if(contjump<15){
             contjump++;
-
-
         }
         else{
             timeshot->stop();
             contjump=8;
         }
     }
-
-
 }
 
 bool personaje::getDerecha() const
 {
     return derecha;
 }
+
+
+
