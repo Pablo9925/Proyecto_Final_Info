@@ -46,7 +46,7 @@ private:
     QGraphicsLineItem *l1, *l2;
     map *mapa[columnas*15][filas];
     logicamap *l_mapa;
-    float  posxsalto,posysalto,vxo=5,vyo=25,T=50;
+    float  posxsalto,posysalto,vxo=5,vyo=25,T=0.05,posyinicial;
     double a=1;
 };
 

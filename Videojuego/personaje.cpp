@@ -153,10 +153,9 @@ void personaje::mov_der()
 
 void personaje::jump()
 {
-
-    parabolico=true;
-    //posx=posxsalto;
-
+    timeshot=new QTimer;
+    timeshot->start(50);
+    connect(timeshot,SIGNAL(timeout()),this,SLOT(animacionsalto()));
 
 }
 /*void personaje::jumparabolico()
@@ -213,6 +212,21 @@ void personaje::apunalar()
        contb=16;
        meleeAct=false;
    }
+}
+
+void personaje::animacionsalto()
+{
+    setPixmap(QPixmap(spriPers[contjump]).scaled(size/5,size/5));
+
+    if(contjump<15){
+        contjump++;
+
+
+    }
+    else{
+        timeshot->stop();
+    }
+
 }
 
 bool personaje::getDerecha() const

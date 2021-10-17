@@ -113,8 +113,8 @@ void MainWindow::keyPressEvent(QKeyEvent *i)
             direc=advGirl->get_direc();
             advGirl->shot();
             escena->addItem(advGirl->getBullet());
-            if(advGirl->get_direc()==true) advGirl->getBullet()->setPos(advGirl->get_posx()+sizey/5,sizey-advGirl->get_posy()/2-(sizey/20));
-            else advGirl->getBullet()->setPos(advGirl->get_posx(),sizey-advGirl->get_posy()/2-(sizey/20));
+            if(advGirl->get_direc()==true) advGirl->getBullet()->setPos(advGirl->get_posx()+sizey/5,advGirl->get_posy()+75);
+            else advGirl->getBullet()->setPos(advGirl->get_posx(),advGirl->get_posy()+75);
             time= new QTimer;
             time->start(25);
             connect(time,SIGNAL(timeout()),this,SLOT(movimientobala()));
@@ -130,30 +130,34 @@ void MainWindow::keyPressEvent(QKeyEvent *i)
             time=new QTimer;
             time->start(1);
             connect(time,SIGNAL(timeout()),this,SLOT(saltoparabolico()));
+            advGirl->jump();
         }
     }
 }
 
 void MainWindow::saltoparabolico()
 {
+    advGirl->setParabolico(true);
     if(advGirl->getDerecha()==true){
-        posxsalto = advGirl->get_posx()+vxo*n*(0.001*T); //salto a la derecha
-        posysalto = advGirl->get_posy()-(vyo*n*(0.001*T)-0.5*a*n*(0.001*T)*n*(0.001*T));
+        posxsalto = advGirl->get_posx()+vxo*n*(T); //salto a la derecha
+        posysalto = advGirl->get_posy()-(vyo*n*(T)-0.5*a*n*(T)*n*(T));
         n++;
     }
     else{
-        posxsalto = advGirl->get_posx()-vxo*n*(0.001*T); //salto a la izquierda
-        posysalto = advGirl->get_posy()-(vyo*n*(0.001*T)-0.5*a*n*(0.001*T)*n*(0.001*T));
+        posxsalto = advGirl->get_posx()-vxo*n*(T); //salto a la izquierda
+        posysalto = advGirl->get_posy()-(vyo*n*(T)-0.5*a*n*(T)*n*(T));
         n++;
     }
     advGirl->setX(posxsalto);
     advGirl->setY(posysalto);
 
+
+
 }
 
 void MainWindow::caida()
 {
-    posysalto = (sizey-advGirl->get_posy())-0.5*a*n*(0.001*T)*n*(0.001*T);
+    posysalto = (sizey-advGirl->get_posy())-0.5*a*n*(T)*n*(T);
     n++;
     advGirl->setY(sizey-posysalto);
 }

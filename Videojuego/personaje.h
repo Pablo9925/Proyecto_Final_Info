@@ -46,6 +46,7 @@ public:
 public slots:
     void disparar();
     void apunalar();
+    void animacionsalto();
 
 private:
     bala *bullet;
