@@ -38,10 +38,15 @@ public:
 
     void setPosy(float value);
 
+
+    bool getParabolico() const;
+
+    bool getDerecha() const;
+
 public slots:
     void disparar();
     void apunalar();
-    void jumparabolico();
+    void animacionsalto();
 
 private:
     bala *bullet;
@@ -50,8 +55,8 @@ private:
     QString spriPers[35];
     QString spriPersL[35];
     bool derecha=true, meleeAct=false,parabolico=false;
-    int vidas=3, ammo=6, damage=1, puntaje=0, size, contp=30, conts=31, contb=16, T=50,contjump=8;
-    float posx=60, posy, posxsalto,posysalto,vxo=5,vyo=25;
+    int vidas=3, ammo=6, damage=1, puntaje=0, size, contp=30, conts=31, contb=16 ,contjump=8;
+    float posx=60, posy;
     double a=1;
 
     unsigned long long n=0;

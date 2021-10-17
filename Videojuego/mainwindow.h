@@ -26,21 +26,28 @@ public:
     void generar_mapa();
     void keyPressEvent(QKeyEvent *i);
 
+
 public slots:
     void movimientobala();
+    void saltoparabolico();
+    void caida();
 
 private:
-    int sizex,sizey;
+    int sizex,sizey,n=0;
+    int matriz[columnas*15][filas];
     bool bulletAct=false, direc;
     Ui::MainWindow *ui;
     QGraphicsScene *escena;
     QGraphicsView *view;
     personaje *advGirl;
     QTimer *time;
+    QTimer *timec;
     QMediaPlayer * bsound;
     QGraphicsLineItem *l1, *l2;
     map *mapa[columnas*15][filas];
     logicamap *l_mapa;
+    float  posxsalto,posysalto,vxo=5,vyo=25,T=0.05,posyinicial;
+    double a=1;
 };
 
 #endif // MAINWINDOW_H

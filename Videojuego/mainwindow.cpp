@@ -60,6 +60,7 @@ void MainWindow::generar_mapa()
 
     for(int x=0;x<columnas*15;x++){
         for(int y=0;y<filas;y++) {
+            matriz[x][y]=m_mapa[x][y];
             mapa[x][y] = new map(sizex,sizey);
             mapa[x][y]->setup_tipo(m_mapa[x][y]);
             mapa[x][y]->setX((sizex/columnas)*x);
@@ -73,17 +74,28 @@ void MainWindow::generar_mapa()
 void MainWindow::keyPressEvent(QKeyEvent *i)
 {
     if(i->key()==Qt::Key_D){
-        advGirl->mov_der();
-        advGirl->setX(advGirl->x()+20);
+        if(advGirl->getParabolico()==false){
+            advGirl->mov_der();
+            advGirl->setX(advGirl->x()+20);
+        }
         if(advGirl->collidesWithItem(l2)){
             advGirl->mov_izq();
             advGirl->setX(advGirl->x()-20);
         }
         view->centerOn(advGirl->x(),advGirl->y());
+        //if(matriz[int(advGirl->get_posx()/160)][int(advGirl->get_posy()/144)+1]==1 || matriz[int(advGirl->get_posx()/160)][int(advGirl->get_posy()/144)+1]==2){
+            if(matriz[int(advGirl->get_posx()/160)][int(advGirl->get_posy()/144)+1]==0 && int(advGirl->get_posy()/144)+1==4){
+                timec=new QTimer;
+                timec->start(1);
+                connect(timec,SIGNAL(timeout()),this,SLOT(caida()));
+            }
+        //}
     }
     else if(i->key()==Qt::Key_A){
-        advGirl->mov_izq();
-        advGirl->setX(advGirl->x()-20);
+        if(advGirl->getParabolico()==false){
+            advGirl->mov_izq();
+            advGirl->setX(advGirl->x()-20);
+        }
         if(advGirl->collidesWithItem(l1)){
             advGirl->mov_der();
             advGirl->setX(advGirl->x()+20);
@@ -101,8 +113,8 @@ void MainWindow::keyPressEvent(QKeyEvent *i)
             direc=advGirl->get_direc();
             advGirl->shot();
             escena->addItem(advGirl->getBullet());
-            if(advGirl->get_direc()==true) advGirl->getBullet()->setPos(advGirl->get_posx()+sizey/5,sizey-advGirl->get_posy()/2-(sizey/20));
-            else advGirl->getBullet()->setPos(advGirl->get_posx(),sizey-advGirl->get_posy()/2-(sizey/20));
+            if(advGirl->get_direc()==true) advGirl->getBullet()->setPos(advGirl->get_posx()+sizey/5,advGirl->get_posy()+75);
+            else advGirl->getBullet()->setPos(advGirl->get_posx(),advGirl->get_posy()+75);
             time= new QTimer;
             time->start(25);
             connect(time,SIGNAL(timeout()),this,SLOT(movimientobala()));
@@ -114,20 +126,40 @@ void MainWindow::keyPressEvent(QKeyEvent *i)
         }
     }
     else if(i->key()==Qt::Key_W){
-        /*if(i->key()==Qt::Key_D){
-            advGirl->setParabolico(true);
-        }
-        else{
+        if(advGirl->getParabolico()==false){
+            time=new QTimer;
+            time->start(1);
+            connect(time,SIGNAL(timeout()),this,SLOT(saltoparabolico()));
             advGirl->jump();
-            advGirl->setY(advGirl->y()-20);
-        }*/
-
-        advGirl->jump();
-
-
+        }
     }
+}
+
+void MainWindow::saltoparabolico()
+{
+    advGirl->setParabolico(true);
+    if(advGirl->getDerecha()==true){
+        posxsalto = advGirl->get_posx()+vxo*n*(T); //salto a la derecha
+        posysalto = advGirl->get_posy()-(vyo*n*(T)-0.5*a*n*(T)*n*(T));
+        n++;
+    }
+    else{
+        posxsalto = advGirl->get_posx()-vxo*n*(T); //salto a la izquierda
+        posysalto = advGirl->get_posy()-(vyo*n*(T)-0.5*a*n*(T)*n*(T));
+        n++;
+    }
+    advGirl->setX(posxsalto);
+    advGirl->setY(posysalto);
 
 
+
+}
+
+void MainWindow::caida()
+{
+    posysalto = (sizey-advGirl->get_posy())-0.5*a*n*(T)*n*(T);
+    n++;
+    advGirl->setY(sizey-posysalto);
 }
 
 void MainWindow::movimientobala()
@@ -145,5 +177,4 @@ void MainWindow::movimientobala()
         bulletAct=false;
     }
 }
-
 

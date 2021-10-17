@@ -22,7 +22,7 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_personaje_t {
     QByteArrayData data[5];
-    char stringdata0[43];
+    char stringdata0[44];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -35,10 +35,11 @@ QT_MOC_LITERAL(0, 0, 9), // "personaje"
 QT_MOC_LITERAL(1, 10, 8), // "disparar"
 QT_MOC_LITERAL(2, 19, 0), // ""
 QT_MOC_LITERAL(3, 20, 8), // "apunalar"
-QT_MOC_LITERAL(4, 29, 13) // "jumparabolico"
+QT_MOC_LITERAL(4, 29, 14) // "animacionsalto"
 
     },
-    "personaje\0disparar\0\0apunalar\0jumparabolico"
+    "personaje\0disparar\0\0apunalar\0"
+    "animacionsalto"
 };
 #undef QT_MOC_LITERAL
 
@@ -76,7 +77,7 @@ void personaje::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, v
         switch (_id) {
         case 0: _t->disparar(); break;
         case 1: _t->apunalar(); break;
-        case 2: _t->jumparabolico(); break;
+        case 2: _t->animacionsalto(); break;
         default: ;
         }
     }
