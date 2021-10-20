@@ -29,14 +29,16 @@ SOURCES += \
         mainwindow.cpp \
     personaje.cpp \
     logicamap.cpp \
-    map.cpp
+    map.cpp \
+    caja.cpp
 
 HEADERS += \
     bala.h \
         mainwindow.h \
     personaje.h \
     logicamap.h \
-    map.h
+    map.h \
+    caja.h
 
 FORMS += \
         mainwindow.ui
