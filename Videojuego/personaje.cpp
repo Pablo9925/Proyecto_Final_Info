@@ -119,17 +119,25 @@ void personaje::set_ammo(int muni)
 {
     ammo=muni;
 }
+
 void personaje::setParabolico(bool value)
 {
     parabolico = value;
 }
+
 bool personaje::getParabolico() const
 {
     return parabolico;
 }
+
 void personaje::setPosy(float value)
 {
     posy = value;
+}
+
+void personaje::setPosx(float value)
+{
+    posx = value;
 }
 
 void personaje::mov_izq()
@@ -152,18 +160,11 @@ void personaje::mov_der()
 
 void personaje::jump()
 {
-    timeshot=new QTimer;
+    timeshot=new QTimer; //Se reutiliza timer porque no se puede disparar mientras salta
     timeshot->start(50);
     connect(timeshot,SIGNAL(timeout()),this,SLOT(animacionsalto()));
 
 }
-/*void personaje::jumparabolico()
-{
-
-
-
-}*/
-
 
 void personaje::shot()
 {
@@ -182,9 +183,6 @@ void personaje::melee()
     timepunal->start(50);
     connect(timepunal,SIGNAL(timeout()),this,SLOT(apunalar()));
 }
-
-
-
 
 void personaje::disparar()
 {
@@ -215,23 +213,24 @@ void personaje::apunalar()
 
 void personaje::animacionsalto()
 {
-    setPixmap(QPixmap(spriPers[contjump]).scaled(size/5,size/5));
-
-    if(contjump<15){
-        contjump++;
-
-
+    if(derecha==true){
+        setPixmap(QPixmap(spriPers[contjump]).scaled(size/5,size/5));
+        if(contjump<15){
+            contjump++;
+        }
+        else{
+            timeshot->stop();
+            contjump=8;
+        }
     }
     else{
-        timeshot->stop();
+        setPixmap(QPixmap(spriPersL[contjump]).scaled(size/5,size/5));
+        if(contjump<15){
+            contjump++;
+        }
+        else{
+            timeshot->stop();
+            contjump=8;
+        }
     }
-
 }
-
-bool personaje::getDerecha() const
-{
-    return derecha;
-}
-
-
-

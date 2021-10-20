@@ -25,7 +25,11 @@ public:
     bool get_direc();
     bool get_ActAttack();
     int get_ammo();
+    bool getParabolico() const;
     void set_ammo(int muni);
+    void setParabolico(bool value);
+    void setPosy(float value);
+    void setPosx(float value);
     void mov_izq();
     void mov_der();
     void slide();
@@ -33,15 +37,6 @@ public:
     void shot();
     void melee();
 
-    void setParabolico(bool value);
-
-
-    void setPosy(float value);
-
-
-    bool getParabolico() const;
-
-    bool getDerecha() const;
 
 public slots:
     void disparar();
@@ -57,10 +52,6 @@ private:
     bool derecha=true, meleeAct=false,parabolico=false;
     int vidas=3, ammo=6, damage=1, puntaje=0, size, contp=30, conts=31, contb=16 ,contjump=8;
     float posx=60, posy;
-    double a=1;
-
-    unsigned long long n=0;
-
 };
 
 #endif // PERSONAJE_H

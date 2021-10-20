@@ -25,6 +25,8 @@ MainWindow::~MainWindow()
     delete ui;
     delete advGirl;
     delete time;
+    delete timec;
+    delete times;
     delete bsound;
     delete l1;
     delete l2;
@@ -83,13 +85,11 @@ void MainWindow::keyPressEvent(QKeyEvent *i)
             advGirl->setX(advGirl->x()-20);
         }
         view->centerOn(advGirl->x(),advGirl->y());
-        //if(matriz[int(advGirl->get_posx()/160)][int(advGirl->get_posy()/144)+1]==1 || matriz[int(advGirl->get_posx()/160)][int(advGirl->get_posy()/144)+1]==2){
-            if(matriz[int(advGirl->get_posx()/160)][int(advGirl->get_posy()/144)+1]==0 && int(advGirl->get_posy()/144)+1==4){
-                timec=new QTimer;
-                timec->start(2);
-                connect(timec,SIGNAL(timeout()),this,SLOT(caida()));
-            }
-        //}
+        if(matriz[int(advGirl->get_posx()/160)][int(advGirl->get_posy()/144)+1]==0 && int(advGirl->get_posy()/144)+1==4 && matriz[int((advGirl->get_posx()+sizey/5)/160)][int(advGirl->get_posy()/144)+1]==0){
+            timec=new QTimer;
+            timec->start(2);
+            connect(timec,SIGNAL(timeout()),this,SLOT(caida()));
+        }
     }
     else if(i->key()==Qt::Key_A){
         if(advGirl->getParabolico()==false){
@@ -127,18 +127,24 @@ void MainWindow::keyPressEvent(QKeyEvent *i)
     }
     else if(i->key()==Qt::Key_W){
         if(advGirl->getParabolico()==false){
-            time=new QTimer;
-            time->start(1);
-            connect(time,SIGNAL(timeout()),this,SLOT(saltoparabolico()));
-            advGirl->jump();
+            if((advGirl->get_direc()==true && advGirl->get_posx()<19000) || (advGirl->get_direc()==false && advGirl->get_posx()>160)){
+                n=1;
+                advGirl->setParabolico(true);
+                contsalto=0;
+                posxsalto=advGirl->get_posx();
+                posysalto=advGirl->get_posy();
+                times=new QTimer;
+                times->start(1);
+                connect(times,SIGNAL(timeout()),this,SLOT(saltoparabolico()));
+                advGirl->jump();
+            }
         }
     }
 }
 
 void MainWindow::saltoparabolico()
 {
-    advGirl->setParabolico(true);
-    if(advGirl->getDerecha()==true){
+    if(advGirl->get_direc()==true){
         posxsalto = advGirl->get_posx()+vxo*n*(T); //salto a la derecha
         posysalto = advGirl->get_posy()-(vyo*n*(T)-0.5*a*n*(T)*n*(T));
         n++;
@@ -150,15 +156,20 @@ void MainWindow::saltoparabolico()
     }
     advGirl->setX(posxsalto);
     advGirl->setY(posysalto);
-
-
-
+    if(posysalto>=advGirl->get_posy() && (matriz[int(posxsalto/160)][int(posysalto/144)+1]!=0 || matriz[int(posxsalto/160)+1][int(posysalto/144)+1]!=0) && int(posysalto/144)+1==4){
+        advGirl->setX(posxsalto);
+        advGirl->setY(advGirl->get_posy());
+        advGirl->setPosx(posxsalto);
+        advGirl->setParabolico(false);
+        view->centerOn(advGirl->x(),advGirl->y());
+        times->stop();
+    }
 }
 
 void MainWindow::caida()
 {
-    posysalto = (sizey-advGirl->get_posy())-0.5*a*n*(T)*n*(T);
-    n++;
+    posysalto = (sizey-advGirl->get_posy())-0.5*a*nc*(T)*nc*(T);
+    nc++;
     advGirl->setY(sizey-posysalto);
 }
 
