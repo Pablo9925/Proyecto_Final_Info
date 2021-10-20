@@ -26,6 +26,8 @@ public:
     bool get_ActAttack();
     int get_ammo();
     bool getParabolico() const;
+    bool getDeslizo() const;
+    void setDeslizo(bool value);
     void set_ammo(int muni);
     void setParabolico(bool value);
     void setPosy(float value);
@@ -36,6 +38,7 @@ public:
     void jump();
     void shot();
     void melee();
+    void deslizar();
 
 
 public slots:
@@ -49,7 +52,7 @@ private:
     QTimer *timepunal;
     QString spriPers[35];
     QString spriPersL[35];
-    bool derecha=true, meleeAct=false,parabolico=false;
+    bool derecha=true, meleeAct=false,parabolico=false, deslizo=true;
     int vidas=3, ammo=6, damage=1, puntaje=0, size, contp=30, conts=31, contb=16 ,contjump=8;
     float posx=60, posy;
 };

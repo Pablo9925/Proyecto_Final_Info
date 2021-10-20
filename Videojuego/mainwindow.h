@@ -28,12 +28,13 @@ public:
 
 
 public slots:
+    void deslizando();
     void movimientobala();
     void saltoparabolico();
     void caida();
 
 private:
-    int sizex=0,sizey=0,n=1,nc=0;
+    int sizex=0,sizey=0,n=1,nc=0,nf=0;
     int matriz[columnas*15][filas];
     bool bulletAct=false, direc, cae=false;
     Ui::MainWindow *ui;
@@ -47,7 +48,7 @@ private:
     QGraphicsLineItem *l1, *l2;
     map *mapa[columnas*15][filas];
     logicamap *l_mapa;
-    float  posxsalto=0,posysalto=0,posysaltoant=0,vxo=5,vyo=25,T=0.1,posyinicial=0;
+    float  posxsalto=0,posysalto=0,posysaltoant=0,vxo=5,vyo=25,T=0.1,posyinicial=0,posfric=0,F=10.0,K=0.45;
     double a=1;
 };
 

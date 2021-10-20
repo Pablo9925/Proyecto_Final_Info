@@ -130,6 +130,16 @@ bool personaje::getParabolico() const
     return parabolico;
 }
 
+bool personaje::getDeslizo() const
+{
+    return deslizo;
+}
+
+void personaje::setDeslizo(bool value)
+{
+    deslizo=value;
+}
+
 void personaje::setPosy(float value)
 {
     posy = value;
@@ -182,6 +192,22 @@ void personaje::melee()
     timepunal= new QTimer;
     timepunal->start(50);
     connect(timepunal,SIGNAL(timeout()),this,SLOT(apunalar()));
+}
+
+void personaje::deslizar()
+{
+   if(derecha==true){
+       if(deslizo==false){
+            setPixmap(QPixmap(spriPers[34]).scaled(size/5,size/5));
+        }
+       else setPixmap(QPixmap(spriPers[7]).scaled(size/5,size/5));
+   }
+   else{
+       if(deslizo==false){
+            setPixmap(QPixmap(spriPersL[34]).scaled(size/5,size/5));
+        }
+       else setPixmap(QPixmap(spriPersL[7]).scaled(size/5,size/5));
+   }
 }
 
 void personaje::disparar()
