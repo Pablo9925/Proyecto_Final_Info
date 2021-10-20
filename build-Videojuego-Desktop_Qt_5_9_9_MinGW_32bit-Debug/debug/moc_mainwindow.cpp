@@ -32,15 +32,15 @@ struct qt_meta_stringdata_MainWindow_t {
 static const qt_meta_stringdata_MainWindow_t qt_meta_stringdata_MainWindow = {
     {
 QT_MOC_LITERAL(0, 0, 10), // "MainWindow"
-QT_MOC_LITERAL(1, 11, 14), // "movimientobala"
-QT_MOC_LITERAL(2, 26, 0), // ""
-QT_MOC_LITERAL(3, 27, 15), // "saltoparabolico"
-QT_MOC_LITERAL(4, 43, 5), // "caida"
-QT_MOC_LITERAL(5, 49, 10) // "deslizando"
+QT_MOC_LITERAL(1, 11, 10), // "deslizando"
+QT_MOC_LITERAL(2, 22, 0), // ""
+QT_MOC_LITERAL(3, 23, 14), // "movimientobala"
+QT_MOC_LITERAL(4, 38, 15), // "saltoparabolico"
+QT_MOC_LITERAL(5, 54, 5) // "caida"
 
     },
-    "MainWindow\0movimientobala\0\0saltoparabolico\0"
-    "caida\0deslizando"
+    "MainWindow\0deslizando\0\0movimientobala\0"
+    "saltoparabolico\0caida"
 };
 #undef QT_MOC_LITERAL
 
@@ -78,10 +78,10 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         MainWindow *_t = static_cast<MainWindow *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->movimientobala(); break;
-        case 1: _t->saltoparabolico(); break;
-        case 2: _t->caida(); break;
-        case 3: _t->deslizando(); break;
+        case 0: _t->deslizando(); break;
+        case 1: _t->movimientobala(); break;
+        case 2: _t->saltoparabolico(); break;
+        case 3: _t->caida(); break;
         default: ;
         }
     }

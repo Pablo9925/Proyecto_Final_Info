@@ -130,6 +130,16 @@ bool personaje::getParabolico() const
     return parabolico;
 }
 
+bool personaje::getDeslizo() const
+{
+    return deslizo;
+}
+
+void personaje::setDeslizo(bool value)
+{
+    deslizo=value;
+}
+
 void personaje::setPosy(float value)
 {
     posy = value;
@@ -184,12 +194,21 @@ void personaje::melee()
     connect(timepunal,SIGNAL(timeout()),this,SLOT(apunalar()));
 }
 
-/*void personaje::deslizar()
+void personaje::deslizar()
 {
-    timeshot=new QTimer;
-    timeshot->start(20);
-    connect(timeshot,SIGNAL(timeout()),this,SLOT(deslizando()));
-}*/
+   if(derecha==true){
+       if(deslizo==false){
+            setPixmap(QPixmap(spriPers[34]).scaled(size/5,size/5));
+        }
+       else setPixmap(QPixmap(spriPers[7]).scaled(size/5,size/5));
+   }
+   else{
+       if(deslizo==false){
+            setPixmap(QPixmap(spriPersL[34]).scaled(size/5,size/5));
+        }
+       else setPixmap(QPixmap(spriPersL[7]).scaled(size/5,size/5));
+   }
+}
 
 void personaje::disparar()
 {
@@ -240,24 +259,4 @@ void personaje::animacionsalto()
             contjump=8;
         }
     }
-}
-
-void personaje::desliza()
-{
-    setPixmap(QPixmap(spriPers[7]).scaled(size/5,size/5));
-    if(deslizo==false){
-        setPixmap(QPixmap(spriPers[34]).scaled(size/5,size/5));
-    }
-
-
-}
-
-void personaje::setDeslizo(bool value)
-{
-    deslizo = value;
-}
-
-bool personaje::getDeslizo() const
-{
-    return deslizo;
 }

@@ -13,7 +13,7 @@ int **logicamap::generar_mapa()
     for(int col=0;col<x;col++){
         matriz[col] = new int [y];
         for(int fil=0;fil<y;fil++){
-            if(fil==2 && aleatorio1() && col!=0){
+            if(fil==2 && aleatorio1() && col!=0 && col!=1){
                 matriz[col][fil]=1;
             }
             else if(fil==0 || fil==1 || fil==3) matriz[col][fil]=0;

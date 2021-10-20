@@ -1,3 +1,4 @@
+
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
@@ -10,7 +11,6 @@
 #include "personaje.h"
 #include "logicamap.h"
 #include "map.h"
-#include "QList"
 
 namespace Ui {
 class MainWindow;
@@ -29,15 +29,15 @@ public:
 
 
 public slots:
+    void deslizando();
     void movimientobala();
     void saltoparabolico();
     void caida();
-    void deslizando();
 
 private:
-    int sizex=0,sizey=0,n=1,nc=0,contsalto=0,friccion=15;
+    int sizex=0,sizey=0,n=1,nc=0,nf=0;
     int matriz[columnas*15][filas];
-    bool bulletAct=false, direc;
+    bool bulletAct=false, direc, cae=false;
     Ui::MainWindow *ui;
     QGraphicsScene *escena;
     QGraphicsView *view;
@@ -49,8 +49,7 @@ private:
     QGraphicsLineItem *l1, *l2;
     map *mapa[columnas*15][filas];
     logicamap *l_mapa;
-    QList<QString>cajas;
-    float  posxsalto=0,posysalto=0,vxo=5,vyo=25,T=0.05,posyinicial=0;
+    float  posxsalto=0,posysalto=0,posysaltoant=0,vxo=5,vyo=25,T=0.1,posyinicial=0,posfric=0,F=10.0,K=0.45;
     double a=1;
 };
 

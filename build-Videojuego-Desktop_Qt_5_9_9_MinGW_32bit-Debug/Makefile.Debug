@@ -844,6 +844,41 @@ debug/mainwindow.o: ../Videojuego/mainwindow.cpp ../Videojuego/mainwindow.h \
 		../Videojuego/logicamap.h \
 		../Videojuego/map.h \
 		ui_mainwindow.h \
+		D:/qt/5.9.9/mingw53_32/include/QtWidgets/QAction \
+		D:/qt/5.9.9/mingw53_32/include/QtWidgets/qaction.h \
+		D:/qt/5.9.9/mingw53_32/include/QtWidgets/qactiongroup.h \
+		D:/qt/5.9.9/mingw53_32/include/QtWidgets/QApplication \
+		D:/qt/5.9.9/mingw53_32/include/QtWidgets/qapplication.h \
+		D:/qt/5.9.9/mingw53_32/include/QtCore/qcoreapplication.h \
+		D:/qt/5.9.9/mingw53_32/include/QtCore/qeventloop.h \
+		D:/qt/5.9.9/mingw53_32/include/QtWidgets/qdesktopwidget.h \
+		D:/qt/5.9.9/mingw53_32/include/QtGui/qguiapplication.h \
+		D:/qt/5.9.9/mingw53_32/include/QtGui/qinputmethod.h \
+		D:/qt/5.9.9/mingw53_32/include/QtWidgets/QButtonGroup \
+		D:/qt/5.9.9/mingw53_32/include/QtWidgets/qbuttongroup.h \
+		D:/qt/5.9.9/mingw53_32/include/QtWidgets/QHeaderView \
+		D:/qt/5.9.9/mingw53_32/include/QtWidgets/qheaderview.h \
+		D:/qt/5.9.9/mingw53_32/include/QtWidgets/qabstractitemview.h \
+		D:/qt/5.9.9/mingw53_32/include/QtCore/qabstractitemmodel.h \
+		D:/qt/5.9.9/mingw53_32/include/QtCore/qitemselectionmodel.h \
+		D:/qt/5.9.9/mingw53_32/include/QtWidgets/qabstractitemdelegate.h \
+		D:/qt/5.9.9/mingw53_32/include/QtWidgets/qstyleoption.h \
+		D:/qt/5.9.9/mingw53_32/include/QtWidgets/qabstractspinbox.h \
+		D:/qt/5.9.9/mingw53_32/include/QtGui/qvalidator.h \
+		D:/qt/5.9.9/mingw53_32/include/QtCore/qregularexpression.h \
+		D:/qt/5.9.9/mingw53_32/include/QtWidgets/qslider.h \
+		D:/qt/5.9.9/mingw53_32/include/QtWidgets/qabstractslider.h \
+		D:/qt/5.9.9/mingw53_32/include/QtWidgets/qstyle.h \
+		D:/qt/5.9.9/mingw53_32/include/QtWidgets/qtabbar.h \
+		D:/qt/5.9.9/mingw53_32/include/QtWidgets/qrubberband.h \
+		D:/qt/5.9.9/mingw53_32/include/QtWidgets/QMenuBar \
+		D:/qt/5.9.9/mingw53_32/include/QtWidgets/qmenubar.h \
+		D:/qt/5.9.9/mingw53_32/include/QtWidgets/qmenu.h \
+		D:/qt/5.9.9/mingw53_32/include/QtWidgets/QStatusBar \
+		D:/qt/5.9.9/mingw53_32/include/QtWidgets/qstatusbar.h \
+		D:/qt/5.9.9/mingw53_32/include/QtWidgets/QToolBar \
+		D:/qt/5.9.9/mingw53_32/include/QtWidgets/qtoolbar.h \
+		D:/qt/5.9.9/mingw53_32/include/QtWidgets/QWidget \
 		D:/qt/5.9.9/mingw53_32/include/QtCore/QDebug
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\mainwindow.o ..\Videojuego\mainwindow.cpp
 

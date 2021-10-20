@@ -76,34 +76,45 @@ void MainWindow::generar_mapa()
 void MainWindow::keyPressEvent(QKeyEvent *i)
 {
     if(i->key()==Qt::Key_D){
-        if(advGirl->getParabolico()==false){
+        if(advGirl->getParabolico()==false && cae==false){
             advGirl->mov_der();
             advGirl->setX(advGirl->x()+20);
-        }
-        if(advGirl->collidesWithItem(l2)){
-            advGirl->mov_izq();
-            advGirl->setX(advGirl->x()-20);
-        }
-        view->centerOn(advGirl->x(),advGirl->y());
-        if(matriz[int(advGirl->get_posx()/160)][int(advGirl->get_posy()/144)+1]==0 && int(advGirl->get_posy()/144)+1==4 && matriz[int((advGirl->get_posx()+sizey/5)/160)][int(advGirl->get_posy()/144)+1]==0){
-            timec=new QTimer;
-            timec->start(2);
-            connect(timec,SIGNAL(timeout()),this,SLOT(caida()));
+            if(advGirl->collidesWithItem(l2)){
+                advGirl->mov_izq();
+                advGirl->setX(advGirl->x()-20);
+            }
+            view->centerOn(advGirl->x(),advGirl->y());
+            if(matriz[int(advGirl->get_posx()/160)][int(advGirl->get_posy()/144)+1]==0 && (int(advGirl->get_posy()/144)+1==4 || int(advGirl->get_posy()/144)+1==2) && matriz[int((advGirl->get_posx()+sizey/5)/160)][int(advGirl->get_posy()/144)+1]==0){
+                cae=true;
+                nc=0;
+                posysalto=advGirl->get_posy();
+                timec=new QTimer;
+                timec->start(2);
+                connect(timec,SIGNAL(timeout()),this,SLOT(caida()));
+            }
         }
     }
     else if(i->key()==Qt::Key_A){
-        if(advGirl->getParabolico()==false){
+        if(advGirl->getParabolico()==false && cae==false){
             advGirl->mov_izq();
             advGirl->setX(advGirl->x()-20);
+            if(advGirl->collidesWithItem(l1)){
+                advGirl->mov_der();
+                advGirl->setX(advGirl->x()+20);
+            }
+            view->centerOn(advGirl->x(),advGirl->y());
+            if(matriz[int(advGirl->get_posx()/160)+1][int(advGirl->get_posy()/144)+1]==0 && (int(advGirl->get_posy()/144)+1==4 || int(advGirl->get_posy()/144)+1==2) && matriz[int((advGirl->get_posx()-(sizey/10))/160)+1][int(advGirl->get_posy()/144)+1]==0){
+                cae=true;
+                nc=0;
+                posysalto=advGirl->get_posy();
+                timec=new QTimer;
+                timec->start(2);
+                connect(timec,SIGNAL(timeout()),this,SLOT(caida()));
+            }
         }
-        if(advGirl->collidesWithItem(l1)){
-            advGirl->mov_der();
-            advGirl->setX(advGirl->x()+20);
-        }
-        view->centerOn(advGirl->x(),advGirl->y());
     }
     else if(i->key()==Qt::Key_P){
-        if(bulletAct==false && advGirl->get_ammo()>0){
+        if(bulletAct==false && advGirl->get_ammo()>0 && advGirl->getParabolico()==false){
             if(advGirl->get_direc()==true) advGirl->setPixmap((QPixmap(":/sprites personaje/Shoot (1).png").scaled(sizey/5,sizey/5)));
             else advGirl->setPixmap((QPixmap(":/sprites personaje/ShootL (1).png").scaled(sizey/5,sizey/5)));
             advGirl->set_ammo(advGirl->get_ammo()-1);
@@ -121,18 +132,16 @@ void MainWindow::keyPressEvent(QKeyEvent *i)
         }
     }
     else if(i->key()==Qt::Key_O){
-        if(advGirl->get_ActAttack()==false){
+        if(advGirl->get_ActAttack()==false && advGirl->getParabolico()==false){
             advGirl->melee();
-
         }
     }
     else if(i->key()==Qt::Key_W){
-        if(advGirl->getDeslizo()==true){
-        if(advGirl->getParabolico()==false){
+        if(advGirl->getParabolico()==false && cae==false && advGirl->getDeslizo()==true){
             if((advGirl->get_direc()==true && advGirl->get_posx()<19000) || (advGirl->get_direc()==false && advGirl->get_posx()>160)){
                 n=1;
+                vxo=5;
                 advGirl->setParabolico(true);
-                contsalto=0;
                 posxsalto=advGirl->get_posx();
                 posysalto=advGirl->get_posy();
                 times=new QTimer;
@@ -142,27 +151,23 @@ void MainWindow::keyPressEvent(QKeyEvent *i)
             }
         }
     }
-    }
     else if(i->key()==Qt::Key_S){
-        if(advGirl->getParabolico()==false){
-            if(advGirl->getDeslizo()==true){
-                advGirl->setDeslizo(false);
-                times=new QTimer;
-                times->start(20);
-                connect(times,SIGNAL(timeout()),this,SLOT(deslizando()));
-                if(matriz[int(advGirl->get_posx()/160)][int(advGirl->get_posy()/144)+1]==0 && int(advGirl->get_posy()/144)+1==4 && matriz[int((advGirl->get_posx()+sizey/5)/160)][int(advGirl->get_posy()/144)+1]>=0){
-                    timec=new QTimer;
-                    timec->start(2);
-                    connect(timec,SIGNAL(timeout()),this,SLOT(caida()));
+       if(advGirl->getParabolico()==false && cae==false && advGirl->getDeslizo()==true){
+           if((advGirl->get_direc()==true && advGirl->get_posx()<19000) || (advGirl->get_direc()==false && advGirl->get_posx()>160)){
+               posfric=advGirl->get_posx();
+               vxo=20;
+               advGirl->setDeslizo(false);
+               times=new QTimer;
+               times->start(7);
+               connect(times,SIGNAL(timeout()),this,SLOT(deslizando()));
             }
-          }
-
-        }
-    }
+       }
+   }
 }
 
 void MainWindow::saltoparabolico()
 {
+    posysaltoant=posysalto;
     if(advGirl->get_direc()==true){
         posxsalto = advGirl->get_posx()+vxo*n*(T); //salto a la derecha
         posysalto = advGirl->get_posy()-(vyo*n*(T)-0.5*a*n*(T)*n*(T));
@@ -175,13 +180,54 @@ void MainWindow::saltoparabolico()
     }
     advGirl->setX(posxsalto);
     advGirl->setY(posysalto);
-    if(posysalto>=advGirl->get_posy() && (matriz[int(posxsalto/160)][int(posysalto/144)+1]!=0 || matriz[int(posxsalto/160)+1][int(posysalto/144)+1]!=0) && int(posysalto/144)+1==4){
-        advGirl->setX(posxsalto);
-        advGirl->setY(advGirl->get_posy());
-        advGirl->setPosx(posxsalto);
-        advGirl->setParabolico(false);
-        view->centerOn(advGirl->x(),advGirl->y());
-        times->stop();
+    if(n%7==0) view->centerOn(advGirl->x(),advGirl->y());
+    if(advGirl->get_direc()==true){
+        if(posysalto>=216 && posysalto>posysaltoant && (matriz[int(posxsalto/160)][int(posysalto/144)+1]!=0 || matriz[int((posxsalto+(sizey/10))/160)][int(posysalto/144)+1]!=0) && int(posysalto/144)+1==2){
+            advGirl->setX(posxsalto);
+            advGirl->setY(216);
+            advGirl->setPosx(posxsalto);
+            advGirl->setPosy(216);
+            advGirl->setParabolico(false);
+            view->centerOn(advGirl->x(),advGirl->y());
+            times->stop();
+            if(advGirl->get_direc()==true) advGirl->setPixmap(QPixmap(":/sprites personaje/Idle (1).png").scaled(sizey/5,sizey/5));
+            else advGirl->setPixmap(QPixmap(":/sprites personaje/IdleL (1).png").scaled(sizey/5,sizey/5));
+        }
+        if(posysalto>=504 && (matriz[int(posxsalto/160)][int(posysalto/144)+1]!=0  || matriz[int((posxsalto+(sizey/10))/160)][int(posysalto/144)+1]!=0) && int(posysalto/144)+1==4){
+            advGirl->setX(posxsalto);
+            advGirl->setY(504);
+            advGirl->setPosx(posxsalto);
+            advGirl->setPosy(504);
+            advGirl->setParabolico(false);
+            view->centerOn(advGirl->x(),advGirl->y());
+            times->stop();
+            if(advGirl->get_direc()==true) advGirl->setPixmap(QPixmap(":/sprites personaje/Idle (1).png").scaled(sizey/5,sizey/5));
+            else advGirl->setPixmap(QPixmap(":/sprites personaje/IdleL (1).png").scaled(sizey/5,sizey/5));
+        }
+    }
+    else{
+        if(posysalto>=216 && posysalto>posysaltoant && (matriz[int(posxsalto/160)+1][int(posysalto/144)+1]!=0 || matriz[int((posxsalto-(sizey/10))/160)+1][int(posysalto/144)+1]!=0) && int(posysalto/144)+1==2){
+            advGirl->setX(posxsalto);
+            advGirl->setY(216);
+            advGirl->setPosx(posxsalto);
+            advGirl->setPosy(216);
+            advGirl->setParabolico(false);
+            view->centerOn(advGirl->x(),advGirl->y());
+            times->stop();
+            if(advGirl->get_direc()==true) advGirl->setPixmap(QPixmap(":/sprites personaje/Idle (1).png").scaled(sizey/5,sizey/5));
+            else advGirl->setPixmap(QPixmap(":/sprites personaje/IdleL (1).png").scaled(sizey/5,sizey/5));
+        }
+        if(posysalto>=504 && (matriz[int(posxsalto/160)+1][int(posysalto/144)+1]!=0 || matriz[int((posxsalto-(sizey/10))/160)+1][int(posysalto/144)+1]!=0) && int(posysalto/144)+1==4){
+            advGirl->setX(posxsalto);
+            advGirl->setY(504);
+            advGirl->setPosx(posxsalto);
+            advGirl->setPosy(504);
+            advGirl->setParabolico(false);
+            view->centerOn(advGirl->x(),advGirl->y());
+            times->stop();
+            if(advGirl->get_direc()==true) advGirl->setPixmap(QPixmap(":/sprites personaje/Idle (1).png").scaled(sizey/5,sizey/5));
+            else advGirl->setPixmap(QPixmap(":/sprites personaje/IdleL (1).png").scaled(sizey/5,sizey/5));
+        }
     }
 }
 
@@ -190,26 +236,82 @@ void MainWindow::caida()
     posysalto = (sizey-advGirl->get_posy())-0.5*a*nc*(T)*nc*(T);
     nc++;
     advGirl->setY(sizey-posysalto);
+    if(advGirl->get_direc()==true){
+        if((sizey-posysalto)>=504 && (matriz[int(advGirl->get_posx()/160)][int((sizey-posysalto)/144)+1]!=0  || matriz[int((advGirl->get_posx()+(sizey/10))/160)][int((sizey-posysalto)/144)+1]!=0) && int((sizey-posysalto)/144)+1==4){
+            advGirl->setY(504);
+            advGirl->setPosy(504);
+            view->centerOn(advGirl->x(),advGirl->y());
+            cae=false;
+            timec->stop();
+            if(advGirl->get_direc()==true) advGirl->setPixmap(QPixmap(":/sprites personaje/Idle (1).png").scaled(sizey/5,sizey/5));
+            else advGirl->setPixmap(QPixmap(":/sprites personaje/IdleL (1).png").scaled(sizey/5,sizey/5));
+        }
+    }
+    else{
+        if((sizey-posysalto)>=504 && (matriz[int(advGirl->get_posx()/160)+1][int((sizey-posysalto)/144)+1]!=0 || matriz[int((advGirl->get_posx()-(sizey/10))/160)+1][int((sizey-posysalto)/144)+1]!=0) && int((sizey-posysalto)/144)+1==4){
+            advGirl->setY(504);
+            advGirl->setPosy(504);
+            view->centerOn(advGirl->x(),advGirl->y());
+            cae=false;
+            timec->stop();
+            if(advGirl->get_direc()==true) advGirl->setPixmap(QPixmap(":/sprites personaje/Idle (1).png").scaled(sizey/5,sizey/5));
+            else advGirl->setPixmap(QPixmap(":/sprites personaje/IdleL (1).png").scaled(sizey/5,sizey/5));
+        }
+    }
 }
 
 void MainWindow::deslizando()
 {
     if(advGirl->get_direc()==true){
-        advGirl->desliza();
-        advGirl->setPosx(advGirl->get_posx()+friccion);
+        advGirl->deslizar();
+        advGirl->setPosx(posfric+vxo*nf*T+0.5*nf*T*T*(F-K)); //F->Fuerza, K->Fricción
+        nf++;
         advGirl->setX(advGirl->get_posx());
-        if(matriz[int(advGirl->get_posx()/160)][int(advGirl->get_posy()/144)+1]==0 && int(advGirl->get_posy()/144)+1==4 && matriz[int((advGirl->get_posx()+sizey/5)/160)][int(advGirl->get_posy()/144)+1]==0){
+        if(nf%2==0) view->centerOn(advGirl->x(),advGirl->y());
+        if(matriz[int(advGirl->get_posx()/160)][int(advGirl->get_posy()/144)+1]==0 && (int(advGirl->get_posy()/144)+1==4 || int(advGirl->get_posy()/144)+1==2) && matriz[int((advGirl->get_posx()+sizey/5)/160)][int(advGirl->get_posy()/144)+1]==0){
+            cae=true;
+            times->stop();
+            nf=0;
+            advGirl->setDeslizo(true);
+            advGirl->deslizar();
+            nc=0;
+            posysalto=advGirl->get_posy();
             timec=new QTimer;
             timec->start(2);
-            connect(timec,SIGNAL(timeout()),this,SLOT(caida()));}
-        friccion--;
-        if(friccion==0){
+            connect(timec,SIGNAL(timeout()),this,SLOT(caida()));
+        }
+        if(nf==85){
             times->stop();
-            friccion=15;
+            nf=0;
             advGirl->setDeslizo(true);
-            advGirl->desliza();
-    }
+            advGirl->deslizar();
+        }
    }
+    else{
+        advGirl->deslizar();
+        advGirl->setPosx(posfric-vxo*nf*T-0.5*nf*T*T*(F-K)); //F->Fuerza, K->Fricción
+        nf++;
+        advGirl->setX(advGirl->get_posx());
+        if(nf%2==0) view->centerOn(advGirl->x(),advGirl->y());
+        if(matriz[int(advGirl->get_posx()/160)+1][int(advGirl->get_posy()/144)+1]==0 && (int(advGirl->get_posy()/144)+1==4 || int(advGirl->get_posy()/144)+1==2) && matriz[int((advGirl->get_posx()-(sizey/10))/160)+1][int(advGirl->get_posy()/144)+1]==0){
+            cae=true;
+            times->stop();
+            nf=0;
+            advGirl->setDeslizo(true);
+            advGirl->deslizar();
+            nc=0;
+            posysalto=advGirl->get_posy();
+            timec=new QTimer;
+            timec->start(2);
+            connect(timec,SIGNAL(timeout()),this,SLOT(caida()));
+        }
+        if(nf==70){
+            times->stop();
+            nf=0;
+            advGirl->setDeslizo(true);
+            advGirl->deslizar();
+        }
+    }
 }
 
 void MainWindow::movimientobala()
@@ -227,5 +329,3 @@ void MainWindow::movimientobala()
         bulletAct=false;
     }
 }
-
-
