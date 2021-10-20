@@ -15,7 +15,8 @@ void map::setup_tipo(int tipo)
 {
     if(tipo==3){
         if(aleatorio()) setPixmap(QPixmap(mapa[2]).scaled(sizey/2,sizey/2));
-        else setPixmap(QPixmap(mapa[3]).scaled(sizey/2,sizey/2));
+        else  setPixmap(QPixmap(mapa[3]).scaled(sizey/2,sizey/2));
+
     }
     else if(tipo==2) setPixmap(QPixmap(mapa[0]).scaled(sizex,sizey/2));
     else if(tipo==1) setPixmap(QPixmap(mapa[1]).scaled(sizex,sizey/2));
