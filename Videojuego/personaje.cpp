@@ -266,6 +266,16 @@ void personaje::animacionsalto()
     }
 }
 
+int personaje::getPuntaje() const
+{
+    return puntaje;
+}
+
+void personaje::setPuntaje(int value)
+{
+    puntaje = value;
+}
+
 int personaje::getVidas() const
 {
     return vidas;

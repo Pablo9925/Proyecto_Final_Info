@@ -13,10 +13,12 @@ public:
     void setVida(int value);
     bool getTipo() const;
     void setTipo(bool value);
+    bool getDestruc() const;
+    void setDestruc(bool value);
 
 private:
     float pa=0.7;
-    bool tipo;
+    bool tipo,destruc=false;
     int poscx=0,poscy=0,size=0,vida=2;
 };
 

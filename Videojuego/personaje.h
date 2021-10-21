@@ -42,6 +42,8 @@ public:
     void deslizar();
     int getVidas() const;
     void setVidas(int value);
+    int getPuntaje() const;
+    void setPuntaje(int value);
 
 public slots:
     void disparar();

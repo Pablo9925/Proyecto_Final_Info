@@ -11,6 +11,7 @@
 #include "logicamap.h"
 #include "map.h"
 #include "caja.h"
+#include "coin.h"
 
 namespace Ui {
 class MainWindow;
@@ -26,6 +27,7 @@ public:
     void setup_mainwindow();
     void generar_mapa();
     bool generar_caja();
+    bool generar_moneda();
     void keyPressEvent(QKeyEvent *i);
 
 
@@ -51,6 +53,7 @@ private:
     map *mapa[columnas*15][filas];
     logicamap *l_mapa;
     QList <caja*> cajas;
+    QList <coin*> monedas;
     float  posxsalto=0,posysalto=0,posysaltoant=0,vxo=5,vyo=25,T=0.1,posyinicial=0,posfric=0,F=10.0,K=0.45,p=0.1;
     double a=1;
 };

@@ -6,6 +6,7 @@ INPUT(
 ./release\logicamap.o
 ./release\map.o
 ./release\caja.o
+./release\coin.o
 ./release\qrc_sprites.o
 ./release\qrc_escena.o
 ./release\qrc_sonidos.o

@@ -30,7 +30,8 @@ SOURCES += \
     personaje.cpp \
     logicamap.cpp \
     map.cpp \
-    caja.cpp
+    caja.cpp \
+    coin.cpp
 
 HEADERS += \
     bala.h \
@@ -38,7 +39,8 @@ HEADERS += \
     personaje.h \
     logicamap.h \
     map.h \
-    caja.h
+    caja.h \
+    coin.h
 
 FORMS += \
         mainwindow.ui

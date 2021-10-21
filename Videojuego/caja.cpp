@@ -36,3 +36,13 @@ void caja::setTipo(bool value)
 {
     tipo = value;
 }
+
+bool caja::getDestruc() const
+{
+    return destruc;
+}
+
+void caja::setDestruc(bool value)
+{
+    destruc = value;
+}
