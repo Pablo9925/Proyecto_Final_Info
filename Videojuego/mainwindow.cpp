@@ -21,9 +21,10 @@ MainWindow::MainWindow(QWidget *parent) :
     csound= new QMediaPlayer();
     coinsound= new QMediaPlayer();
     ammosound= new QMediaPlayer();
+    /*
     timemaz = new QTimer(this);
     timemaz->start(250);
-    connect(timemaz,SIGNAL(timeout()),this,SLOT(movimiento_maza()));
+    connect(timemaz,SIGNAL(timeout()),this,SLOT(movimiento_maza()));*/
 }
 
 MainWindow::~MainWindow()
@@ -99,9 +100,10 @@ void MainWindow::generar_mapa()
     for(int j=0;j<cajas.size();j++){
         escena->addItem(cajas.at(j));
     }
+    /*
     for(int j=0;j<mazas.size();j++){
         escena->addItem(mazas.at(j));
-    }
+    }*/
 }
 
 bool MainWindow::generar_caja()
@@ -194,6 +196,8 @@ void MainWindow::keyPressEvent(QKeyEvent *i)
             for (int j=0;j<cajas.size() ;j++ ) {
                 if(advGirl->collidesWithItem(cajas.at(j))){
                     if(cajas.at(j)->getVida()!=0){
+                        if(cajas.at(j)->getVida()==2) cajas.at(j)->setPixmap(QPixmap(":/escena/cratedes1.png").scaled(sizey/10,sizey/10));
+                        else cajas.at(j)->setPixmap(QPixmap(":/escena/cratedes2.png").scaled(sizey/10,sizey/10));
                         cajas.at(j)->setVida(cajas.at(j)->getVida()-advGirl->get_damage());
                     }
                     else{
@@ -242,7 +246,8 @@ void MainWindow::keyPressEvent(QKeyEvent *i)
     else if(i->key()==Qt::Key_I){
         if(advGirl->get_ActAttack()==false && advGirl->getParabolico()==false){
             for (int j=0;j<cajas.size() ;j++ ) {
-                if(advGirl->collidesWithItem(monedas.at(j))){
+                if(advGirl->collidesWithItem(monedas.at(j)) && monedas.at(j)->getMonedada()==false){
+                    monedas.at(j)->setMonedada(true);
                     coinsound->setMedia(QUrl("qrc:/sonidos/Coins_Collecting_01_Sound_Effect_Mp3_315.mp3"));
                     coinsound->play();
                     advGirl->setPuntaje(advGirl->getPuntaje()+monedas.at(j)->getPuntos());
@@ -250,7 +255,8 @@ void MainWindow::keyPressEvent(QKeyEvent *i)
                 }
             }
             for (int j=0;j<cajas.size() ;j++ ) {
-                if(advGirl->collidesWithItem(cajas.at(j)) && cajas.at(j)->getDestruc()==true){
+                if(advGirl->collidesWithItem(cajas.at(j)) && cajas.at(j)->getDestruc()==true && cajas.at(j)->getItemdado()==false){
+                    cajas.at(j)->setItemdado(true);
                     if(cajas.at(j)->getTipo()==true){
                         ammosound->setMedia(QUrl("qrc:/sonidos/008842199_prev.mp3"));
                         ammosound->setVolume(50);
