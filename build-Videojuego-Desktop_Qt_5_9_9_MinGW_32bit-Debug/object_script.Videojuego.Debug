@@ -1,7 +1,9 @@
 INPUT(
 ./debug\bala.o
+./debug\caja.o
 ./debug\main.o
 ./debug\mainwindow.o
+./debug\maza.o
 ./debug\personaje.o
 ./debug\logicamap.o
 ./debug\map.o

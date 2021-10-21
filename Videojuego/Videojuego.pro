@@ -25,15 +25,19 @@ CONFIG += c++11
 
 SOURCES += \
     bala.cpp \
+    caja.cpp \
         main.cpp \
         mainwindow.cpp \
+    maza.cpp \
     personaje.cpp \
     logicamap.cpp \
     map.cpp
 
 HEADERS += \
     bala.h \
+    caja.h \
         mainwindow.h \
+    maza.h \
     personaje.h \
     logicamap.h \
     map.h
@@ -50,3 +54,5 @@ RESOURCES += \
     sprites.qrc \
     escena.qrc \
     sonidos.qrc
+
+DISTFILES +=

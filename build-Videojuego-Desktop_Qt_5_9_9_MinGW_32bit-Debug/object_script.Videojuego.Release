@@ -1,7 +1,9 @@
 INPUT(
 ./release\bala.o
+./release\caja.o
 ./release\main.o
 ./release\mainwindow.o
+./release\maza.o
 ./release\personaje.o
 ./release\logicamap.o
 ./release\map.o

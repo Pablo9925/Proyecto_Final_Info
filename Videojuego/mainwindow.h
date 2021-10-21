@@ -11,6 +11,9 @@
 #include "personaje.h"
 #include "logicamap.h"
 #include "map.h"
+#include "maza.h"
+#include "caja.h"
+
 
 namespace Ui {
 class MainWindow;
@@ -26,6 +29,8 @@ public:
     void setup_mainwindow();
     void generar_mapa();
     void keyPressEvent(QKeyEvent *i);
+    bool generar_maza();
+    bool generar_caja();
 
 
 public slots:
@@ -33,7 +38,7 @@ public slots:
     void movimientobala();
     void saltoparabolico();
     void caida();
-
+    void movimientomaza();
 private:
     int sizex=0,sizey=0,n=1,nc=0,nf=0;
     int matriz[columnas*15][filas];
@@ -49,8 +54,11 @@ private:
     QGraphicsLineItem *l1, *l2;
     map *mapa[columnas*15][filas];
     logicamap *l_mapa;
-    float  posxsalto=0,posysalto=0,posysaltoant=0,vxo=5,vyo=25,T=0.1,posyinicial=0,posfric=0,F=10.0,K=0.45;
+    QList <maza*>mazas;
+    QList <caja*> cajas;
+    float  posxsalto=0,posysalto=0,posysaltoant=0,vxo=5,vyo=25,T=0.1,posyinicial=0,posfric=0,F=10.0,K=0.45,p=0.1;
     double a=1;
+
 };
 
 #endif // MAINWINDOW_H

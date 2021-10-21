@@ -41,6 +41,11 @@ public:
     void deslizar();
 
 
+    int getVidas() const;
+    void setVidas(int value);
+
+    int get_damage() const;
+
 public slots:
     void disparar();
     void apunalar();
@@ -54,7 +59,7 @@ private:
     QString spriPersL[35];
     bool derecha=true, meleeAct=false,parabolico=false, deslizo=true;
     int vidas=3, ammo=6, damage=1, puntaje=0, size, contp=30, conts=31, contb=16 ,contjump=8;
-    float posx=60, posy;
+    float posx=60, posy,posauxmazax,posauxmazay;
 };
 
 #endif // PERSONAJE_H

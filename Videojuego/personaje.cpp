@@ -260,3 +260,18 @@ void personaje::animacionsalto()
         }
     }
 }
+
+int personaje::get_damage() const
+{
+    return damage;
+}
+
+int personaje::getVidas() const
+{
+    return vidas;
+}
+
+void personaje::setVidas(int value)
+{
+    vidas = value;
+}

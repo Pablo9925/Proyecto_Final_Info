@@ -11,5 +11,7 @@
         <file>escena/TombStone (1).png</file>
         <file>escena/TombStone (2).png</file>
         <file>escena/BG2.png</file>
+        <file>escena/maza.png</file>
+        <file>escena/ammo.png</file>
     </qresource>
 </RCC>

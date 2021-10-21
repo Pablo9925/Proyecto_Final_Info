@@ -16,6 +16,7 @@
 #include <QtWidgets/QGraphicsView>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QMainWindow>
+#include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
@@ -29,6 +30,7 @@ public:
     QWidget *centralWidget;
     QGraphicsView *graphicsView;
     QMenuBar *menuBar;
+    QMenu *menusss;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
 
@@ -36,7 +38,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(570, 416);
+        MainWindow->resize(570, 486);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         graphicsView = new QGraphicsView(centralWidget);
@@ -45,7 +47,9 @@ public:
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 570, 26));
+        menuBar->setGeometry(QRect(0, 0, 570, 22));
+        menusss = new QMenu(menuBar);
+        menusss->setObjectName(QStringLiteral("menusss"));
         MainWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -53,6 +57,8 @@ public:
         statusBar = new QStatusBar(MainWindow);
         statusBar->setObjectName(QStringLiteral("statusBar"));
         MainWindow->setStatusBar(statusBar);
+
+        menuBar->addAction(menusss->menuAction());
 
         retranslateUi(MainWindow);
 
@@ -62,6 +68,7 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", Q_NULLPTR));
+        menusss->setTitle(QApplication::translate("MainWindow", "sss", Q_NULLPTR));
     } // retranslateUi
 
 };
