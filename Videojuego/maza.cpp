@@ -18,10 +18,10 @@ void maza::movimiento()
     tiempomov=new QTimer;
     tiempomov->start(50);
 
-    connect(tiempomov,SIGNAL(timeout()),this,SLOT(mov()));
+    connect(tiempomov,SIGNAL(timeout()),this,SLOT(simular()));
 }
 
-void maza::mov()
+void maza::simular()
 {
     x=y*n;
     y=x*n;

@@ -102,7 +102,7 @@ bool MainWindow::generar_caja()
 
 void MainWindow::movimientomaza()
 {
-  for(int j=0;j<=mazas.length();j++){
+  for(int j=0;j<mazas.length();j++){
       mazas.at(j)->movimiento();
 
   }
