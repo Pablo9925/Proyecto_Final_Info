@@ -82,6 +82,7 @@ personaje::~personaje()
 {
     delete timeshot;
     delete timepunal;
+    delete timesalt;
     delete bullet;
 }
 
@@ -175,9 +176,9 @@ void personaje::mov_der()
 
 void personaje::jump()
 {
-    timeshot=new QTimer; //Se reutiliza timer porque no se puede disparar mientras salta
-    timeshot->start(50);
-    connect(timeshot,SIGNAL(timeout()),this,SLOT(animacionsalto()));
+    timesalt=new QTimer; //Se reutiliza timer porque no se puede disparar mientras salta
+    timesalt->start(50);
+    connect(timesalt,SIGNAL(timeout()),this,SLOT(animacionsalto()));
 
 }
 
@@ -250,7 +251,7 @@ void personaje::animacionsalto()
             contjump++;
         }
         else{
-            timeshot->stop();
+            timesalt->stop();
             contjump=8;
         }
     }
@@ -260,7 +261,7 @@ void personaje::animacionsalto()
             contjump++;
         }
         else{
-            timeshot->stop();
+            timesalt->stop();
             contjump=8;
         }
     }

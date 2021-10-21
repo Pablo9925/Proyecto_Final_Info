@@ -17,6 +17,7 @@ MainWindow::MainWindow(QWidget *parent) :
     view->resize(sizex,sizey);
     this->resize(sizex,sizey);
     view->centerOn(advGirl->x(),advGirl->y());
+
     bsound= new QMediaPlayer();
 }
 
@@ -44,7 +45,7 @@ void MainWindow::setup_mainwindow()
     setGeometry(0,0,sizex,sizey);
     setWindowTitle("Rise of the tomb explorer");
     setWindowIcon(QIcon(":/escena/TombStone (2).png"));
-    ui->graphicsView->setGeometry(0,0,sizex*5+2,sizey+2);
+    ui->graphicsView->setGeometry(0,0,sizex,sizey);
     escena->setSceneRect(0,0,sizex*15,sizey);
     escena->setBackgroundBrush(QBrush(QImage(":/escena/BG2.png")));
     ui->graphicsView->setScene(escena);
@@ -186,9 +187,10 @@ void MainWindow::keyPressEvent(QKeyEvent *i)
         }
     }
     else if(i->key()==Qt::Key_W){
-        if(advGirl->getParabolico()==false && cae==false && advGirl->getDeslizo()==true){
+        if(advGirl->getParabolico()==false && cae==false && advGirl->getDeslizo()==true && salto==false){
             if((advGirl->get_direc()==true && advGirl->get_posx()<19000) || (advGirl->get_direc()==false && advGirl->get_posx()>160)){
                 n=1;
+                salto=true;
                 vxo=5;
                 advGirl->setParabolico(true);
                 posxsalto=advGirl->get_posx();
@@ -258,6 +260,7 @@ void MainWindow::saltoparabolico()
             advGirl->setPosx(posxsalto);
             advGirl->setPosy(216);
             advGirl->setParabolico(false);
+            salto=false;
             view->centerOn(advGirl->x(),advGirl->y());
             times->stop();
             if(advGirl->get_direc()==true) advGirl->setPixmap(QPixmap(":/sprites personaje/Idle (1).png").scaled(sizey/5,sizey/5));
@@ -269,6 +272,7 @@ void MainWindow::saltoparabolico()
             advGirl->setPosx(posxsalto);
             advGirl->setPosy(504);
             advGirl->setParabolico(false);
+            salto=false;
             view->centerOn(advGirl->x(),advGirl->y());
             times->stop();
             if(advGirl->get_direc()==true) advGirl->setPixmap(QPixmap(":/sprites personaje/Idle (1).png").scaled(sizey/5,sizey/5));
@@ -282,6 +286,7 @@ void MainWindow::saltoparabolico()
             advGirl->setPosx(posxsalto);
             advGirl->setPosy(216);
             advGirl->setParabolico(false);
+            salto=false;
             view->centerOn(advGirl->x(),advGirl->y());
             times->stop();
             if(advGirl->get_direc()==true) advGirl->setPixmap(QPixmap(":/sprites personaje/Idle (1).png").scaled(sizey/5,sizey/5));
@@ -293,6 +298,7 @@ void MainWindow::saltoparabolico()
             advGirl->setPosx(posxsalto);
             advGirl->setPosy(504);
             advGirl->setParabolico(false);
+            salto=false;
             view->centerOn(advGirl->x(),advGirl->y());
             times->stop();
             if(advGirl->get_direc()==true) advGirl->setPixmap(QPixmap(":/sprites personaje/Idle (1).png").scaled(sizey/5,sizey/5));

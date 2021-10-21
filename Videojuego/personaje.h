@@ -53,6 +53,7 @@ public slots:
 private:
     bala *bullet;
     QTimer *timeshot;
+    QTimer *timesalt;
     QTimer *timepunal;
     QString spriPers[35];
     QString spriPersL[35];

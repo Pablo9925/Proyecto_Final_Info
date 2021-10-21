@@ -36,11 +36,10 @@ public slots:
     void movimientobala();
     void saltoparabolico();
     void caida();
-
 private:
     int sizex=0,sizey=0,n=1,nc=0,nf=0;
     int matriz[columnas*15][filas];
-    bool bulletAct=false, direc, cae=false;
+    bool bulletAct=false, direc, cae=false,salto=false;
     Ui::MainWindow *ui;
     QGraphicsScene *escena;
     QGraphicsView *view;
