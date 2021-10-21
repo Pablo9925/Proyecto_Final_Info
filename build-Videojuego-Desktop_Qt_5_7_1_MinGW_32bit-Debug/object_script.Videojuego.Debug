@@ -5,6 +5,7 @@ INPUT(
 ./debug\personaje.o
 ./debug\logicamap.o
 ./debug\map.o
+./debug\caja.o
 ./debug\qrc_sprites.o
 ./debug\qrc_escena.o
 ./debug\qrc_sonidos.o

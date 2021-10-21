@@ -31,6 +31,7 @@ MainWindow::~MainWindow()
     delete l1;
     delete l2;
     for(int x=0; x<columnas; x++) for(int y=0; y<filas; y++) delete mapa[x][y];
+    for (int i=0;i<cajas.length();i++) delete cajas.at(i);
     delete l_mapa;
 }
 
@@ -62,6 +63,11 @@ void MainWindow::generar_mapa()
 
     for(int x=0;x<columnas*15;x++){
         for(int y=0;y<filas;y++) {
+            if((m_mapa[x][y]==1 || m_mapa[x][y]==2) && x!=0 && x!=columnas*15){
+                if(generar_caja()){
+                    cajas.append(new caja(x*(sizex/columnas)+53,y*(sizey/filas),sizey/5));
+                }
+            }
             matriz[x][y]=m_mapa[x][y];
             mapa[x][y] = new map(sizex,sizey);
             mapa[x][y]->setup_tipo(m_mapa[x][y]);
@@ -71,6 +77,17 @@ void MainWindow::generar_mapa()
             escena->addItem(mapa[x][y]);
         }
     }
+    for(int j=0;j<cajas.size();j++){
+        escena->addItem(cajas.at(j));
+    }
+}
+
+bool MainWindow::generar_caja()
+{
+    int n, x;
+    n=rand();
+    x=p*(RAND_MAX+1)-1;
+    return n<=x;
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *i)
@@ -134,6 +151,23 @@ void MainWindow::keyPressEvent(QKeyEvent *i)
     else if(i->key()==Qt::Key_O){
         if(advGirl->get_ActAttack()==false && advGirl->getParabolico()==false){
             advGirl->melee();
+            for (int j=0;j<cajas.size() ;j++ ) {
+                if(advGirl->collidesWithItem(cajas.at(j))){
+                    if(cajas.at(j)->getVida()!=0){
+                        cajas.at(j)->setVida(cajas.at(j)->getVida()-advGirl->get_damage());
+                    }
+                    else{
+                        if(cajas.at(j)->ammo()==true){
+                            cajas.at(j)->setTipo(true);
+                            cajas.at(j)->setPixmap(QPixmap(":/escena/ammo.png").scaled(sizey/10,sizey/10));
+                        }
+                        else{
+                            cajas.at(j)->setTipo(false);
+                            cajas.at(j)->setPixmap(QPixmap(":/escena/vida.png").scaled(sizey/10,sizey/10));
+                        }
+                    }
+                }
+            }
         }
     }
     else if(i->key()==Qt::Key_W){
@@ -163,6 +197,22 @@ void MainWindow::keyPressEvent(QKeyEvent *i)
             }
        }
    }
+    else if(i->key()==Qt::Key_I){
+        if(advGirl->get_ActAttack()==false && advGirl->getParabolico()==false){
+            for (int j=0;j<cajas.size() ;j++ ) {
+                if(advGirl->collidesWithItem(cajas.at(j))){
+                    if(cajas.at(j)->getTipo()==true){
+                        advGirl->set_ammo(advGirl->get_ammo()+2);
+                    }
+                    else{
+                        advGirl->setVidas(advGirl->getVidas()+1);
+                    }
+                    escena->removeItem(cajas.at(j));
+                }
+            }
+        }
+    }
+
 }
 
 void MainWindow::saltoparabolico()

@@ -5,6 +5,7 @@ INPUT(
 ./release\personaje.o
 ./release\logicamap.o
 ./release\map.o
+./release\caja.o
 ./release\qrc_sprites.o
 ./release\qrc_escena.o
 ./release\qrc_sonidos.o

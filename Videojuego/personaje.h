@@ -25,6 +25,7 @@ public:
     bool get_direc();
     bool get_ActAttack();
     int get_ammo();
+    int get_damage();
     bool getParabolico() const;
     bool getDeslizo() const;
     void setDeslizo(bool value);
@@ -39,7 +40,8 @@ public:
     void shot();
     void melee();
     void deslizar();
-
+    int getVidas() const;
+    void setVidas(int value);
 
 public slots:
     void disparar();

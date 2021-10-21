@@ -115,6 +115,11 @@ int personaje::get_ammo()
     return ammo;
 }
 
+int personaje::get_damage()
+{
+    return damage;
+}
+
 void personaje::set_ammo(int muni)
 {
     ammo=muni;
@@ -259,4 +264,14 @@ void personaje::animacionsalto()
             contjump=8;
         }
     }
+}
+
+int personaje::getVidas() const
+{
+    return vidas;
+}
+
+void personaje::setVidas(int value)
+{
+    vidas = value;
 }
