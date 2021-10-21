@@ -17,18 +17,27 @@ MainWindow::MainWindow(QWidget *parent) :
     view->resize(sizex,sizey);
     this->resize(sizex,sizey);
     view->centerOn(advGirl->x(),advGirl->y());
-
     bsound= new QMediaPlayer();
+    csound= new QMediaPlayer();
+    coinsound= new QMediaPlayer();
+    ammosound= new QMediaPlayer();
+    timemaz = new QTimer(this);
+    timemaz->start(250);
+    connect(timemaz,SIGNAL(timeout()),this,SLOT(movimiento_maza()));
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
     delete advGirl;
+    delete timemaz;
     delete time;
     delete timec;
     delete times;
     delete bsound;
+    delete csound;
+    delete coinsound;
+    delete ammosound;
     delete l1;
     delete l2;
     for(int x=0; x<columnas; x++) for(int y=0; y<filas; y++) delete mapa[x][y];
@@ -71,6 +80,9 @@ void MainWindow::generar_mapa()
                 else if(generar_moneda()){
                     monedas.append(new coin(x*(sizex/columnas)+53,y*(sizey/filas),sizey/5));
                 }
+                if(generar_maza()){
+                    mazas.append((new maza(x*160,y*140,sizey/5)));
+                }
             }
             matriz[x][y]=m_mapa[x][y];
             mapa[x][y] = new map(sizex,sizey);
@@ -81,11 +93,14 @@ void MainWindow::generar_mapa()
             escena->addItem(mapa[x][y]);
         }
     }
-    for(int i=0;i<cajas.size();i++){
+    for(int i=0;i<monedas.size();i++){
         escena->addItem(monedas.at(i));
     }
     for(int j=0;j<cajas.size();j++){
         escena->addItem(cajas.at(j));
+    }
+    for(int j=0;j<mazas.size();j++){
+        escena->addItem(mazas.at(j));
     }
 }
 
@@ -102,6 +117,14 @@ bool MainWindow::generar_moneda()
     int n, x;
     n=rand();
     x=(p+0.1)*(RAND_MAX+1)-1;
+    return n<=x;
+}
+
+bool MainWindow::generar_maza()
+{
+    int n, x;
+    n=rand();
+    x=pm*(RAND_MAX+1)-1;
     return n<=x;
 }
 
@@ -166,6 +189,8 @@ void MainWindow::keyPressEvent(QKeyEvent *i)
     else if(i->key()==Qt::Key_O){
         if(advGirl->get_ActAttack()==false && advGirl->getParabolico()==false && cae==false && advGirl->getDeslizo()==true){
             advGirl->melee();
+            csound->setMedia(QUrl("qrc:/sonidos/007137308_prev.mp3"));
+            csound->play();
             for (int j=0;j<cajas.size() ;j++ ) {
                 if(advGirl->collidesWithItem(cajas.at(j))){
                     if(cajas.at(j)->getVida()!=0){
@@ -218,6 +243,8 @@ void MainWindow::keyPressEvent(QKeyEvent *i)
         if(advGirl->get_ActAttack()==false && advGirl->getParabolico()==false){
             for (int j=0;j<cajas.size() ;j++ ) {
                 if(advGirl->collidesWithItem(monedas.at(j))){
+                    coinsound->setMedia(QUrl("qrc:/sonidos/Coins_Collecting_01_Sound_Effect_Mp3_315.mp3"));
+                    coinsound->play();
                     advGirl->setPuntaje(advGirl->getPuntaje()+monedas.at(j)->getPuntos());
                     escena->removeItem(monedas.at(j));
                 }
@@ -225,6 +252,9 @@ void MainWindow::keyPressEvent(QKeyEvent *i)
             for (int j=0;j<cajas.size() ;j++ ) {
                 if(advGirl->collidesWithItem(cajas.at(j)) && cajas.at(j)->getDestruc()==true){
                     if(cajas.at(j)->getTipo()==true){
+                        ammosound->setMedia(QUrl("qrc:/sonidos/008842199_prev.mp3"));
+                        ammosound->setVolume(50);
+                        ammosound->play();
                         advGirl->set_ammo(advGirl->get_ammo()+2);
                     }
                     else{
@@ -334,6 +364,13 @@ void MainWindow::caida()
             else advGirl->setPixmap(QPixmap(":/sprites personaje/IdleL (1).png").scaled(sizey/5,sizey/5));
         }
     }
+}
+
+void MainWindow::movimiento_maza()
+{
+    for(int j=0;j<mazas.length();j++){
+          mazas.at(j)->movimiento();
+      }
 }
 
 void MainWindow::deslizando()

@@ -31,7 +31,8 @@ SOURCES += \
     logicamap.cpp \
     map.cpp \
     caja.cpp \
-    coin.cpp
+    coin.cpp \
+    maza.cpp
 
 HEADERS += \
     bala.h \
@@ -40,7 +41,8 @@ HEADERS += \
     logicamap.h \
     map.h \
     caja.h \
-    coin.h
+    coin.h \
+    maza.h
 
 FORMS += \
         mainwindow.ui \

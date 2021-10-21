@@ -10,7 +10,6 @@
 #include "bala.h"
 #include <math.h>
 #include <QGraphicsScene>
-#define dt 0.1
 
 class personaje : public QObject, public QGraphicsPixmapItem
 {
