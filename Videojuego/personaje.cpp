@@ -177,7 +177,7 @@ void personaje::mov_der()
 void personaje::jump()
 {
     timesalt=new QTimer; //Se reutiliza timer porque no se puede disparar mientras salta
-    timesalt->start(50);
+    timesalt->start(20);
     connect(timesalt,SIGNAL(timeout()),this,SLOT(animacionsalto()));
 
 }

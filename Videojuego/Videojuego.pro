@@ -43,7 +43,8 @@ HEADERS += \
     coin.h
 
 FORMS += \
-        mainwindow.ui
+        mainwindow.ui \
+    menu.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
