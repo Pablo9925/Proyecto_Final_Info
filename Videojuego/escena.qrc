@@ -18,5 +18,6 @@
         <file>escena/exit.jpg</file>
         <file>escena/cratedes1.png</file>
         <file>escena/cratedes2.png</file>
+        <file>escena/Menu.png</file>
     </qresource>
 </RCC>

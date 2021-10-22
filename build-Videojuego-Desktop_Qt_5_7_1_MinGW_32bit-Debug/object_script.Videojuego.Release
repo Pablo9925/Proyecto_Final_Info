@@ -8,9 +8,11 @@ INPUT(
 ./release\caja.o
 ./release\coin.o
 ./release\maza.o
+./release\zombie.o
 ./release\qrc_sprites.o
 ./release\qrc_escena.o
 ./release\qrc_sonidos.o
+./release\qrc_zombie.o
 ./release\moc_mainwindow.o
 ./release\moc_personaje.o
 );

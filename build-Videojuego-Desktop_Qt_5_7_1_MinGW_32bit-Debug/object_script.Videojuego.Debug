@@ -8,9 +8,11 @@ INPUT(
 ./debug\caja.o
 ./debug\coin.o
 ./debug\maza.o
+./debug\zombie.o
 ./debug\qrc_sprites.o
 ./debug\qrc_escena.o
 ./debug\qrc_sonidos.o
+./debug\qrc_zombie.o
 ./debug\moc_mainwindow.o
 ./debug\moc_personaje.o
 );

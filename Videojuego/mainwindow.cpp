@@ -22,8 +22,11 @@ MainWindow::MainWindow(QWidget *parent) :
     coinsound= new QMediaPlayer();
     ammosound= new QMediaPlayer();
     timemaz = new QTimer(this);
-    timemaz->start(15);
+    timemaz->start(100);
     connect(timemaz,SIGNAL(timeout()),this,SLOT(movimiento_maza()));
+    timez=new QTimer(this);
+    timemaz->start(100);
+    connect(timemaz,SIGNAL(timeout()),this,SLOT(movimiento_zombie()));
 }
 
 MainWindow::~MainWindow()
@@ -34,6 +37,7 @@ MainWindow::~MainWindow()
     delete time;
     delete timec;
     delete times;
+    delete timez;
     delete bsound;
     delete csound;
     delete coinsound;
@@ -44,8 +48,8 @@ MainWindow::~MainWindow()
     for (int i=0;i<cajas.length();i++) delete cajas.at(i);
     delete l_mapa;
 }
-/*
-void MainWindow::restablecer()
+
+/*void MainWindow::restablecer()
 {
     for(int i=0;i<cajas.length();i++){
         escena->removeItem(cajas.at(i));
@@ -113,7 +117,12 @@ void MainWindow::generar_mapa()
                     monedas.append(new coin(x*(sizex/columnas)+53,y*(sizey/filas),sizey/5));
                 }
                 if(generar_maza()){
-                   mazas.append((new maza(x*160,y*140,sizey/5)));
+                   mazas.append((new maza(x*(sizex/columnas),y*(sizey/filas),sizey/5)));
+                }
+            }
+            if(m_mapa[x][y]==2 && x!=0 && x!=1 && x!=2 && x!=columnas*15){
+                if(generar_zombie()){
+                   zombies.append((new zombie(x*(sizex/columnas),504,sizey)));
                 }
             }
             matriz[x][y]=m_mapa[x][y];
@@ -133,6 +142,9 @@ void MainWindow::generar_mapa()
     }
     for(int j=0;j<mazas.size();j++){
         escena->addItem(mazas.at(j));
+    }
+    for(int j=0;j<zombies.size();j++){
+        escena->addItem(zombies.at(j));
     }
 }
 
@@ -157,6 +169,14 @@ bool MainWindow::generar_maza()
     int n, x;
     n=rand();
     x=pm*(RAND_MAX+1)-1;
+    return n<=x;
+}
+
+bool MainWindow::generar_zombie()
+{
+    int n, x;
+    n=rand();
+    x=pz*(RAND_MAX+1)-1;
     return n<=x;
 }
 
@@ -406,11 +426,34 @@ void MainWindow::movimiento_maza()
 {
     for(int j=0;j<mazas.length();j++){
           mazas.at(j)->movimiento();
-          if(mazas.at(j)->collidesWithItem(advGirl)){
-              advGirl->setMuerte(true);
-              advGirl->morir();
-              //restablecer();
+          if(mazas.at(j)->collidesWithItem(advGirl) && mazas.at(j)->getImpacto()==false){
+              escena->removeItem(mazas.at(j));
+              mazas.at(j)->setImpacto(true);
+              advGirl->setVidas(advGirl->getVidas()-1);
+              if(advGirl->getVidas()==0){
+                  advGirl->setMuerte(true);
+                  advGirl->morir();
+                  //restablecer();
+              }
           }
+    }
+}
+
+void MainWindow::movimiento_zombie()
+{
+    for(int j=0;j<zombies.length();j++){
+        if(zombies.at(j)->getDirec()==true){
+            if(!zombies.at(j)->collidesWithItem(l2) && matriz[int((zombies.at(j)->getX()+(sizey/5)*(4/5)+60)/160)][int(zombies.at(j)->getY()/144)+1]!=0){
+                zombies.at(j)->movimientod();
+            }
+            else zombies.at(j)->setDirec(false);
+        }
+        else if(zombies.at(j)->getDirec()==false){
+            if(!zombies.at(j)->collidesWithItem(l1) && matriz[int((zombies.at(j)->getX()-20)/160)][int(zombies.at(j)->getY()/144)+1]!=0){
+                zombies.at(j)->movimientoi();
+            }
+            else zombies.at(j)->setDirec(true);
+        }
     }
 }
 
@@ -434,7 +477,7 @@ void MainWindow::deslizando()
             timec->start(2);
             connect(timec,SIGNAL(timeout()),this,SLOT(caida()));
         }
-        if(nf==85){
+        if(nf==120){
             times->stop();
             nf=0;
             advGirl->setDeslizo(true);
@@ -459,7 +502,7 @@ void MainWindow::deslizando()
             timec->start(2);
             connect(timec,SIGNAL(timeout()),this,SLOT(caida()));
         }
-        if(nf==70){
+        if(nf==120){
             times->stop();
             nf=0;
             advGirl->setDeslizo(true);
