@@ -21,6 +21,7 @@ inicio::inicio(QWidget *parent) :
     ui->pass->setVisible(false);
     ui->ingresar->setVisible(false);
     ui->nuevapartida->setVisible(false);
+    ui->ingresar2->setVisible(false);
 
 }
 
@@ -65,6 +66,7 @@ void inicio::on_crear_clicked()
         ui->cargar->setVisible(true);
         ui->nuevapartida->setVisible(true);
         ui->crear->setVisible(false);
+
         //ui->registro_2->setVisible(false);
     }
     else
@@ -123,4 +125,47 @@ void inicio::on_multijugador_clicked()
     ui->uss->setVisible(true);
     ui->pass->setVisible(true);
     ui->multijugador->setVisible(false);
+    ui->nuevapartida->setVisible(false);
+    ui->ingresar2->setVisible(true);
+
 }
+
+void inicio::on_ingresar2_clicked()
+{
+
+    usuario2=ui->uss->text();
+    password2=ui->pass->text();
+    QFile archivo(usuario2);
+    if(archivo.open(QFile::ReadOnly | QFile::Text))
+    {
+        //cargamos de forma correcta el archivo por tanto vamos a habilitar la nueva ventana.
+        QTextStream read(&archivo);
+        QString clave;
+        read.readLine();
+        clave = read.readLine();
+        if( clave == ui->pass->text())
+        {
+            read.readLine();
+            read.readLine();
+            read.readLine();
+            read.readLine();
+            read.readLine();
+           // nivel = read.readLine();
+            //qDebug()<< nivel;
+            ui->uss->setVisible(false);
+            ui->pass->setVisible(false);
+            ui->multijugador->setVisible(true);
+           // ui->cargarPartida->setVisible(true);
+            ui->nuevapartida->setVisible(true);
+            ui->ingresar->setVisible(false);
+            archivo.close();
+          //  music->stop();
+        }
+        else
+        {
+            QMessageBox::information(this,"Menú","Error, revise bien los campos.");
+        }
+    }
+}
+
+

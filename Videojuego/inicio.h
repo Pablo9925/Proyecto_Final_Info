@@ -33,10 +33,14 @@ private slots:
 
     void on_multijugador_clicked();
 
+    void on_ingresar2_clicked();
+
 private:
     Ui::inicio *ui;
     QString usuario;
     QString password;
+    QString usuario2;
+    QString password2;
 };
 
 #endif // INICIO_H

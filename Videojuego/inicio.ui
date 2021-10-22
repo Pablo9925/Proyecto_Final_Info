@@ -160,6 +160,22 @@
     <string>nueva partida</string>
    </property>
   </widget>
+  <widget class="QPushButton" name="ingresar2">
+   <property name="geometry">
+    <rect>
+     <x>190</x>
+     <y>210</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">Background-image:url(:/sprites personaje/Dead (5).png)</string>
+   </property>
+   <property name="text">
+    <string>ingresar</string>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>

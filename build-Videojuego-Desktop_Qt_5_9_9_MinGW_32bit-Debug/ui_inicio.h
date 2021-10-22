@@ -32,6 +32,7 @@ public:
     QPushButton *cuentanueva;
     QPushButton *ingresar;
     QPushButton *nuevapartida;
+    QPushButton *ingresar2;
 
     void setupUi(QDialog *inicio)
     {
@@ -76,6 +77,10 @@ public:
         nuevapartida->setObjectName(QStringLiteral("nuevapartida"));
         nuevapartida->setGeometry(QRect(160, 160, 131, 23));
         nuevapartida->setStyleSheet(QStringLiteral("Background-image:url(:/sprites personaje/Dead (5).png)"));
+        ingresar2 = new QPushButton(inicio);
+        ingresar2->setObjectName(QStringLiteral("ingresar2"));
+        ingresar2->setGeometry(QRect(190, 210, 75, 23));
+        ingresar2->setStyleSheet(QStringLiteral("Background-image:url(:/sprites personaje/Dead (5).png)"));
 
         retranslateUi(inicio);
 
@@ -93,6 +98,7 @@ public:
         cuentanueva->setText(QApplication::translate("inicio", "nueva cuenta", Q_NULLPTR));
         ingresar->setText(QApplication::translate("inicio", "ingresar", Q_NULLPTR));
         nuevapartida->setText(QApplication::translate("inicio", "nueva partida", Q_NULLPTR));
+        ingresar2->setText(QApplication::translate("inicio", "ingresar", Q_NULLPTR));
     } // retranslateUi
 
 };
