@@ -10,7 +10,6 @@
 #include "bala.h"
 #include <math.h>
 #include <QGraphicsScene>
-#define dt 0.1
 
 class personaje : public QObject, public QGraphicsPixmapItem
 {
@@ -25,6 +24,7 @@ public:
     bool get_direc();
     bool get_ActAttack();
     int get_ammo();
+    int get_damage();
     bool getParabolico() const;
     bool getDeslizo() const;
     void setDeslizo(bool value);
@@ -39,12 +39,10 @@ public:
     void shot();
     void melee();
     void deslizar();
-
-
     int getVidas() const;
     void setVidas(int value);
-
-    int get_damage() const;
+    int getPuntaje() const;
+    void setPuntaje(int value);
 
 public slots:
     void disparar();
@@ -54,12 +52,13 @@ public slots:
 private:
     bala *bullet;
     QTimer *timeshot;
+    QTimer *timesalt;
     QTimer *timepunal;
     QString spriPers[35];
     QString spriPersL[35];
     bool derecha=true, meleeAct=false,parabolico=false, deslizo=true;
     int vidas=3, ammo=6, damage=1, puntaje=0, size, contp=30, conts=31, contb=16 ,contjump=8;
-    float posx=60, posy,posauxmazax,posauxmazay;
+    float posx=60, posy;
 };
 
 #endif // PERSONAJE_H

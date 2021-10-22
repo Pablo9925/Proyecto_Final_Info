@@ -11,7 +11,10 @@
         <file>escena/TombStone (1).png</file>
         <file>escena/TombStone (2).png</file>
         <file>escena/BG2.png</file>
-        <file>escena/maza.png</file>
         <file>escena/ammo.png</file>
+        <file>escena/coin.png</file>
+        <file>escena/maza.png</file>
+        <file>escena/vida.png</file>
+        <file>escena/exit.jpg</file>
     </qresource>
 </RCC>

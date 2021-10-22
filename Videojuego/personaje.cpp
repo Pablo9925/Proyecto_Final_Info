@@ -82,6 +82,7 @@ personaje::~personaje()
 {
     delete timeshot;
     delete timepunal;
+    delete timesalt;
     delete bullet;
 }
 
@@ -113,6 +114,11 @@ bool personaje::get_ActAttack()
 int personaje::get_ammo()
 {
     return ammo;
+}
+
+int personaje::get_damage()
+{
+    return damage;
 }
 
 void personaje::set_ammo(int muni)
@@ -170,9 +176,9 @@ void personaje::mov_der()
 
 void personaje::jump()
 {
-    timeshot=new QTimer; //Se reutiliza timer porque no se puede disparar mientras salta
-    timeshot->start(50);
-    connect(timeshot,SIGNAL(timeout()),this,SLOT(animacionsalto()));
+    timesalt=new QTimer; //Se reutiliza timer porque no se puede disparar mientras salta
+    timesalt->start(20);
+    connect(timesalt,SIGNAL(timeout()),this,SLOT(animacionsalto()));
 
 }
 
@@ -245,7 +251,7 @@ void personaje::animacionsalto()
             contjump++;
         }
         else{
-            timeshot->stop();
+            timesalt->stop();
             contjump=8;
         }
     }
@@ -255,15 +261,20 @@ void personaje::animacionsalto()
             contjump++;
         }
         else{
-            timeshot->stop();
+            timesalt->stop();
             contjump=8;
         }
     }
 }
 
-int personaje::get_damage() const
+int personaje::getPuntaje() const
 {
-    return damage;
+    return puntaje;
+}
+
+void personaje::setPuntaje(int value)
+{
+    puntaje = value;
 }
 
 int personaje::getVidas() const

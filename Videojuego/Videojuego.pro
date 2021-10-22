@@ -25,25 +25,28 @@ CONFIG += c++11
 
 SOURCES += \
     bala.cpp \
-    caja.cpp \
         main.cpp \
         mainwindow.cpp \
-    maza.cpp \
     personaje.cpp \
     logicamap.cpp \
-    map.cpp
+    map.cpp \
+    caja.cpp \
+    coin.cpp \
+    maza.cpp
 
 HEADERS += \
     bala.h \
-    caja.h \
         mainwindow.h \
-    maza.h \
     personaje.h \
     logicamap.h \
-    map.h
+    map.h \
+    caja.h \
+    coin.h \
+    maza.h
 
 FORMS += \
-        mainwindow.ui
+        mainwindow.ui \
+    menu.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -54,5 +57,3 @@ RESOURCES += \
     sprites.qrc \
     escena.qrc \
     sonidos.qrc
-
-DISTFILES +=

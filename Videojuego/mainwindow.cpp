@@ -18,19 +18,26 @@ MainWindow::MainWindow(QWidget *parent) :
     this->resize(sizex,sizey);
     view->centerOn(advGirl->x(),advGirl->y());
     bsound= new QMediaPlayer();
-    movimientomaza();
-
-
+    csound= new QMediaPlayer();
+    coinsound= new QMediaPlayer();
+    ammosound= new QMediaPlayer();
+    timemaz = new QTimer(this);
+    timemaz->start(50);
+    connect(timemaz,SIGNAL(timeout()),this,SLOT(movimiento_maza()));
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
     delete advGirl;
+    delete timemaz;
     delete time;
     delete timec;
     delete times;
     delete bsound;
+    delete csound;
+    delete coinsound;
+    delete ammosound;
     delete l1;
     delete l2;
     for(int x=0; x<columnas; x++) for(int y=0; y<filas; y++) delete mapa[x][y];
@@ -47,7 +54,7 @@ void MainWindow::setup_mainwindow()
     setGeometry(0,0,sizex,sizey);
     setWindowTitle("Rise of the tomb explorer");
     setWindowIcon(QIcon(":/escena/TombStone (2).png"));
-    ui->graphicsView->setGeometry(0,0,sizex*5+2,sizey+2);
+    ui->graphicsView->setGeometry(0,0,sizex,sizey);
     escena->setSceneRect(0,0,sizex*15,sizey);
     escena->setBackgroundBrush(QBrush(QImage(":/escena/BG2.png")));
     ui->graphicsView->setScene(escena);
@@ -67,13 +74,15 @@ void MainWindow::generar_mapa()
     for(int x=0;x<columnas*15;x++){
         for(int y=0;y<filas;y++) {
             if((m_mapa[x][y]==1 || m_mapa[x][y]==2) && x!=0 && x!=columnas*15){
-                if(generar_maza()){
-                    mazas.append(new maza(x*(sizex/columnas)+53,y*(sizey/filas)-120,sizey/5));
-                }
-                else if(generar_caja()){
+                if(generar_caja()){
                     cajas.append(new caja(x*(sizex/columnas)+53,y*(sizey/filas),sizey/5));
                 }
-
+                else if(generar_moneda()){
+                    monedas.append(new coin(x*(sizex/columnas)+53,y*(sizey/filas),sizey/5));
+                }
+                if(generar_maza()){
+                    mazas.append((new maza(x*160,y*140,sizey/5)));
+                }
             }
             matriz[x][y]=m_mapa[x][y];
             mapa[x][y] = new map(sizex,sizey);
@@ -83,7 +92,9 @@ void MainWindow::generar_mapa()
             else mapa[x][y]->setY(((sizey/(filas))*y)+(sizey/filas)/2);
             escena->addItem(mapa[x][y]);
         }
-
+    }
+    for(int i=0;i<monedas.size();i++){
+        escena->addItem(monedas.at(i));
     }
     for(int j=0;j<cajas.size();j++){
         escena->addItem(cajas.at(j));
@@ -92,6 +103,7 @@ void MainWindow::generar_mapa()
         escena->addItem(mazas.at(j));
     }
 }
+
 bool MainWindow::generar_caja()
 {
     int n, x;
@@ -100,18 +112,26 @@ bool MainWindow::generar_caja()
     return n<=x;
 }
 
-void MainWindow::movimientomaza()
+bool MainWindow::generar_moneda()
 {
-  for(int j=0;j<mazas.length();j++){
-      mazas.at(j)->movimiento();
+    int n, x;
+    n=rand();
+    x=(p+0.1)*(RAND_MAX+1)-1;
+    return n<=x;
+}
 
-  }
+bool MainWindow::generar_maza()
+{
+    int n, x;
+    n=rand();
+    x=pm*(RAND_MAX+1)-1;
+    return n<=x;
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *i)
 {
     if(i->key()==Qt::Key_D){
-        if(advGirl->getParabolico()==false && cae==false){
+        if(advGirl->getParabolico()==false && cae==false && advGirl->getDeslizo()==true){
             advGirl->mov_der();
             advGirl->setX(advGirl->x()+20);
             if(advGirl->collidesWithItem(l2)){
@@ -130,7 +150,7 @@ void MainWindow::keyPressEvent(QKeyEvent *i)
         }
     }
     else if(i->key()==Qt::Key_A){
-        if(advGirl->getParabolico()==false && cae==false){
+        if(advGirl->getParabolico()==false && cae==false && advGirl->getDeslizo()==true){
             advGirl->mov_izq();
             advGirl->setX(advGirl->x()-20);
             if(advGirl->collidesWithItem(l1)){
@@ -149,7 +169,7 @@ void MainWindow::keyPressEvent(QKeyEvent *i)
         }
     }
     else if(i->key()==Qt::Key_P){
-        if(bulletAct==false && advGirl->get_ammo()>0 && advGirl->getParabolico()==false){
+        if(advGirl->get_ActAttack()==false && bulletAct==false && advGirl->get_ammo()>0 && advGirl->getParabolico()==false && advGirl->getDeslizo()==true && cae==false){
             if(advGirl->get_direc()==true) advGirl->setPixmap((QPixmap(":/sprites personaje/Shoot (1).png").scaled(sizey/5,sizey/5)));
             else advGirl->setPixmap((QPixmap(":/sprites personaje/ShootL (1).png").scaled(sizey/5,sizey/5)));
             advGirl->set_ammo(advGirl->get_ammo()-1);
@@ -167,14 +187,17 @@ void MainWindow::keyPressEvent(QKeyEvent *i)
         }
     }
     else if(i->key()==Qt::Key_O){
-        if(advGirl->get_ActAttack()==false && advGirl->getParabolico()==false){
+        if(advGirl->get_ActAttack()==false && advGirl->getParabolico()==false && cae==false && advGirl->getDeslizo()==true){
             advGirl->melee();
+            csound->setMedia(QUrl("qrc:/sonidos/007137308_prev.mp3"));
+            csound->play();
             for (int j=0;j<cajas.size() ;j++ ) {
                 if(advGirl->collidesWithItem(cajas.at(j))){
                     if(cajas.at(j)->getVida()!=0){
                         cajas.at(j)->setVida(cajas.at(j)->getVida()-advGirl->get_damage());
                     }
                     else{
+                        cajas.at(j)->setDestruc(true);
                         if(cajas.at(j)->ammo()==true){
                             cajas.at(j)->setTipo(true);
                             cajas.at(j)->setPixmap(QPixmap(":/escena/ammo.png").scaled(sizey/10,sizey/10));
@@ -189,9 +212,10 @@ void MainWindow::keyPressEvent(QKeyEvent *i)
         }
     }
     else if(i->key()==Qt::Key_W){
-        if(advGirl->getParabolico()==false && cae==false && advGirl->getDeslizo()==true){
+        if(advGirl->getParabolico()==false && cae==false && advGirl->getDeslizo()==true && salto==false){
             if((advGirl->get_direc()==true && advGirl->get_posx()<19000) || (advGirl->get_direc()==false && advGirl->get_posx()>160)){
                 n=1;
+                salto=true;
                 vxo=5;
                 advGirl->setParabolico(true);
                 posxsalto=advGirl->get_posx();
@@ -214,12 +238,23 @@ void MainWindow::keyPressEvent(QKeyEvent *i)
                connect(times,SIGNAL(timeout()),this,SLOT(deslizando()));
             }
        }
-    }
+   }
     else if(i->key()==Qt::Key_I){
         if(advGirl->get_ActAttack()==false && advGirl->getParabolico()==false){
             for (int j=0;j<cajas.size() ;j++ ) {
-                if(advGirl->collidesWithItem(cajas.at(j))){
+                if(advGirl->collidesWithItem(monedas.at(j))){
+                    coinsound->setMedia(QUrl("qrc:/sonidos/Coins_Collecting_01_Sound_Effect_Mp3_315.mp3"));
+                    coinsound->play();
+                    advGirl->setPuntaje(advGirl->getPuntaje()+monedas.at(j)->getPuntos());
+                    escena->removeItem(monedas.at(j));
+                }
+            }
+            for (int j=0;j<cajas.size() ;j++ ) {
+                if(advGirl->collidesWithItem(cajas.at(j)) && cajas.at(j)->getDestruc()==true){
                     if(cajas.at(j)->getTipo()==true){
+                        ammosound->setMedia(QUrl("qrc:/sonidos/008842199_prev.mp3"));
+                        ammosound->setVolume(50);
+                        ammosound->play();
                         advGirl->set_ammo(advGirl->get_ammo()+2);
                     }
                     else{
@@ -230,16 +265,6 @@ void MainWindow::keyPressEvent(QKeyEvent *i)
             }
         }
     }
-}
-
-bool MainWindow::generar_maza()
-{
-
-        int n, x;
-        n=rand();
-        x=0.1*(RAND_MAX+1)-1;
-        return n<=x;
-
 }
 
 void MainWindow::saltoparabolico()
@@ -265,6 +290,7 @@ void MainWindow::saltoparabolico()
             advGirl->setPosx(posxsalto);
             advGirl->setPosy(216);
             advGirl->setParabolico(false);
+            salto=false;
             view->centerOn(advGirl->x(),advGirl->y());
             times->stop();
             if(advGirl->get_direc()==true) advGirl->setPixmap(QPixmap(":/sprites personaje/Idle (1).png").scaled(sizey/5,sizey/5));
@@ -276,6 +302,7 @@ void MainWindow::saltoparabolico()
             advGirl->setPosx(posxsalto);
             advGirl->setPosy(504);
             advGirl->setParabolico(false);
+            salto=false;
             view->centerOn(advGirl->x(),advGirl->y());
             times->stop();
             if(advGirl->get_direc()==true) advGirl->setPixmap(QPixmap(":/sprites personaje/Idle (1).png").scaled(sizey/5,sizey/5));
@@ -289,6 +316,7 @@ void MainWindow::saltoparabolico()
             advGirl->setPosx(posxsalto);
             advGirl->setPosy(216);
             advGirl->setParabolico(false);
+            salto=false;
             view->centerOn(advGirl->x(),advGirl->y());
             times->stop();
             if(advGirl->get_direc()==true) advGirl->setPixmap(QPixmap(":/sprites personaje/Idle (1).png").scaled(sizey/5,sizey/5));
@@ -300,6 +328,7 @@ void MainWindow::saltoparabolico()
             advGirl->setPosx(posxsalto);
             advGirl->setPosy(504);
             advGirl->setParabolico(false);
+            salto=false;
             view->centerOn(advGirl->x(),advGirl->y());
             times->stop();
             if(advGirl->get_direc()==true) advGirl->setPixmap(QPixmap(":/sprites personaje/Idle (1).png").scaled(sizey/5,sizey/5));
@@ -335,6 +364,13 @@ void MainWindow::caida()
             else advGirl->setPixmap(QPixmap(":/sprites personaje/IdleL (1).png").scaled(sizey/5,sizey/5));
         }
     }
+}
+
+void MainWindow::movimiento_maza()
+{
+    for(int j=0;j<mazas.length();j++){
+          mazas.at(j)->movimiento();
+      }
 }
 
 void MainWindow::deslizando()
@@ -395,6 +431,23 @@ void MainWindow::movimientobala()
 {
     if(direc==true) advGirl->getBullet()->actualiza_posR();
     else advGirl->getBullet()->actualiza_posL();
+    for (int j=0;j<cajas.size() ;j++ ) {
+        if(advGirl->getBullet()->collidesWithItem(cajas.at(j))){
+            cajas.at(j)->setVida(0);
+            cajas.at(j)->setDestruc(true);
+            if(cajas.at(j)->ammo()==true){
+                cajas.at(j)->setTipo(true);
+                cajas.at(j)->setPixmap(QPixmap(":/escena/ammo.png").scaled(sizey/10,sizey/10));
+            }
+            else{
+                cajas.at(j)->setTipo(false);
+                cajas.at(j)->setPixmap(QPixmap(":/escena/vida.png").scaled(sizey/10,sizey/10));
+            }
+            time->stop();
+            escena->removeItem(advGirl->getBullet());
+            bulletAct=false;
+        }
+    }
     if(advGirl->getBullet()->get_posx()>advGirl->get_posx()+sizex && direc==true){
         time->stop();
         escena->removeItem(advGirl->getBullet());
@@ -406,3 +459,5 @@ void MainWindow::movimientobala()
         bulletAct=false;
     }
 }
+
+

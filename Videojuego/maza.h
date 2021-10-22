@@ -3,7 +3,6 @@
 #include "math.h"
 #include <QObject>
 #include <QGraphicsPixmapItem>
-#include <QString>
 #include <QTimer>
 
 class maza :public QObject, public QGraphicsPixmapItem
@@ -11,13 +10,9 @@ class maza :public QObject, public QGraphicsPixmapItem
 public:
     maza(float posmx, float posmy,int tam);
     void movimiento();
-public slots:
-    void simular();
 private:
-    int n=0;
-    float t=0.5,x,y,w=20,r=25;
-    int size;
-    QTimer *tiempomov;
+    int size=0;
+    float x=0,y=0,auxy3=0,ay=0,vx=10,vy=20,t=1,N=0,auxx=0,auxy=0,acc=1,cont2=0,x2=0,y2=0;
 };
 
 #endif // MAZA_H

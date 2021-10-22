@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>570</width>
-    <height>486</height>
+    <width>955</width>
+    <height>494</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -24,22 +24,6 @@
      </rect>
     </property>
    </widget>
-  </widget>
-  <widget class="QMenuBar" name="menuBar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>570</width>
-     <height>22</height>
-    </rect>
-   </property>
-   <widget class="QMenu" name="menusss">
-    <property name="title">
-     <string>sss</string>
-    </property>
-   </widget>
-   <addaction name="menusss"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">

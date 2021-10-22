@@ -22,7 +22,7 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_MainWindow_t {
     QByteArrayData data[7];
-    char stringdata0[75];
+    char stringdata0[76];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -37,11 +37,11 @@ QT_MOC_LITERAL(2, 22, 0), // ""
 QT_MOC_LITERAL(3, 23, 14), // "movimientobala"
 QT_MOC_LITERAL(4, 38, 15), // "saltoparabolico"
 QT_MOC_LITERAL(5, 54, 5), // "caida"
-QT_MOC_LITERAL(6, 60, 14) // "movimientomaza"
+QT_MOC_LITERAL(6, 60, 15) // "movimiento_maza"
 
     },
     "MainWindow\0deslizando\0\0movimientobala\0"
-    "saltoparabolico\0caida\0movimientomaza"
+    "saltoparabolico\0caida\0movimiento_maza"
 };
 #undef QT_MOC_LITERAL
 
@@ -85,7 +85,7 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 1: _t->movimientobala(); break;
         case 2: _t->saltoparabolico(); break;
         case 3: _t->caida(); break;
-        case 4: _t->movimientomaza(); break;
+        case 4: _t->movimiento_maza(); break;
         default: ;
         }
     }
