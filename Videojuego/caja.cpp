@@ -56,3 +56,13 @@ void caja::setItemdado(bool value)
 {
     itemdado = value;
 }
+
+bool caja::getItemgen() const
+{
+    return itemgen;
+}
+
+void caja::setItemgen(bool value)
+{
+    itemgen = value;
+}

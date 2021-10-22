@@ -69,7 +69,7 @@ void zombie::movimientoi()
         if(contmov>43){
             contmov=34;
         }
-        x-=20;
+        x-=10;
         setPixmap(QPixmap(spriZombie[contmov+10]).scaled(size*4/5,size));
         setPos(x,y);
         contmov++;
@@ -82,7 +82,7 @@ void zombie::movimientod()
         if(contmov>43){
             contmov=34;
         }
-        x+=20;
+        x+=10;
         setPixmap(QPixmap(spriZombie[contmov]).scaled(size*4/5,size));
         setPos(x,y);
         contmov++;

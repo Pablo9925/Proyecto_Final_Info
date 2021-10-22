@@ -3,7 +3,7 @@
 #include "math.h"
 #include <QObject>
 #include <QGraphicsPixmapItem>
-# define PI 3.14159265359
+# define PI 3.14159265
 
 class maza :public QObject, public QGraphicsPixmapItem
 {
@@ -12,6 +12,7 @@ public:
     void movimiento();
     bool getImpacto() const;
     void setImpacto(bool value);
+    float getX() const;
 
 private:
     int size=0;
