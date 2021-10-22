@@ -117,3 +117,10 @@ void inicio::on_ingresar_clicked()
         }
     }
 }
+
+void inicio::on_multijugador_clicked()
+{
+    ui->uss->setVisible(true);
+    ui->pass->setVisible(true);
+    ui->multijugador->setVisible(false);
+}

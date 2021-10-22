@@ -3,16 +3,20 @@
 #include "math.h"
 #include <QObject>
 #include <QGraphicsPixmapItem>
-#include <QTimer>
+# define PI 3.14159265359
 
 class maza :public QObject, public QGraphicsPixmapItem
 {
 public:
     maza(float posmx, float posmy,int tam);
     void movimiento();
+    bool getImpacto() const;
+    void setImpacto(bool value);
+
 private:
     int size=0;
-    float x=0,y=0,auxy3=0,ay=0,vx=10,vy=20,t=1,N=0,auxx=0,auxy=0,acc=1,cont2=0,x2=0,y2=0;
+    bool impacto=false;
+    float x=0,y=0,auxx=0,auxy=0,r=240,the=0;
 };
 
 #endif // MAZA_H

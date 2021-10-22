@@ -13,6 +13,7 @@
 #include "caja.h"
 #include "coin.h"
 #include "maza.h"
+#include "zombie.h"
 
 namespace Ui {
 class MainWindow;
@@ -25,11 +26,13 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    //void restablecer();
     void setup_mainwindow();
     void generar_mapa();
     bool generar_caja();
     bool generar_moneda();
     bool generar_maza();
+    bool generar_zombie();
     void keyPressEvent(QKeyEvent *i);
 
 
@@ -39,6 +42,7 @@ public slots:
     void saltoparabolico();
     void caida();
     void movimiento_maza();
+    void movimiento_zombie();
 private:
     int sizex=0,sizey=0,n=1,nc=0,nf=0;
     int matriz[columnas*15][filas];
@@ -51,6 +55,7 @@ private:
     QTimer *time;
     QTimer *timec;
     QTimer *times;
+    QTimer *timez;
     QMediaPlayer * bsound;
     QMediaPlayer * csound;
     QMediaPlayer * coinsound;
@@ -61,7 +66,8 @@ private:
     QList <caja*> cajas;
     QList <coin*> monedas;
     QList <maza*> mazas;
-    float  posxsalto=0,posysalto=0,posysaltoant=0,vxo=5,vyo=25,T=0.1,posyinicial=0,posfric=0,F=10.0,K=0.45,p=0.1,pm=0.1;
+    QList <zombie*> zombies;
+    float  posxsalto=0,posysalto=0,posysaltoant=0,vxo=5,vyo=25,T=0.1,posyinicial=0,posfric=0,F=10.0,K=0.45,p=0.1,pm=0.1,pz=0.15;
     double a=1;
 };
 

@@ -33,7 +33,8 @@ SOURCES += \
     map.cpp \
     caja.cpp \
     coin.cpp \
-    maza.cpp
+    maza.cpp \
+    zombie.cpp
 
 HEADERS += \
     bala.h \
@@ -44,7 +45,8 @@ HEADERS += \
     map.h \
     caja.h \
     coin.h \
-    maza.h
+    maza.h \
+    zombie.h
 
 FORMS += \
     inicio.ui \
@@ -59,4 +61,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 RESOURCES += \
     sprites.qrc \
     escena.qrc \
-    sonidos.qrc
+    sonidos.qrc \
+    zombie.qrc

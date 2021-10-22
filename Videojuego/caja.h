@@ -15,10 +15,12 @@ public:
     void setTipo(bool value);
     bool getDestruc() const;
     void setDestruc(bool value);
+    bool getItemdado() const;
+    void setItemdado(bool value);
 
 private:
     float pa=0.7;
-    bool tipo,destruc=false;
+    bool tipo,destruc=false,itemdado=false;
     int poscx=0,poscy=0,size=0,vida=2;
 };
 

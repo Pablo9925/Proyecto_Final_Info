@@ -31,6 +31,8 @@ private slots:
 
     void on_ingresar_clicked();
 
+    void on_multijugador_clicked();
+
 private:
     Ui::inicio *ui;
     QString usuario;

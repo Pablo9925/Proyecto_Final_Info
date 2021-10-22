@@ -46,3 +46,13 @@ void caja::setDestruc(bool value)
 {
     destruc = value;
 }
+
+bool caja::getItemdado() const
+{
+    return itemdado;
+}
+
+void caja::setItemdado(bool value)
+{
+    itemdado = value;
+}

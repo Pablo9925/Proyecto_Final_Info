@@ -11,3 +11,13 @@ int coin::getPuntos() const
 {
     return puntos;
 }
+
+bool coin::getMonedada() const
+{
+    return monedada;
+}
+
+void coin::setMonedada(bool value)
+{
+    monedada = value;
+}

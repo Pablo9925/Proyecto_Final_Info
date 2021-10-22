@@ -14,7 +14,6 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QDialog>
-#include <QtWidgets/QGraphicsView>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPushButton>
@@ -33,43 +32,50 @@ public:
     QPushButton *cuentanueva;
     QPushButton *ingresar;
     QPushButton *nuevapartida;
-    QGraphicsView *graphicsView;
 
     void setupUi(QDialog *inicio)
     {
         if (inicio->objectName().isEmpty())
             inicio->setObjectName(QStringLiteral("inicio"));
-        inicio->resize(480, 356);
+        inicio->resize(504, 280);
+        inicio->setStyleSheet(QStringLiteral("background-image: url(:/escena/fondo.jpg);"));
         uss = new QLineEdit(inicio);
         uss->setObjectName(QStringLiteral("uss"));
-        uss->setGeometry(QRect(60, 180, 113, 20));
+        uss->setGeometry(QRect(50, 160, 113, 20));
+        uss->setStyleSheet(QStringLiteral("Background-image:url(:/sprites personaje/Dead (5).png)"));
         pass = new QLineEdit(inicio);
         pass->setObjectName(QStringLiteral("pass"));
-        pass->setGeometry(QRect(290, 180, 113, 20));
+        pass->setGeometry(QRect(300, 160, 113, 20));
+        pass->setAutoFillBackground(false);
+        pass->setStyleSheet(QStringLiteral("Background-image:url(:/sprites personaje/Dead (5).png)"));
         cargar = new QPushButton(inicio);
         cargar->setObjectName(QStringLiteral("cargar"));
-        cargar->setGeometry(QRect(160, 30, 131, 21));
+        cargar->setGeometry(QRect(30, 190, 131, 21));
+        cargar->setStyleSheet(QStringLiteral("Background-image:url(:/sprites personaje/Dead (5).png)"));
         multijugador = new QPushButton(inicio);
         multijugador->setObjectName(QStringLiteral("multijugador"));
-        multijugador->setGeometry(QRect(160, 110, 131, 23));
+        multijugador->setGeometry(QRect(310, 190, 131, 23));
+        multijugador->setStyleSheet(QStringLiteral("Background-image:url(:/sprites personaje/Dead (5).png)"));
         crear = new QPushButton(inicio);
         crear->setObjectName(QStringLiteral("crear"));
-        crear->setGeometry(QRect(150, 210, 141, 23));
+        crear->setGeometry(QRect(160, 190, 141, 23));
+        crear->setStyleSheet(QStringLiteral("Background-image:url(:/sprites personaje/Dead (5).png)"));
         inicio_2 = new QPushButton(inicio);
         inicio_2->setObjectName(QStringLiteral("inicio_2"));
-        inicio_2->setGeometry(QRect(74, 280, 91, 23));
+        inicio_2->setGeometry(QRect(60, 230, 91, 23));
+        inicio_2->setStyleSheet(QStringLiteral("Background-image:url(:/sprites personaje/Dead (5).png)"));
         cuentanueva = new QPushButton(inicio);
         cuentanueva->setObjectName(QStringLiteral("cuentanueva"));
-        cuentanueva->setGeometry(QRect(250, 280, 91, 23));
+        cuentanueva->setGeometry(QRect(310, 230, 91, 23));
+        cuentanueva->setStyleSheet(QStringLiteral("Background-image:url(:/sprites personaje/Dead (5).png)"));
         ingresar = new QPushButton(inicio);
         ingresar->setObjectName(QStringLiteral("ingresar"));
-        ingresar->setGeometry(QRect(180, 250, 75, 23));
+        ingresar->setGeometry(QRect(190, 230, 75, 23));
+        ingresar->setStyleSheet(QStringLiteral("Background-image:url(:/sprites personaje/Dead (5).png)"));
         nuevapartida = new QPushButton(inicio);
         nuevapartida->setObjectName(QStringLiteral("nuevapartida"));
-        nuevapartida->setGeometry(QRect(160, 70, 131, 23));
-        graphicsView = new QGraphicsView(inicio);
-        graphicsView->setObjectName(QStringLiteral("graphicsView"));
-        graphicsView->setGeometry(QRect(0, 0, 101, 121));
+        nuevapartida->setGeometry(QRect(160, 160, 131, 23));
+        nuevapartida->setStyleSheet(QStringLiteral("Background-image:url(:/sprites personaje/Dead (5).png)"));
 
         retranslateUi(inicio);
 
@@ -79,6 +85,7 @@ public:
     void retranslateUi(QDialog *inicio)
     {
         inicio->setWindowTitle(QApplication::translate("inicio", "Dialog", Q_NULLPTR));
+        pass->setText(QString());
         cargar->setText(QApplication::translate("inicio", "cargar", Q_NULLPTR));
         multijugador->setText(QApplication::translate("inicio", "multijugador", Q_NULLPTR));
         crear->setText(QApplication::translate("inicio", "crear", Q_NULLPTR));
