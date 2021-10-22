@@ -1,5 +1,6 @@
 INPUT(
 ./debug\bala.o
+./debug\inicio.o
 ./debug\main.o
 ./debug\mainwindow.o
 ./debug\personaje.o
@@ -11,6 +12,7 @@ INPUT(
 ./debug\qrc_sprites.o
 ./debug\qrc_escena.o
 ./debug\qrc_sonidos.o
+./debug\moc_inicio.o
 ./debug\moc_mainwindow.o
 ./debug\moc_personaje.o
 );

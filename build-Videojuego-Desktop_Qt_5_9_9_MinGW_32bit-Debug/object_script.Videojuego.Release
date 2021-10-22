@@ -1,5 +1,6 @@
 INPUT(
 ./release\bala.o
+./release\inicio.o
 ./release\main.o
 ./release\mainwindow.o
 ./release\personaje.o
@@ -11,6 +12,7 @@ INPUT(
 ./release\qrc_sprites.o
 ./release\qrc_escena.o
 ./release\qrc_sonidos.o
+./release\moc_inicio.o
 ./release\moc_mainwindow.o
 ./release\moc_personaje.o
 );

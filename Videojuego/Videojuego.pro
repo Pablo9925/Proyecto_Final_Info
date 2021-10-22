@@ -25,6 +25,7 @@ CONFIG += c++11
 
 SOURCES += \
     bala.cpp \
+    inicio.cpp \
         main.cpp \
         mainwindow.cpp \
     personaje.cpp \
@@ -36,6 +37,7 @@ SOURCES += \
 
 HEADERS += \
     bala.h \
+    inicio.h \
         mainwindow.h \
     personaje.h \
     logicamap.h \
@@ -45,6 +47,7 @@ HEADERS += \
     maza.h
 
 FORMS += \
+    inicio.ui \
         mainwindow.ui \
     menu.ui
 
