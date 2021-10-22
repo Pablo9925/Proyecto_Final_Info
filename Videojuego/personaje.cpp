@@ -83,6 +83,7 @@ personaje::~personaje()
     delete timeshot;
     delete timepunal;
     delete timesalt;
+    delete timemuer;
     delete bullet;
 }
 
@@ -216,6 +217,14 @@ void personaje::deslizar()
    }
 }
 
+void personaje::morir()
+{
+    vidas--;
+    timemuer = new QTimer;
+    timemuer->start(200);
+    connect(timemuer,SIGNAL(timeout()),this,SLOT(muerte_anima()));
+}
+
 void personaje::disparar()
 {
     if(derecha==true) setPixmap(QPixmap(spriPers[conts]).scaled(size/5,size/5));
@@ -265,6 +274,50 @@ void personaje::animacionsalto()
             contjump=8;
         }
     }
+}
+
+void personaje::muerte_anima()
+{
+    if(derecha==true){
+        if(contmuer==6){
+            timemuer->stop();
+            //finalizado=true;
+        }
+        setPixmap(QPixmap(spriPers[contmuer]).scaled(size/5,size/5));
+        if(contmuer<6){
+            contmuer++;
+        }
+    }
+    else{
+        if(contmuer==6){
+            timemuer->stop();
+            //finalizado=true;
+        }
+        setPixmap(QPixmap(spriPersL[contmuer]).scaled(size/5,size/5));
+        if(contmuer<6){
+            contmuer++;
+        }
+    }
+}
+/*
+bool personaje::getFinalizado() const
+{
+    return finalizado;
+}
+
+void personaje::setFinalizado(bool value)
+{
+    finalizado = value;
+}
+*/
+bool personaje::getMuerte() const
+{
+    return muerte;
+}
+
+void personaje::setMuerte(bool value)
+{
+    muerte = value;
 }
 
 int personaje::getPuntaje() const

@@ -25,6 +25,7 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    //void restablecer();
     void setup_mainwindow();
     void generar_mapa();
     bool generar_caja();

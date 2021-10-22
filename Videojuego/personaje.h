@@ -39,25 +39,33 @@ public:
     void shot();
     void melee();
     void deslizar();
+    void morir();
     int getVidas() const;
     void setVidas(int value);
     int getPuntaje() const;
     void setPuntaje(int value);
+    bool getMuerte() const;
+    void setMuerte(bool value);
+    //bool getFinalizado() const;
+    //void setFinalizado(bool value);
 
 public slots:
     void disparar();
     void apunalar();
     void animacionsalto();
+    void muerte_anima();
 
 private:
     bala *bullet;
     QTimer *timeshot;
     QTimer *timesalt;
     QTimer *timepunal;
+    QTimer *timemuer;
     QString spriPers[35];
     QString spriPersL[35];
-    bool derecha=true, meleeAct=false,parabolico=false, deslizo=true;
-    int vidas=3, ammo=6, damage=1, puntaje=0, size, contp=30, conts=31, contb=16 ,contjump=8;
+    bool derecha=true, meleeAct=false,parabolico=false, deslizo=true,muerte=false;
+    //bool finalizado=false;
+    int vidas=3, ammo=6, damage=1, puntaje=0, size, contp=30, conts=31, contb=16 ,contjump=8,contmuer=0;
     float posx=60, posy;
 };
 
