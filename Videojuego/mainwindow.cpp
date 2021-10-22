@@ -22,7 +22,7 @@ MainWindow::MainWindow(QWidget *parent) :
     coinsound= new QMediaPlayer();
     ammosound= new QMediaPlayer();
     timemaz = new QTimer(this);
-    timemaz->start(1);
+    timemaz->start(10);
     connect(timemaz,SIGNAL(timeout()),this,SLOT(movimiento_maza()));
     timez=new QTimer(this);
     timemaz->start(100);
@@ -191,7 +191,7 @@ void MainWindow::keyPressEvent(QKeyEvent *i)
                 advGirl->setX(advGirl->x()-20);
             }
             view->centerOn(advGirl->x(),504);
-            if(matriz[int(advGirl->get_posx()/160)][int(advGirl->get_posy()/144)+1]==0 && (int(advGirl->get_posy()/144)+1==4 || int(advGirl->get_posy()/144)+1==2) && matriz[int((advGirl->get_posx()+sizey/5)/160)][int(advGirl->get_posy()/144)+1]==0){
+            if(matriz[int(advGirl->get_posx()/160)][int(advGirl->get_posy()/144)+1]==0 && (int(advGirl->get_posy()/144)+1==4 || int(advGirl->get_posy()/144)+1==2) && matriz[int((advGirl->get_posx()+sizey/7)/160)][int(advGirl->get_posy()/144)+1]==0){
                 cae=true;
                 nc=0;
                 posysalto=advGirl->get_posy();

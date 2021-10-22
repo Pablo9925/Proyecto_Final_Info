@@ -5,7 +5,7 @@ maza::maza(float posmx, float posmy,int tam)
     size=tam/2;
     auxx=posmx;
     auxy=posmy;
-    setPixmap(QPixmap(":/escena/maza.png").scaled(size/2,size/2));
+    setPixmap(QPixmap(":/escena/maza.png").scaled(size,size));
     setPos(auxx,auxy);
 }
 
