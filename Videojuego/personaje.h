@@ -10,6 +10,8 @@
 #include "bala.h"
 #include <math.h>
 #include <QGraphicsScene>
+#include <QFile>
+#include <QTextStream>
 
 class personaje : public QObject, public QGraphicsPixmapItem
 {
@@ -40,6 +42,7 @@ public:
     void melee();
     void deslizar();
     void morir();
+    void guardar();
     int getVidas() const;
     void setVidas(int value);
     int getPuntaje() const;
@@ -49,6 +52,10 @@ public:
     //bool getFinalizado() const;
     //void setFinalizado(bool value);
 
+    void setPersonaje1(const QString &value);
+
+    void setPersonaje2(const QString &value);
+    QString recogerunalinea(int linea, QString a);
 public slots:
     void disparar();
     void apunalar();
@@ -63,6 +70,8 @@ private:
     QTimer *timemuer;
     QString spriPers[35];
     QString spriPersL[35];
+    QString personaje1;
+    QString personaje2;
     bool derecha=true, meleeAct=false,parabolico=false, deslizo=true,muerte=false;
     //bool finalizado=false;
     int vidas=3, ammo=6, damage=1, puntaje=0, size, contp=30, conts=31, contb=16 ,contjump=8,contmuer=0;

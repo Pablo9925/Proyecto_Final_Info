@@ -28,6 +28,7 @@ inicio::inicio(QWidget *parent) :
 inicio::~inicio()
 {
     delete ui;
+
 }
 
 void inicio::on_inicio_2_clicked()
@@ -52,6 +53,7 @@ void inicio::on_crear_clicked()
 {
     usuario=ui->uss->text();
     password=ui->pass->text();
+    QString puntinicio="0";
     QFile cuenta(usuario);
     if ( cuenta.open(QFile::WriteOnly | QFile::Text))
     {
@@ -59,6 +61,7 @@ void inicio::on_crear_clicked()
         QTextStream out(&cuenta);
         out << usuario<<endl;
         out << password << endl;
+        out << puntinicio << endl;
         cuenta.close();
         ui->uss->setVisible(false);
         ui->pass->setVisible(false);
@@ -78,8 +81,10 @@ void inicio::on_crear_clicked()
 
 void inicio::on_nuevapartida_clicked()
 {
+
     MainWindow *juego;
     juego=new MainWindow();
+    juego->setNombre(usuario);
     juego->show();
 }
 
@@ -87,6 +92,8 @@ void inicio::on_ingresar_clicked()
 {
     usuario=ui->uss->text();
     password=ui->pass->text();
+
+
     QFile archivo(usuario);
     if(archivo.open(QFile::ReadOnly | QFile::Text))
     {
@@ -154,7 +161,7 @@ void inicio::on_ingresar2_clicked()
             //qDebug()<< nivel;
             ui->uss->setVisible(false);
             ui->pass->setVisible(false);
-            ui->multijugador->setVisible(true);
+            ui->multijugador->setVisible(false);
            // ui->cargarPartida->setVisible(true);
             ui->nuevapartida->setVisible(true);
             ui->ingresar->setVisible(false);

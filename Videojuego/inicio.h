@@ -8,6 +8,7 @@
 #include<QTextStream>
 #include <QMessageBox>
 #include <mainwindow.h>
+
 namespace Ui {
 class inicio;
 }

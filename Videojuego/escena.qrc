@@ -17,5 +17,7 @@
         <file>escena/vida.png</file>
         <file>escena/exit.jpg</file>
         <file>escena/fondo.jpg</file>
+        <file>escena/cratedes1.png</file>
+        <file>escena/cratedes2.png</file>
     </qresource>
 </RCC>

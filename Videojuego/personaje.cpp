@@ -219,10 +219,36 @@ void personaje::deslizar()
 
 void personaje::morir()
 {
+    QFile archivo(personaje1);
+    QString clave,nombre,puntuacion;
+    if(archivo.open(QFile::ReadOnly | QFile::Text))
+    {
+        //cargamos de forma correcta el archivo por tanto vamos a habilitar la nueva ventana.
+        QTextStream read(&archivo);
+
+
+        nombre=read.readLine();
+        clave = read.readLine();
+        puntuacion=read.readLine();
+        archivo.close();
+    }
+    bool ok;
+    int puntuacionint = puntuacion.toInt(&ok);
+
+    QFile cuenta(personaje1);
+    if ( cuenta.open(QFile::WriteOnly | QFile::Text))
+    {
+
+        QTextStream out(&cuenta);
+        out <<nombre<<endl;
+        out <<clave<< endl;
+        out<<puntaje+puntuacionint;
+        cuenta.close();
     vidas--;
     timemuer = new QTimer;
     timemuer->start(200);
     connect(timemuer,SIGNAL(timeout()),this,SLOT(muerte_anima()));
+    }
 }
 
 void personaje::disparar()
@@ -299,11 +325,21 @@ void personaje::muerte_anima()
         }
     }
 }
+void personaje::setPersonaje2(const QString &value)
+{
+    personaje2 = value;
+}
+
+void personaje::setPersonaje1(const QString &value)
+{
+    personaje1 = value;
+}
 /*
 bool personaje::getFinalizado() const
 {
     return finalizado;
 }
+
 void personaje::setFinalizado(bool value)
 {
     finalizado = value;

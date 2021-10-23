@@ -14,6 +14,7 @@
 #include "coin.h"
 #include "maza.h"
 #include "zombie.h"
+#include <string>
 
 namespace Ui {
 class MainWindow;
@@ -35,6 +36,8 @@ public:
     bool generar_zombie();
     void keyPressEvent(QKeyEvent *i);
 
+
+    void setNombre(const QString &value);
 
 public slots:
     void deslizando();
@@ -67,6 +70,7 @@ private:
     QList <coin*> monedas;
     QList <maza*> mazas;
     QList <zombie*> zombies;
+    QString nombre;
     float  posxsalto=0,posysalto=0,posysaltoant=0,vxo=5,vyo=25,T=0.1,posyinicial=0,posfric=0,F=10.0,K=0.45,p=0.1,pm=0.1,pz=0.15;
     double a=1;
 };

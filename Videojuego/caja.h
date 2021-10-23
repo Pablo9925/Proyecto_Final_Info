@@ -17,10 +17,12 @@ public:
     void setDestruc(bool value);
     bool getItemdado() const;
     void setItemdado(bool value);
+    bool getItemgen() const;
+    void setItemgen(bool value);
 
 private:
     float pa=0.7;
-    bool tipo,destruc=false,itemdado=false;
+    bool tipo,destruc=false,itemdado=false,itemgen=false;
     int poscx=0,poscy=0,size=0,vida=2;
 };
 
