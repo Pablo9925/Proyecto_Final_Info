@@ -187,6 +187,7 @@ void personaje::shot()
 {
     if(derecha==true) bullet=new bala(posx+size/5,posy);
     else bullet=new bala(posx-size/5,posy);
+    animadisp=true;
     timeshot = new QTimer;
     timeshot->start(100);
     connect(timeshot,SIGNAL(timeout()),this,SLOT(disparar()));
@@ -232,6 +233,7 @@ void personaje::disparar()
     conts++;
     if(conts==34){
         timeshot->stop();
+        animadisp=false;
         conts=31;
     }
 }
@@ -299,6 +301,12 @@ void personaje::muerte_anima()
         }
     }
 }
+
+bool personaje::getAnimadisp() const
+{
+    return animadisp;
+}
+
 /*
 bool personaje::getFinalizado() const
 {

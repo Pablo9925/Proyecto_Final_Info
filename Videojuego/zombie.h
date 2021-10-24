@@ -3,15 +3,15 @@
 #include <QObject>
 #include <QGraphicsPixmapItem>
 #include <QString>
+#include <QTimer>
 
 class zombie : public QObject, public QGraphicsPixmapItem
 {
 public:
     zombie(float posmx, float posmy,int tam);
+    ~zombie();
     void movimientod();
     void movimientoi();
-    void ataque();
-    void morir();
     bool getImpacto() const;
     void setImpacto(bool value);
     float getX() const;
@@ -24,11 +24,15 @@ public:
     void setMov(bool value);
     float getY() const;
     void setY(float value);
+    bool getAtaque() const;
+    void setAtaque(bool value);
+
+    QString spriZombie[54];
 
 private:
-    QString spriZombie[54];
-    int size=0, contmov=34, contmue=0,contatt=14;
-    bool impacto=false,direc=false,vivo=true,mov=true;
+    QTimer *timeatt;
+    int size=0, contmov=34;
+    bool impacto=false,direc=false,vivo=true,mov=true,ataque=false;
     float x=0,y=0;
 };
 

@@ -142,6 +142,7 @@ release/qrc_sprites.cpp: ../Videojuego/sprites.qrc \
 release/qrc_escena.cpp: ../Videojuego/escena.qrc \
 		C:/Qt/5.7/mingw53_32/bin/rcc.exe \
 		../Videojuego/escena/coin.png \
+		../Videojuego/escena/Menu.png \
 		../Videojuego/escena/maza.png \
 		../Videojuego/escena/exit.jpg \
 		../Videojuego/escena/cratedes1.png \
@@ -316,6 +317,7 @@ release/moc_mainwindow.cpp: C:/Qt/5.7/mingw53_32/include/QtWidgets/QMainWindow \
 		../Videojuego/caja.h \
 		../Videojuego/coin.h \
 		../Videojuego/maza.h \
+		../Videojuego/zombie.h \
 		../Videojuego/mainwindow.h \
 		C:/Qt/5.7/mingw53_32/bin/moc.exe
 	C:\Qt\5.7\mingw53_32\bin\moc.exe $(DEFINES) -D__GNUC__ -DWIN32 -IC:/Qt/5.7/mingw53_32/mkspecs/win32-g++ -I"C:/Users/Usuario/Desktop/Universidad/Info 2/2021-1/Proyecto_Final/Proyecto_Final_Info/Videojuego" -IC:/Qt/5.7/mingw53_32/include -IC:/Qt/5.7/mingw53_32/include/QtWidgets -IC:/Qt/5.7/mingw53_32/include/QtMultimedia -IC:/Qt/5.7/mingw53_32/include/QtGui -IC:/Qt/5.7/mingw53_32/include/QtANGLE -IC:/Qt/5.7/mingw53_32/include/QtNetwork -IC:/Qt/5.7/mingw53_32/include/QtCore -I. -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ..\Videojuego\mainwindow.h -o release\moc_mainwindow.cpp
@@ -691,6 +693,7 @@ release/main.o: ../Videojuego/main.cpp ../Videojuego/mainwindow.h \
 		../Videojuego/caja.h \
 		../Videojuego/coin.h \
 		../Videojuego/maza.h \
+		../Videojuego/zombie.h \
 		C:/Qt/5.7/mingw53_32/include/QtWidgets/QApplication \
 		C:/Qt/5.7/mingw53_32/include/QtWidgets/qapplication.h \
 		C:/Qt/5.7/mingw53_32/include/QtCore/qcoreapplication.h \
@@ -846,39 +849,8 @@ release/mainwindow.o: ../Videojuego/mainwindow.cpp ../Videojuego/mainwindow.h \
 		../Videojuego/caja.h \
 		../Videojuego/coin.h \
 		../Videojuego/maza.h \
+		../Videojuego/zombie.h \
 		ui_mainwindow.h \
-		C:/Qt/5.7/mingw53_32/include/QtWidgets/QAction \
-		C:/Qt/5.7/mingw53_32/include/QtWidgets/qaction.h \
-		C:/Qt/5.7/mingw53_32/include/QtWidgets/qactiongroup.h \
-		C:/Qt/5.7/mingw53_32/include/QtWidgets/QApplication \
-		C:/Qt/5.7/mingw53_32/include/QtWidgets/qapplication.h \
-		C:/Qt/5.7/mingw53_32/include/QtCore/qcoreapplication.h \
-		C:/Qt/5.7/mingw53_32/include/QtCore/qeventloop.h \
-		C:/Qt/5.7/mingw53_32/include/QtWidgets/qdesktopwidget.h \
-		C:/Qt/5.7/mingw53_32/include/QtGui/qguiapplication.h \
-		C:/Qt/5.7/mingw53_32/include/QtGui/qinputmethod.h \
-		C:/Qt/5.7/mingw53_32/include/QtWidgets/QButtonGroup \
-		C:/Qt/5.7/mingw53_32/include/QtWidgets/qbuttongroup.h \
-		C:/Qt/5.7/mingw53_32/include/QtWidgets/QHeaderView \
-		C:/Qt/5.7/mingw53_32/include/QtWidgets/qheaderview.h \
-		C:/Qt/5.7/mingw53_32/include/QtWidgets/qabstractitemview.h \
-		C:/Qt/5.7/mingw53_32/include/QtCore/qabstractitemmodel.h \
-		C:/Qt/5.7/mingw53_32/include/QtCore/qitemselectionmodel.h \
-		C:/Qt/5.7/mingw53_32/include/QtWidgets/qabstractitemdelegate.h \
-		C:/Qt/5.7/mingw53_32/include/QtWidgets/qstyleoption.h \
-		C:/Qt/5.7/mingw53_32/include/QtWidgets/qabstractspinbox.h \
-		C:/Qt/5.7/mingw53_32/include/QtGui/qvalidator.h \
-		C:/Qt/5.7/mingw53_32/include/QtCore/qregularexpression.h \
-		C:/Qt/5.7/mingw53_32/include/QtWidgets/qslider.h \
-		C:/Qt/5.7/mingw53_32/include/QtWidgets/qabstractslider.h \
-		C:/Qt/5.7/mingw53_32/include/QtWidgets/qstyle.h \
-		C:/Qt/5.7/mingw53_32/include/QtWidgets/qtabbar.h \
-		C:/Qt/5.7/mingw53_32/include/QtWidgets/qrubberband.h \
-		C:/Qt/5.7/mingw53_32/include/QtWidgets/QStatusBar \
-		C:/Qt/5.7/mingw53_32/include/QtWidgets/qstatusbar.h \
-		C:/Qt/5.7/mingw53_32/include/QtWidgets/QToolBar \
-		C:/Qt/5.7/mingw53_32/include/QtWidgets/qtoolbar.h \
-		C:/Qt/5.7/mingw53_32/include/QtWidgets/QWidget \
 		C:/Qt/5.7/mingw53_32/include/QtCore/QDebug
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\mainwindow.o ..\Videojuego\mainwindow.cpp
 
@@ -1418,9 +1390,7 @@ release/zombie.o: ../Videojuego/zombie.cpp ../Videojuego/zombie.h \
 		C:/Qt/5.7/mingw53_32/include/QtGui/qimage.h \
 		C:/Qt/5.7/mingw53_32/include/QtGui/qpixelformat.h \
 		C:/Qt/5.7/mingw53_32/include/QtGui/qtransform.h \
-		C:/Qt/5.7/mingw53_32/include/QtCore/QTimer \
-		C:/Qt/5.7/mingw53_32/include/QtCore/qtimer.h \
-		C:/Qt/5.7/mingw53_32/include/QtCore/qbasictimer.h
+		C:/Qt/5.7/mingw53_32/include/QtCore/QString
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\zombie.o ..\Videojuego\zombie.cpp
 
 release/qrc_sprites.o: release/qrc_sprites.cpp 

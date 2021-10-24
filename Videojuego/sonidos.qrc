@@ -5,5 +5,8 @@
         <file>sonidos/007137308_prev.mp3</file>
         <file>sonidos/Coins_Collecting_01_Sound_Effect_Mp3_315.mp3</file>
         <file>sonidos/008842199_prev.mp3</file>
+        <file>sonidos/caja.mp3</file>
+        <file>sonidos/zombie-moan-moan.mp3</file>
+        <file>sonidos/herida.mp3</file>
     </qresource>
 </RCC>
