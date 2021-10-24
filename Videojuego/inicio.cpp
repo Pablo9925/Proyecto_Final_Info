@@ -62,6 +62,9 @@ void inicio::on_crear_clicked()
         out << usuario<<endl;
         out << password << endl;
         out << puntinicio << endl;
+        out<<"1"<<endl;
+        out <<"3"<<endl;
+        out<<"4"<<endl;
         cuenta.close();
         ui->uss->setVisible(false);
         ui->pass->setVisible(false);
@@ -81,7 +84,16 @@ void inicio::on_crear_clicked()
 
 void inicio::on_nuevapartida_clicked()
 {
-
+    QString puntinicio="0";
+    QFile cuenta(usuario);
+    if ( cuenta.open(QFile::WriteOnly | QFile::Text))
+    {
+        QTextStream out(&cuenta);
+        out << usuario<<endl;
+        out << password << endl;
+        out << puntinicio << endl;
+        cuenta.close();
+    }
     MainWindow *juego;
     juego=new MainWindow();
     juego->setNombre(usuario);
@@ -114,7 +126,7 @@ void inicio::on_ingresar_clicked()
             ui->uss->setVisible(false);
             ui->pass->setVisible(false);
             ui->multijugador->setVisible(true);
-           // ui->cargarPartida->setVisible(true);
+            ui->cargar->setVisible(true);
             ui->nuevapartida->setVisible(true);
             ui->ingresar->setVisible(false);
             archivo.close();
@@ -176,3 +188,12 @@ void inicio::on_ingresar2_clicked()
 }
 
 
+
+void inicio::on_cargar_clicked()
+{
+    MainWindow *juego;
+    juego=new MainWindow();
+    juego->setNombre(usuario);
+    juego->cargar();
+    juego->show();
+}

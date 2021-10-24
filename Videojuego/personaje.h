@@ -49,6 +49,7 @@ public:
     void setPuntaje(int value);
     bool getMuerte() const;
     void setMuerte(bool value);
+    void cargando();
     //bool getFinalizado() const;
     //void setFinalizado(bool value);
 
@@ -74,7 +75,7 @@ private:
     QString personaje2;
     bool derecha=true, meleeAct=false,parabolico=false, deslizo=true,muerte=false;
     //bool finalizado=false;
-    int vidas=3, ammo=6, damage=1, puntaje=0, size, contp=30, conts=31, contb=16 ,contjump=8,contmuer=0;
+    int vidas=3, ammo=6, damage=1, puntaje=0, size, contp=30, conts=31, contb=16 ,contjump=8,contmuer=0,nivel=0;
     float posx=60, posy;
 };
 

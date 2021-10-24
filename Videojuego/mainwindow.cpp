@@ -566,3 +566,9 @@ void MainWindow::setNombre(const QString &value)
 {
     nombre = value;
 }
+
+void MainWindow::cargar()
+{
+    advGirl->setPersonaje1(nombre);
+    advGirl->cargando();
+}

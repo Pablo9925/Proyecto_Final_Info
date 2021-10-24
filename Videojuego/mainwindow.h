@@ -38,7 +38,7 @@ public:
 
 
     void setNombre(const QString &value);
-
+    void cargar();
 public slots:
     void deslizando();
     void movimientobala();

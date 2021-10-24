@@ -36,6 +36,8 @@ private slots:
 
     void on_ingresar2_clicked();
 
+    void on_cargar_clicked();
+
 private:
     Ui::inicio *ui;
     QString usuario;

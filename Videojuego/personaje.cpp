@@ -220,7 +220,7 @@ void personaje::deslizar()
 void personaje::morir()
 {
     QFile archivo(personaje1);
-    QString clave,nombre,puntuacion;
+    QString clave,nombre,puntuacion,nivelstr,municionstr,vidastr;
     if(archivo.open(QFile::ReadOnly | QFile::Text))
     {
         //cargamos de forma correcta el archivo por tanto vamos a habilitar la nueva ventana.
@@ -230,6 +230,9 @@ void personaje::morir()
         nombre=read.readLine();
         clave = read.readLine();
         puntuacion=read.readLine();
+        nivelstr=read.readLine();
+        vidastr=read.readLine();
+        municionstr=read.readLine();
         archivo.close();
     }
     bool ok;
@@ -242,7 +245,10 @@ void personaje::morir()
         QTextStream out(&cuenta);
         out <<nombre<<endl;
         out <<clave<< endl;
-        out<<puntaje+puntuacionint;
+        out<<puntaje+puntuacionint<<endl;
+        out<<nivel<<endl;
+        out<<vidas<<endl;
+        out<<ammo<<endl;
         cuenta.close();
     vidas--;
     timemuer = new QTimer;
@@ -355,6 +361,8 @@ void personaje::setMuerte(bool value)
     muerte = value;
 }
 
+
+
 int personaje::getPuntaje() const
 {
     return puntaje;
@@ -373,4 +381,30 @@ int personaje::getVidas() const
 void personaje::setVidas(int value)
 {
     vidas = value;
+}
+void personaje::cargando()
+{
+    QFile archivo(personaje1);
+    QString clave,nombre,puntuacion,nivelstr,municionstr,vidastr;;
+    if(archivo.open(QFile::ReadOnly | QFile::Text))
+    {
+        //cargamos de forma correcta el archivo por tanto vamos a habilitar la nueva ventana.
+        QTextStream read(&archivo);
+
+
+        nombre=read.readLine();
+        clave = read.readLine();
+        puntuacion=read.readLine();
+        nivelstr=read.readLine();
+        vidastr=read.readLine();
+        municionstr=read.readLine();
+        archivo.close();
+    }
+    bool ok;
+    int puntuacionint = puntuacion.toInt(&ok);
+    nivel = nivelstr.toInt(&ok)+1;
+    vidas = vidastr.toInt(&ok)+1;
+    ammo = municionstr.toInt(&ok);
+
+    puntaje=puntuacionint;
 }
