@@ -187,6 +187,7 @@ void personaje::shot()
 {
     if(derecha==true) bullet=new bala(posx+size/5,posy);
     else bullet=new bala(posx-size/5,posy);
+    animadisp=true;
     timeshot = new QTimer;
     timeshot->start(100);
     connect(timeshot,SIGNAL(timeout()),this,SLOT(disparar()));
@@ -219,6 +220,16 @@ void personaje::deslizar()
 
 void personaje::morir()
 {
+    guardar();
+    vidas--;
+    timemuer = new QTimer;
+    timemuer->start(200);
+    connect(timemuer,SIGNAL(timeout()),this,SLOT(muerte_anima()));
+
+}
+
+void personaje::guardar()
+{
     QFile archivo(personaje1);
     QString clave,nombre,puntuacion,nivelstr,municionstr,vidastr;
     if(archivo.open(QFile::ReadOnly | QFile::Text))
@@ -250,10 +261,6 @@ void personaje::morir()
         out<<vidas<<endl;
         out<<ammo<<endl;
         cuenta.close();
-    vidas--;
-    timemuer = new QTimer;
-    timemuer->start(200);
-    connect(timemuer,SIGNAL(timeout()),this,SLOT(muerte_anima()));
     }
 }
 
@@ -264,6 +271,7 @@ void personaje::disparar()
     conts++;
     if(conts==34){
         timeshot->stop();
+        animadisp=false;
         conts=31;
     }
 }
@@ -330,6 +338,11 @@ void personaje::muerte_anima()
             contmuer++;
         }
     }
+}
+
+bool personaje::getAnimadisp() const
+{
+    return animadisp;
 }
 void personaje::setPersonaje2(const QString &value)
 {

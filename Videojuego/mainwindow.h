@@ -47,7 +47,7 @@ public slots:
     void movimiento_maza();
     void movimiento_zombie();
 private:
-    int sizex=0,sizey=0,n=1,nc=0,nf=0;
+    int sizex=0,sizey=0,n=1,nc=0,nf=0,contatt=0,contmue=14;;
     int matriz[columnas*15][filas];
     bool bulletAct=false, direc, cae=false,salto=false;
     Ui::MainWindow *ui;
@@ -63,6 +63,9 @@ private:
     QMediaPlayer * csound;
     QMediaPlayer * coinsound;
     QMediaPlayer * ammosound;
+    QMediaPlayer * zsound;
+    QMediaPlayer * psound;
+    QMediaPlayer * cajasound;
     QGraphicsLineItem *l1, *l2;
     map *mapa[columnas*15][filas];
     logicamap *l_mapa;

@@ -21,12 +21,15 @@ MainWindow::MainWindow(QWidget *parent) :
     csound= new QMediaPlayer();
     coinsound= new QMediaPlayer();
     ammosound= new QMediaPlayer();
+    zsound= new QMediaPlayer();
+    psound= new QMediaPlayer();
+    cajasound= new QMediaPlayer();
     timemaz = new QTimer(this);
     timemaz->start(10);
     connect(timemaz,SIGNAL(timeout()),this,SLOT(movimiento_maza()));
     timez=new QTimer(this);
-    timemaz->start(100);
-    connect(timemaz,SIGNAL(timeout()),this,SLOT(movimiento_zombie()));
+    timez->start(100);
+    connect(timez,SIGNAL(timeout()),this,SLOT(movimiento_zombie()));
 }
 
 MainWindow::~MainWindow()
@@ -42,6 +45,9 @@ MainWindow::~MainWindow()
     delete csound;
     delete coinsound;
     delete ammosound;
+    delete zsound;
+    delete psound;
+    delete cajasound;
     delete l1;
     delete l2;
     for(int x=0; x<columnas; x++) for(int y=0; y<filas; y++) delete mapa[x][y];
@@ -240,7 +246,7 @@ void MainWindow::keyPressEvent(QKeyEvent *i)
         }
     }
     else if(i->key()==Qt::Key_P){
-        if(advGirl->get_ActAttack()==false && bulletAct==false && advGirl->get_ammo()>0 && advGirl->getParabolico()==false && advGirl->getDeslizo()==true && cae==false && advGirl->getMuerte()==false){
+         if(advGirl->getAnimadisp()==false && advGirl->get_ActAttack()==false && bulletAct==false && advGirl->get_ammo()>0 && advGirl->getParabolico()==false && advGirl->getDeslizo()==true && cae==false && advGirl->getMuerte()==false){
             if(advGirl->get_direc()==true) advGirl->setPixmap((QPixmap(":/sprites personaje/Shoot (1).png").scaled(sizey/5,sizey/5)));
             else advGirl->setPixmap((QPixmap(":/sprites personaje/ShootL (1).png").scaled(sizey/5,sizey/5)));
             advGirl->set_ammo(advGirl->get_ammo()-1);
@@ -265,6 +271,8 @@ void MainWindow::keyPressEvent(QKeyEvent *i)
             for (int j=0;j<cajas.size() ;j++ ) {
                 if(advGirl->collidesWithItem(cajas.at(j))){
                     if(cajas.at(j)->getVida()>0){
+                        cajasound->setMedia(QUrl("qrc:/sonidos/caja.mp3"));
+                        cajasound->play();
                         if(cajas.at(j)->getVida()==2) cajas.at(j)->setPixmap(QPixmap(":/escena/cratedes1.png").scaled(sizey/10,sizey/10));
                         else cajas.at(j)->setPixmap(QPixmap(":/escena/cratedes2.png").scaled(sizey/10,sizey/10));
                         cajas.at(j)->setVida(cajas.at(j)->getVida()-advGirl->get_damage());
@@ -335,6 +343,18 @@ void MainWindow::keyPressEvent(QKeyEvent *i)
     }
 }
 
+void MainWindow::setNombre(const QString &value)
+{
+    nombre = value;
+}
+
+void MainWindow::cargar()
+{
+    advGirl->setPersonaje1(nombre);
+    advGirl->cargando();
+}
+
+
 void MainWindow::saltoparabolico()
 {
     posysaltoant=posysalto;
@@ -350,6 +370,16 @@ void MainWindow::saltoparabolico()
     }
     advGirl->setX(posxsalto);
     advGirl->setY(posysalto);
+    for (int j=0;j<monedas.size() ;j++ ) {
+        if(advGirl->collidesWithItem(monedas.at(j)) && monedas.at(j)->getMonedada()==false){
+            monedas.at(j)->setMonedada(true);
+            coinsound->setMedia(QUrl("qrc:/sonidos/Coins_Collecting_01_Sound_Effect_Mp3_315.mp3"));
+            coinsound->play();
+            advGirl->setPuntaje(advGirl->getPuntaje()+monedas.at(j)->getPuntos());
+            escena->removeItem(monedas.at(j));
+            monedas.removeAt(j);
+        }
+    }
     if(n%7==0) view->centerOn(advGirl->x(),504);
     if(advGirl->get_direc()==true){
         if(posysalto>=216 && posysalto>posysaltoant && (matriz[int(posxsalto/160)][int(posysalto/144)+1]!=0 || matriz[int((posxsalto+(sizey/10))/160)][int(posysalto/144)+1]!=0) && int(posysalto/144)+1==2){
@@ -410,6 +440,16 @@ void MainWindow::caida()
     posysalto = (sizey-advGirl->get_posy())-0.5*a*nc*(T)*nc*(T);
     nc++;
     advGirl->setY(sizey-posysalto);
+    for (int j=0;j<monedas.size() ;j++ ) {
+        if(advGirl->collidesWithItem(monedas.at(j)) && monedas.at(j)->getMonedada()==false){
+            monedas.at(j)->setMonedada(true);
+            coinsound->setMedia(QUrl("qrc:/sonidos/Coins_Collecting_01_Sound_Effect_Mp3_315.mp3"));
+            coinsound->play();
+            advGirl->setPuntaje(advGirl->getPuntaje()+monedas.at(j)->getPuntos());
+            escena->removeItem(monedas.at(j));
+            monedas.removeAt(j);
+        }
+    }
     if(advGirl->get_direc()==true){
         if((sizey-posysalto)>=504 && (matriz[int(advGirl->get_posx()/160)][int((sizey-posysalto)/144)+1]!=0  || matriz[int((advGirl->get_posx()+(sizey/10))/160)][int((sizey-posysalto)/144)+1]!=0) && int((sizey-posysalto)/144)+1==4){
             advGirl->setY(504);
@@ -448,6 +488,10 @@ void MainWindow::movimiento_maza()
                   advGirl->morir();
                   //restablecer();
               }
+              else{
+                  psound->setMedia(QUrl("qrc:/sonidos/herida.mp3"));
+                  psound->play();
+              }
           }
     }
 }
@@ -455,17 +499,67 @@ void MainWindow::movimiento_maza()
 void MainWindow::movimiento_zombie()
 {
     for(int j=0;j<zombies.length();j++){
-        if(zombies.at(j)->getDirec()==true && zombies.at(j)->getX()<advGirl->get_posx()+sizex){
+        if(zombies.at(j)->getVivo()==true && zombies.at(j)->getDirec()==true && zombies.at(j)->getX()<advGirl->get_posx()+sizex && zombies.at(j)->getMov()==true){
             if(!zombies.at(j)->collidesWithItem(l2) && matriz[int((zombies.at(j)->getX()+(sizey/5)*(4/5)+60)/160)][int(zombies.at(j)->getY()/144)+1]!=0){
                 zombies.at(j)->movimientod();
             }
             else zombies.at(j)->setDirec(false);
         }
-        else if(zombies.at(j)->getDirec()==false && zombies.at(j)->getX()>advGirl->get_posx()-sizex){
+        else if(zombies.at(j)->getVivo()==true && zombies.at(j)->getDirec()==false && zombies.at(j)->getX()>advGirl->get_posx()-sizex && zombies.at(j)->getMov()==true){
             if(!zombies.at(j)->collidesWithItem(l1) && matriz[int((zombies.at(j)->getX()-10)/160)][int(zombies.at(j)->getY()/144)+1]!=0){
                 zombies.at(j)->movimientoi();
             }
             else zombies.at(j)->setDirec(true);
+        }
+        if(zombies.at(j)->getVivo()==true && advGirl->getDeslizo()==true && zombies.at(j)->collidesWithItem(advGirl) && zombies.at(j)->getImpacto()==false){
+            zombies.at(j)->setMov(false);
+            zombies.at(j)->setImpacto(true);
+            zombies.at(j)->setAtaque(true);
+            if(advGirl->getVidas()==0){
+                advGirl->setMuerte(true);
+                advGirl->morir();
+                //restablecer();
+            }
+        }
+        if(zombies.at(j)->getAtaque()==true){
+            if(zombies.at(j)->getDirec()==true){
+                zombies.at(j)->setPixmap(QPixmap(zombies.at(j)->spriZombie[contatt]).scaled((sizey/5)*4/5,sizey/5));
+                contatt++;
+            }
+            else{
+                zombies.at(j)->setPixmap(QPixmap(zombies.at(j)->spriZombie[contatt+7]).scaled((sizey/5)*4/5,sizey/5));
+                contatt++;
+            }
+            contatt++;
+            if(contatt>6){
+                contatt=0;
+                zombies.at(j)->setImpacto(false);
+                zombies.at(j)->setMov(true);
+                zombies.at(j)->setAtaque(false);
+                if(zombies.at(j)->collidesWithItem(advGirl)){
+                    if(advGirl->getVidas()>0){
+                        psound->setMedia(QUrl("qrc:/sonidos/herida.mp3"));
+                        psound->play();
+                    }
+                    advGirl->setVidas(advGirl->getVidas()-1);
+                }
+            }
+        }
+        if(zombies.at(j)->getVivo()==false){
+            if(zombies.at(j)->getDirec()==true){
+                zombies.at(j)->setPixmap(QPixmap(zombies.at(j)->spriZombie[contmue]).scaled((sizey/5)*4/5,sizey/5));
+                contmue++;
+            }
+            else{
+                zombies.at(j)->setPixmap(QPixmap(zombies.at(j)->spriZombie[contmue+10]).scaled((sizey/5)*4/5,sizey/5));
+                contmue++;
+            }
+            contatt++;
+            if(contmue>23){
+                contmue=14;
+                escena->removeItem(zombies.at(j));
+                zombies.removeAt(j);
+            }
         }
     }
 }
@@ -527,6 +621,16 @@ void MainWindow::deslizando()
             advGirl->deslizar();
         }
     }
+    for (int j=0;j<monedas.size() ;j++ ) {
+        if(advGirl->collidesWithItem(monedas.at(j)) && monedas.at(j)->getMonedada()==false){
+            monedas.at(j)->setMonedada(true);
+            coinsound->setMedia(QUrl("qrc:/sonidos/Coins_Collecting_01_Sound_Effect_Mp3_315.mp3"));
+            coinsound->play();
+            advGirl->setPuntaje(advGirl->getPuntaje()+monedas.at(j)->getPuntos());
+            escena->removeItem(monedas.at(j));
+            monedas.removeAt(j);
+        }
+    }
 }
 
 void MainWindow::movimientobala()
@@ -535,6 +639,8 @@ void MainWindow::movimientobala()
     else advGirl->getBullet()->actualiza_posL();
     for (int j=0;j<cajas.size() ;j++ ) {
         if(advGirl->getBullet()->collidesWithItem(cajas.at(j))){
+            cajasound->setMedia(QUrl("qrc:/sonidos/caja.mp3"));
+            cajasound->play();
             cajas.at(j)->setVida(0);
             cajas.at(j)->setDestruc(true);
             if(cajas.at(j)->ammo()==true){
@@ -550,6 +656,16 @@ void MainWindow::movimientobala()
             bulletAct=false;
         }
     }
+    for (int i=0;i<zombies.size() ;i++ ) {
+        if(advGirl->getBullet()->collidesWithItem(zombies.at(i))){
+            zsound->setMedia(QUrl("qrc:/sonidos/zombie-moan-moan.mp3"));
+            zsound->play();
+            zombies.at(i)->setVivo(false);
+            time->stop();
+            escena->removeItem(advGirl->getBullet());
+            bulletAct=false;
+        }
+
     if(advGirl->getBullet()->get_posx()>advGirl->get_posx()+sizex && direc==true){
         time->stop();
         escena->removeItem(advGirl->getBullet());
@@ -561,14 +677,6 @@ void MainWindow::movimientobala()
         bulletAct=false;
     }
 }
-
-void MainWindow::setNombre(const QString &value)
-{
-    nombre = value;
 }
 
-void MainWindow::cargar()
-{
-    advGirl->setPersonaje1(nombre);
-    advGirl->cargando();
-}
+

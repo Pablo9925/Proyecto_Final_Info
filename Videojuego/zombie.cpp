@@ -62,7 +62,10 @@ zombie::zombie(float posmx, float posmy, int tam)
     setPixmap(QPixmap(spriZombie[44]).scaled(size*4/5,size));
     setPos(x,y);
 }
-
+zombie::~zombie()
+{
+    delete timeatt;
+}
 void zombie::movimientoi()
 {
     if(mov==true){
@@ -89,15 +92,7 @@ void zombie::movimientod()
     }
 }
 
-void zombie::ataque()
-{
 
-}
-
-void zombie::morir()
-{
-
-}
 
 bool zombie::getImpacto() const
 {
@@ -157,4 +152,14 @@ float zombie::getY() const
 void zombie::setY(float value)
 {
     y = value;
+}
+
+bool zombie::getAtaque() const
+{
+    return ataque;
+}
+
+void zombie::setAtaque(bool value)
+{
+    ataque = value;
 }
