@@ -60,6 +60,8 @@ public:
     bool getAnimadisp() const;
 
 
+    int getNivel() const;
+
 public slots:
     void disparar();
     void apunalar();

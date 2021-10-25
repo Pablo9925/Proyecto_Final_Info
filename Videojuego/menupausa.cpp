@@ -6,13 +6,21 @@ menupausa::menupausa(QWidget *parent) :
     ui(new Ui::menupausa)
 {
     ui->setupUi(this);
-    chica=new personaje(15);
-    ui->municion->setNum(chica->get_ammo());
-    ui->vida->setNum(chica->getVidas());
+
+
+}
+
+void menupausa::actualizacion(int vid, int muni, int puntaje, int nivel)
+{
+    vida=vid;
+    municion=muni;
+    puntos=puntaje;
+    level=nivel;
+    ui->municion->setNum(municion);
+    ui->vida->setNum(vida);
 }
 
 menupausa::~menupausa()
 {
     delete ui;
-    delete chica;
 }

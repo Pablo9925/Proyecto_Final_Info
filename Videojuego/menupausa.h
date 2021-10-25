@@ -14,11 +14,12 @@ class menupausa : public QWidget
 
 public:
     explicit menupausa(QWidget *parent = nullptr);
+    void actualizacion(int vid,int muni,int puntaje,int nivel);
     ~menupausa();
 
 private:
     Ui::menupausa *ui;
-    personaje *chica;
+    int vida,municion,puntos,level;
 };
 
 #endif // MENUPAUSA_H

@@ -346,21 +346,18 @@ void MainWindow::keyPressEvent(QKeyEvent *i)
         advGirl->setMuerte(true);
         timemaz->stop();
         timez->stop();
-        times->stop();
+        //times->stop();
+
+        pausa->actualizacion(advGirl->getVidas(),advGirl->get_ammo(),advGirl->getPuntaje(),advGirl->getNivel());
         pausa->show();
     }
     else if(i->key()==Qt::Key_N){
         pausa->close();
         advGirl->setMuerte(false);
-        timemaz = new QTimer(this);
         timemaz->start(10);
-        connect(timemaz,SIGNAL(timeout()),this,SLOT(movimiento_maza()));
-        timez=new QTimer(this);
         timez->start(100);
-        connect(timez,SIGNAL(timeout()),this,SLOT(movimiento_zombie()));
-        /*times=new QTimer;
-        times->start(1);
-        connect(times,SIGNAL(timeout()),this,SLOT(saltoparabolico()));*/
+        //times->start(1);
+
     }
 }
 

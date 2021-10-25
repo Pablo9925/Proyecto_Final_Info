@@ -31,19 +31,24 @@ public:
     {
         if (menupausa->objectName().isEmpty())
             menupausa->setObjectName(QStringLiteral("menupausa"));
-        menupausa->resize(480, 198);
+        menupausa->resize(480, 242);
+        menupausa->setStyleSheet(QStringLiteral("Background-image:url(:/escena/fondo.jpg)"));
         label = new QLabel(menupausa);
         label->setObjectName(QStringLiteral("label"));
         label->setGeometry(QRect(100, 40, 47, 14));
+        label->setStyleSheet(QStringLiteral("Background-image:url(:/sprites personaje/Dead (5).png)"));
         vida = new QLabel(menupausa);
         vida->setObjectName(QStringLiteral("vida"));
         vida->setGeometry(QRect(240, 40, 47, 14));
+        vida->setStyleSheet(QStringLiteral("Background-image:url(:/sprites personaje/Dead (5).png)"));
         label_3 = new QLabel(menupausa);
         label_3->setObjectName(QStringLiteral("label_3"));
-        label_3->setGeometry(QRect(90, 100, 47, 14));
+        label_3->setGeometry(QRect(90, 120, 47, 14));
+        label_3->setStyleSheet(QStringLiteral("Background-image:url(:/sprites personaje/Dead (5).png)"));
         municion = new QLabel(menupausa);
         municion->setObjectName(QStringLiteral("municion"));
-        municion->setGeometry(QRect(240, 100, 47, 14));
+        municion->setGeometry(QRect(250, 120, 47, 14));
+        municion->setStyleSheet(QStringLiteral("Background-image:url(:/sprites personaje/Dead (5).png)"));
 
         retranslateUi(menupausa);
 
@@ -55,7 +60,7 @@ public:
         menupausa->setWindowTitle(QApplication::translate("menupausa", "Form", Q_NULLPTR));
         label->setText(QApplication::translate("menupausa", "vidas", Q_NULLPTR));
         vida->setText(QString());
-        label_3->setText(QApplication::translate("menupausa", "minicion", Q_NULLPTR));
+        label_3->setText(QApplication::translate("menupausa", "municion", Q_NULLPTR));
         municion->setText(QString());
     } // retranslateUi
 

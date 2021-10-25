@@ -340,6 +340,11 @@ void personaje::muerte_anima()
     }
 }
 
+int personaje::getNivel() const
+{
+    return nivel;
+}
+
 bool personaje::getAnimadisp() const
 {
     return animadisp;

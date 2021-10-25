@@ -7,11 +7,14 @@
     <x>0</x>
     <y>0</y>
     <width>480</width>
-    <height>198</height>
+    <height>242</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">Background-image:url(:/escena/fondo.jpg)</string>
   </property>
   <widget class="QLabel" name="label">
    <property name="geometry">
@@ -21,6 +24,9 @@
      <width>47</width>
      <height>14</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">Background-image:url(:/sprites personaje/Dead (5).png)</string>
    </property>
    <property name="text">
     <string>vidas</string>
@@ -35,6 +41,9 @@
      <height>14</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">Background-image:url(:/sprites personaje/Dead (5).png)</string>
+   </property>
    <property name="text">
     <string/>
    </property>
@@ -43,23 +52,29 @@
    <property name="geometry">
     <rect>
      <x>90</x>
-     <y>100</y>
+     <y>120</y>
      <width>47</width>
      <height>14</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">Background-image:url(:/sprites personaje/Dead (5).png)</string>
+   </property>
    <property name="text">
-    <string>minicion</string>
+    <string>municion</string>
    </property>
   </widget>
   <widget class="QLabel" name="municion">
    <property name="geometry">
     <rect>
-     <x>240</x>
-     <y>100</y>
+     <x>250</x>
+     <y>120</y>
      <width>47</width>
      <height>14</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">Background-image:url(:/sprites personaje/Dead (5).png)</string>
    </property>
    <property name="text">
     <string/>
