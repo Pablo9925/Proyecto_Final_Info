@@ -15,7 +15,7 @@
 #include "maza.h"
 #include "zombie.h"
 #include <string>
-
+#include <menupausa.h>
 namespace Ui {
 class MainWindow;
 }
@@ -68,6 +68,7 @@ private:
     QMediaPlayer * cajasound;
     QGraphicsLineItem *l1, *l2;
     map *mapa[columnas*15][filas];
+    menupausa *pausa;
     logicamap *l_mapa;
     QList <caja*> cajas;
     QList <coin*> monedas;

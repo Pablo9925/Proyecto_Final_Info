@@ -28,6 +28,7 @@ SOURCES += \
     inicio.cpp \
         main.cpp \
         mainwindow.cpp \
+    menupausa.cpp \
     personaje.cpp \
     logicamap.cpp \
     map.cpp \
@@ -40,6 +41,7 @@ HEADERS += \
     bala.h \
     inicio.h \
         mainwindow.h \
+    menupausa.h \
     personaje.h \
     logicamap.h \
     map.h \
@@ -51,7 +53,8 @@ HEADERS += \
 FORMS += \
     inicio.ui \
         mainwindow.ui \
-    menu.ui
+    menu.ui \
+    menupausa.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

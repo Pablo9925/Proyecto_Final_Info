@@ -3,6 +3,7 @@ INPUT(
 ./debug\inicio.o
 ./debug\main.o
 ./debug\mainwindow.o
+./debug\menupausa.o
 ./debug\personaje.o
 ./debug\logicamap.o
 ./debug\map.o
@@ -16,5 +17,6 @@ INPUT(
 ./debug\qrc_zombie.o
 ./debug\moc_inicio.o
 ./debug\moc_mainwindow.o
+./debug\moc_menupausa.o
 ./debug\moc_personaje.o
 );

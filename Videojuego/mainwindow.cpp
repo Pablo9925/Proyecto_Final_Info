@@ -30,6 +30,7 @@ MainWindow::MainWindow(QWidget *parent) :
     timez=new QTimer(this);
     timez->start(100);
     connect(timez,SIGNAL(timeout()),this,SLOT(movimiento_zombie()));
+    pausa=new menupausa();
 }
 
 MainWindow::~MainWindow()
@@ -341,6 +342,26 @@ void MainWindow::keyPressEvent(QKeyEvent *i)
             }
         }
     }
+    else if (i->key()==Qt::Key_M){
+        advGirl->setMuerte(true);
+        timemaz->stop();
+        timez->stop();
+        times->stop();
+        pausa->show();
+    }
+    else if(i->key()==Qt::Key_N){
+        pausa->close();
+        advGirl->setMuerte(false);
+        timemaz = new QTimer(this);
+        timemaz->start(10);
+        connect(timemaz,SIGNAL(timeout()),this,SLOT(movimiento_maza()));
+        timez=new QTimer(this);
+        timez->start(100);
+        connect(timez,SIGNAL(timeout()),this,SLOT(movimiento_zombie()));
+        /*times=new QTimer;
+        times->start(1);
+        connect(times,SIGNAL(timeout()),this,SLOT(saltoparabolico()));*/
+    }
 }
 
 void MainWindow::setNombre(const QString &value)
@@ -517,6 +538,7 @@ void MainWindow::movimiento_zombie()
             zombies.at(j)->setAtaque(true);
             if(advGirl->getVidas()==0){
                 advGirl->setMuerte(true);
+                advGirl->setPersonaje1(nombre);
                 advGirl->morir();
                 //restablecer();
             }
