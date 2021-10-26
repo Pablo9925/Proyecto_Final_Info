@@ -25,6 +25,7 @@ CONFIG += c++11
 
 SOURCES += \
     bala.cpp \
+    fracasado.cpp \
     inicio.cpp \
         main.cpp \
         mainwindow.cpp \
@@ -39,6 +40,7 @@ SOURCES += \
 
 HEADERS += \
     bala.h \
+    fracasado.h \
     inicio.h \
         mainwindow.h \
     menupausa.h \
@@ -51,6 +53,7 @@ HEADERS += \
     zombie.h
 
 FORMS += \
+    fracasado.ui \
     inicio.ui \
         mainwindow.ui \
     menu.ui \

@@ -1,5 +1,6 @@
 INPUT(
 ./release\bala.o
+./release\fracasado.o
 ./release\inicio.o
 ./release\main.o
 ./release\mainwindow.o
@@ -15,6 +16,7 @@ INPUT(
 ./release\qrc_escena.o
 ./release\qrc_sonidos.o
 ./release\qrc_zombie.o
+./release\moc_fracasado.o
 ./release\moc_inicio.o
 ./release\moc_mainwindow.o
 ./release\moc_menupausa.o

@@ -8,7 +8,6 @@
 #include<QTextStream>
 #include <QMessageBox>
 #include <mainwindow.h>
-
 namespace Ui {
 class inicio;
 }
@@ -37,6 +36,8 @@ private slots:
     void on_ingresar2_clicked();
 
     void on_cargar_clicked();
+
+    void on_partidamulti_clicked();
 
 private:
     Ui::inicio *ui;

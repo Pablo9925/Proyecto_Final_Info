@@ -12,7 +12,7 @@
 #include <QGraphicsScene>
 #include <QFile>
 #include <QTextStream>
-
+#include "fracasado.h"
 class personaje : public QObject, public QGraphicsPixmapItem
 {
     Q_OBJECT
@@ -42,7 +42,7 @@ public:
     void melee();
     void deslizar();
     void morir();
-    void guardar();
+    void guardar(bool multiplayer);
     int getVidas() const;
     void setVidas(int value);
     int getPuntaje() const;
@@ -62,6 +62,13 @@ public:
 
     int getNivel() const;
 
+    void setMultij(bool value);
+
+    bool getCerrarmain() const;
+    void moristesmen();
+
+    void setNivel(int value);
+
 public slots:
     void disparar();
     void apunalar();
@@ -78,7 +85,7 @@ private:
     QString spriPersL[35];
     QString personaje1;
     QString personaje2;
-    bool derecha=true, meleeAct=false,parabolico=false, deslizo=true,muerte=false,animadisp=false;;
+    bool derecha=true, meleeAct=false,parabolico=false, deslizo=true,muerte=false,animadisp=false,multij=false,cerrarmain=false;
     //bool finalizado=false;
     int vidas=3, ammo=6, damage=1, puntaje=0, size, contp=30, conts=31, contb=16 ,contjump=8,contmuer=0,nivel=0;
     float posx=60, posy;

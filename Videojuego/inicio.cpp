@@ -22,6 +22,7 @@ inicio::inicio(QWidget *parent) :
     ui->ingresar->setVisible(false);
     ui->nuevapartida->setVisible(false);
     ui->ingresar2->setVisible(false);
+    ui->partidamulti->setVisible(false);
 
 }
 
@@ -145,6 +146,7 @@ void inicio::on_multijugador_clicked()
     ui->pass->setVisible(true);
     ui->multijugador->setVisible(false);
     ui->nuevapartida->setVisible(false);
+    ui->cargar->setVisible(false);
     ui->ingresar2->setVisible(true);
 
 }
@@ -175,8 +177,10 @@ void inicio::on_ingresar2_clicked()
             ui->pass->setVisible(false);
             ui->multijugador->setVisible(false);
            // ui->cargarPartida->setVisible(true);
-            ui->nuevapartida->setVisible(true);
+            ui->nuevapartida->setVisible(false);
             ui->ingresar->setVisible(false);
+            ui->ingresar2->setVisible(false);
+            ui->partidamulti->setVisible(true);
             archivo.close();
           //  music->stop();
         }
@@ -196,4 +200,35 @@ void inicio::on_cargar_clicked()
     juego->setNombre(usuario);
     juego->cargar();
     juego->show();
+}
+
+void inicio::on_partidamulti_clicked()
+{
+    QString puntinicio="0";
+    QFile cuenta(usuario);
+    if ( cuenta.open(QFile::WriteOnly | QFile::Text))
+    {
+        QTextStream out(&cuenta);
+        out << usuario<<endl;
+        out << password << endl;
+        out << puntinicio << endl;
+        cuenta.close();
+    }
+
+    QFile cuenta2(usuario2);
+    if ( cuenta2.open(QFile::WriteOnly | QFile::Text))
+    {
+        QTextStream out(&cuenta2);
+        out << usuario2<<endl;
+        out << password2 << endl;
+        out << puntinicio << endl;
+        cuenta.close();
+    }
+    MainWindow *juego;
+    juego=new MainWindow();
+    juego->setNombre(usuario);
+    juego->setNombre2(usuario2);
+    juego->setMultiplayer(true);
+    juego->show();
+
 }

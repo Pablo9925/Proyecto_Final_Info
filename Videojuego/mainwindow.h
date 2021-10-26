@@ -16,6 +16,8 @@
 #include "zombie.h"
 #include <string>
 #include <menupausa.h>
+
+
 namespace Ui {
 class MainWindow;
 }
@@ -39,7 +41,13 @@ public:
 
     void setNombre(const QString &value);
     void cargar();
+    void setNombre2(const QString &value);
+
+    void setMultiplayer(bool value);
+
+
 public slots:
+    void cerrar();
     void deslizando();
     void movimientobala();
     void saltoparabolico();
@@ -49,7 +57,7 @@ public slots:
 private:
     int sizex=0,sizey=0,n=1,nc=0,nf=0,contatt=0,contmue=14;;
     int matriz[columnas*15][filas];
-    bool bulletAct=false, direc, cae=false,salto=false;
+    bool bulletAct=false, direc, cae=false,salto=false,multiplayer=false;
     Ui::MainWindow *ui;
     QGraphicsScene *escena;
     QGraphicsView *view;
@@ -59,6 +67,7 @@ private:
     QTimer *timec;
     QTimer *times;
     QTimer *timez;
+
     QMediaPlayer * bsound;
     QMediaPlayer * csound;
     QMediaPlayer * coinsound;
@@ -74,7 +83,7 @@ private:
     QList <coin*> monedas;
     QList <maza*> mazas;
     QList <zombie*> zombies;
-    QString nombre;
+    QString nombre,nombre2;
     float  posxsalto=0,posysalto=0,posysaltoant=0,vxo=5,vyo=25,T=0.1,posyinicial=0,posfric=0,F=10.0,K=0.45,p=0.1,pm=0.1,pz=0.15;
     double a=1;
 };

@@ -1,5 +1,6 @@
 INPUT(
 ./debug\bala.o
+./debug\fracasado.o
 ./debug\inicio.o
 ./debug\main.o
 ./debug\mainwindow.o
@@ -15,6 +16,7 @@ INPUT(
 ./debug\qrc_escena.o
 ./debug\qrc_sonidos.o
 ./debug\qrc_zombie.o
+./debug\moc_fracasado.o
 ./debug\moc_inicio.o
 ./debug\moc_mainwindow.o
 ./debug\moc_menupausa.o

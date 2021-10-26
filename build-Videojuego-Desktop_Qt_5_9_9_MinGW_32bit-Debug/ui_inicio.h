@@ -33,6 +33,7 @@ public:
     QPushButton *ingresar;
     QPushButton *nuevapartida;
     QPushButton *ingresar2;
+    QPushButton *partidamulti;
 
     void setupUi(QDialog *inicio)
     {
@@ -81,6 +82,10 @@ public:
         ingresar2->setObjectName(QStringLiteral("ingresar2"));
         ingresar2->setGeometry(QRect(190, 210, 75, 23));
         ingresar2->setStyleSheet(QStringLiteral("Background-image:url(:/sprites personaje/Dead (5).png)"));
+        partidamulti = new QPushButton(inicio);
+        partidamulti->setObjectName(QStringLiteral("partidamulti"));
+        partidamulti->setGeometry(QRect(180, 250, 101, 23));
+        partidamulti->setStyleSheet(QStringLiteral("Background-image:url(:/sprites personaje/Dead (5).png)"));
 
         retranslateUi(inicio);
 
@@ -99,6 +104,7 @@ public:
         ingresar->setText(QApplication::translate("inicio", "ingresar", Q_NULLPTR));
         nuevapartida->setText(QApplication::translate("inicio", "nueva partida", Q_NULLPTR));
         ingresar2->setText(QApplication::translate("inicio", "ingresar", Q_NULLPTR));
+        partidamulti->setText(QApplication::translate("inicio", "iniciar multijugador", Q_NULLPTR));
     } // retranslateUi
 
 };

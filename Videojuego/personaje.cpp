@@ -220,7 +220,7 @@ void personaje::deslizar()
 
 void personaje::morir()
 {
-    guardar();
+    guardar(multij);
     vidas--;
     timemuer = new QTimer;
     timemuer->start(200);
@@ -228,40 +228,77 @@ void personaje::morir()
 
 }
 
-void personaje::guardar()
+void personaje::guardar(bool multiplayer)
 {
-    QFile archivo(personaje1);
-    QString clave,nombre,puntuacion,nivelstr,municionstr,vidastr;
-    if(archivo.open(QFile::ReadOnly | QFile::Text))
-    {
-        //cargamos de forma correcta el archivo por tanto vamos a habilitar la nueva ventana.
-        QTextStream read(&archivo);
+    if (multiplayer==false){
+        QFile archivo(personaje1);
+        QString clave,nombre,puntuacion,nivelstr,municionstr,vidastr;
+        if(archivo.open(QFile::ReadOnly | QFile::Text))
+        {
+            //cargamos de forma correcta el archivo por tanto vamos a habilitar la nueva ventana.
+            QTextStream read(&archivo);
 
 
-        nombre=read.readLine();
-        clave = read.readLine();
-        puntuacion=read.readLine();
-        nivelstr=read.readLine();
-        vidastr=read.readLine();
-        municionstr=read.readLine();
-        archivo.close();
+            nombre=read.readLine();
+            clave = read.readLine();
+            puntuacion=read.readLine();
+            nivelstr=read.readLine();
+            vidastr=read.readLine();
+            municionstr=read.readLine();
+            archivo.close();
+        }
+        bool ok;
+        int puntuacionint = puntuacion.toInt(&ok);
+
+        QFile cuenta(personaje1);
+        if ( cuenta.open(QFile::WriteOnly | QFile::Text))
+        {
+
+            QTextStream out(&cuenta);
+            out <<nombre<<endl;
+            out <<clave<< endl;
+            out<<puntaje+puntuacionint<<endl;
+            out<<nivel<<endl;
+            out<<vidas<<endl;
+            out<<ammo<<endl;
+            cuenta.close();
+        }
     }
-    bool ok;
-    int puntuacionint = puntuacion.toInt(&ok);
+    else{
+        QFile archivo(personaje2);
+        QString clave,nombre,puntuacion,nivelstr,municionstr,vidastr;
+        if(archivo.open(QFile::ReadOnly | QFile::Text))
+        {
+            //cargamos de forma correcta el archivo por tanto vamos a habilitar la nueva ventana.
+            QTextStream read(&archivo);
 
-    QFile cuenta(personaje1);
-    if ( cuenta.open(QFile::WriteOnly | QFile::Text))
-    {
 
-        QTextStream out(&cuenta);
-        out <<nombre<<endl;
-        out <<clave<< endl;
-        out<<puntaje+puntuacionint<<endl;
-        out<<nivel<<endl;
-        out<<vidas<<endl;
-        out<<ammo<<endl;
-        cuenta.close();
+            nombre=read.readLine();
+            clave = read.readLine();
+            puntuacion=read.readLine();
+            nivelstr=read.readLine();
+            vidastr=read.readLine();
+            municionstr=read.readLine();
+            archivo.close();
+        }
+        bool ok;
+        int puntuacionint = puntuacion.toInt(&ok);
+
+        QFile cuenta(personaje1);
+        if ( cuenta.open(QFile::WriteOnly | QFile::Text))
+        {
+
+            QTextStream out(&cuenta);
+            out <<nombre<<endl;
+            out <<clave<< endl;
+            out<<puntaje+puntuacionint<<endl;
+            out<<nivel<<endl;
+            out<<vidas<<endl;
+            out<<ammo<<endl;
+            cuenta.close();
+        }
     }
+
 }
 
 void personaje::disparar()
@@ -321,6 +358,9 @@ void personaje::muerte_anima()
     if(derecha==true){
         if(contmuer==6){
             timemuer->stop();
+
+            moristesmen();
+
             //finalizado=true;
         }
         setPixmap(QPixmap(spriPers[contmuer]).scaled(size/5,size/5));
@@ -332,12 +372,37 @@ void personaje::muerte_anima()
         if(contmuer==6){
             timemuer->stop();
             //finalizado=true;
+
+            moristesmen();
         }
         setPixmap(QPixmap(spriPersL[contmuer]).scaled(size/5,size/5));
         if(contmuer<6){
             contmuer++;
         }
     }
+}
+
+void personaje::setNivel(int value)
+{
+    nivel = value;
+}
+
+bool personaje::getCerrarmain() const
+{
+    return cerrarmain;
+}
+
+void personaje::moristesmen()
+{
+    Fracasado *perder;
+    perder=new Fracasado();
+    perder->show();
+    perder->setAuxpersonaje1(personaje1);
+}
+
+void personaje::setMultij(bool value)
+{
+    multij = value;
 }
 
 int personaje::getNivel() const
