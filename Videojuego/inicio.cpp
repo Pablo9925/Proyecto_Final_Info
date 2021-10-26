@@ -1,6 +1,7 @@
 #include "inicio.h"
 #include "ui_inicio.h"
 
+
 inicio::inicio(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::inicio)
@@ -234,6 +235,7 @@ void inicio::on_partidamulti_clicked()
     juego=new MainWindow();
     juego->setNombre(usuario);
     juego->setNombre2(usuario2);
+
 
     juego->show();
 

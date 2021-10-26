@@ -20,6 +20,7 @@ void Fracasado::on_Siguiente_clicked()
 {
     MainWindow *ventana;
     ventana=new MainWindow();
+
     ventana->setNombre2(auxpersonaje2);
     ventana->setMultiplayer(true);
     //ventana->close();

@@ -326,6 +326,7 @@ void personaje::muerte_anima()
     if(derecha==true){
         if(contmuer==6){
             timemuer->stop();
+            cerrarmain=true;
 
             moristesmen();
 
@@ -340,7 +341,7 @@ void personaje::muerte_anima()
         if(contmuer==6){
             timemuer->stop();
             //finalizado=true;
-
+            cerrarmain=true;
             moristesmen();
         }
         setPixmap(QPixmap(spriPersL[contmuer]).scaled(size/5,size/5));
@@ -348,6 +349,11 @@ void personaje::muerte_anima()
             contmuer++;
         }
     }
+}
+
+void personaje::setCerrarmain(bool value)
+{
+    cerrarmain = value;
 }
 
 void personaje::setNivel(int value)
@@ -362,11 +368,15 @@ bool personaje::getCerrarmain() const
 
 void personaje::moristesmen()
 {
+    if(cerrarfracasado==true){
     Fracasado *perder;
+
     perder=new Fracasado();
     perder->setAuxpersonaje1(personaje1);
     perder->setAuxpersonaje2(personaje2);
     perder->show();
+    cerrarfracasado=false;
+    }
 
 }
 

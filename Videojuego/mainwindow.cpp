@@ -436,11 +436,24 @@ void MainWindow::saltoparabolico()
     }
     if(posysalto>720){
         times->stop();
-        advGirl->setPersonaje1(nombre);
-        advGirl->setPersonaje2(nombre2);
-        advGirl->morir();
-        advGirl->moristesmen();
+        //timec->stop();
+            advGirl->setMuerte(true);
+            if(multiplayer==true){
 
+                advGirl->setPersonaje1(nombre2);
+                advGirl->setPersonaje2(nombre2);
+                advGirl->guardar(nombre2);
+                advGirl->setMultij(true);
+            }
+            else{
+                advGirl->setPersonaje1(nombre);
+                advGirl->setPersonaje2(nombre2);
+                advGirl->guardar(nombre);
+            }
+        timemaz->stop();
+        timez->stop();
+        advGirl->guardar(nombre);
+        advGirl->moristesmen();
         cerrar();
     }
 }
@@ -486,9 +499,18 @@ void MainWindow::caida()
     if(sizey-posysalto>720){
         timec->stop();
         advGirl->setMuerte(true);
-        advGirl->setPersonaje1(nombre);
-        advGirl->setPersonaje2(nombre2);
-        advGirl->morir();
+        if(multiplayer==true){
+
+            advGirl->setPersonaje1(nombre2);
+            advGirl->setPersonaje2(nombre2);
+            advGirl->guardar(nombre2);
+            advGirl->setMultij(true);
+        }
+        else{
+            advGirl->setPersonaje1(nombre);
+            advGirl->setPersonaje2(nombre2);
+            advGirl->guardar(nombre);
+        }
         advGirl->moristesmen();
 
 
@@ -505,7 +527,7 @@ void MainWindow::movimiento_maza()
               escena->removeItem(mazas.at(j));
               mazas.at(j)->setImpacto(true);
               advGirl->setVidas(advGirl->getVidas()-1);
-              if(advGirl->getVidas()==0){
+              if(advGirl->getVidas()<=0){
                   advGirl->setMuerte(true);
 
 
@@ -520,13 +542,12 @@ void MainWindow::movimiento_maza()
                   }
 
                   advGirl->morir();
-                  QTimer *timemorir;
-                  timemorir=new QTimer();
 
-                  /*timemorir->start(2000);
-                  connect(timemorir,SIGNAL(timeout()),this,SLOT(cerrar()));*/
+                  if(advGirl->getCerrarmain()==true){
+                      advGirl->setCerrarmain(false);
+                      close();
 
-                  //restablecer();
+                  }
               }
               else{
                   psound->setMedia(QUrl("qrc:/sonidos/herida.mp3"));
@@ -555,7 +576,8 @@ void MainWindow::movimiento_zombie()
             zombies.at(j)->setMov(false);
             zombies.at(j)->setImpacto(true);
             zombies.at(j)->setAtaque(true);
-            if(advGirl->getVidas()==0){
+            if(advGirl->getVidas()<=0){
+
                 advGirl->setMuerte(true);
                 advGirl->setPersonaje1(nombre);
 
@@ -570,6 +592,14 @@ void MainWindow::movimiento_zombie()
                 }
 
                 advGirl->morir();
+                if(advGirl->getCerrarmain()==true){
+                    timez->stop();
+                    advGirl->setCerrarmain(false);
+                    close();
+
+
+
+                }
                 /*QTimer *timemorir;
                 timemorir=new QTimer();
 

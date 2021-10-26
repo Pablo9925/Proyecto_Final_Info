@@ -69,6 +69,8 @@ public:
 
     void setNivel(int value);
 
+    void setCerrarmain(bool value);
+
 public slots:
     void disparar();
     void apunalar();
@@ -85,9 +87,9 @@ private:
     QString spriPersL[35];
     QString personaje1;
     QString personaje2;
-    bool derecha=true, meleeAct=false,parabolico=false, deslizo=true,muerte=false,animadisp=false,multij=false,cerrarmain=false;
+    bool derecha=true, meleeAct=false,parabolico=false, deslizo=true,muerte=false,animadisp=false,multij=false,cerrarmain=false,cerrarfracasado=true;
     //bool finalizado=false;
-    int vidas=3, ammo=6, damage=1, puntaje=0, size, contp=30, conts=31, contb=16 ,contjump=8,contmuer=0,nivel=0;
+    int vidas=3, ammo=6, damage=1, puntaje=0, size, contp=30, conts=31, contb=16 ,contjump=8,contmuer=0,nivel=1;
     float posx=60, posy;
 };
 
