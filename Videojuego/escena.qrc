@@ -20,5 +20,6 @@
         <file>escena/cratedes2.png</file>
         <file>escena/Menu.png</file>
         <file>escena/menu2.png</file>
+        <file>escena/pausa.png</file>
     </qresource>
 </RCC>

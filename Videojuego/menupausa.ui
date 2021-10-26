@@ -6,21 +6,21 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>421</width>
-    <height>283</height>
+    <width>371</width>
+    <height>320</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>Pausa</string>
   </property>
   <property name="styleSheet">
-   <string notr="true"/>
+   <string notr="true">background-color: rgb(227, 241, 255);</string>
   </property>
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>40</x>
-     <y>40</y>
+     <x>10</x>
+     <y>0</y>
      <width>61</width>
      <height>61</height>
     </rect>
@@ -36,10 +36,10 @@ image: url(:/escena/vida.png);</string>
   <widget class="QLabel" name="vida">
    <property name="geometry">
     <rect>
-     <x>120</x>
-     <y>30</y>
-     <width>61</width>
-     <height>81</height>
+     <x>100</x>
+     <y>0</y>
+     <width>161</width>
+     <height>61</height>
     </rect>
    </property>
    <property name="font">
@@ -48,7 +48,7 @@ image: url(:/escena/vida.png);</string>
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true"/>
+    <string notr="true">background-color: rgb(227, 241, 255);</string>
    </property>
    <property name="text">
     <string/>
@@ -57,10 +57,10 @@ image: url(:/escena/vida.png);</string>
   <widget class="QLabel" name="label_3">
    <property name="geometry">
     <rect>
-     <x>30</x>
-     <y>120</y>
-     <width>81</width>
-     <height>71</height>
+     <x>10</x>
+     <y>90</y>
+     <width>61</width>
+     <height>61</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -73,10 +73,10 @@ image: url(:/escena/vida.png);</string>
   <widget class="QLabel" name="municion">
    <property name="geometry">
     <rect>
-     <x>130</x>
-     <y>110</y>
-     <width>81</width>
-     <height>91</height>
+     <x>100</x>
+     <y>90</y>
+     <width>161</width>
+     <height>61</height>
     </rect>
    </property>
    <property name="font">
@@ -85,8 +85,94 @@ image: url(:/escena/vida.png);</string>
     </font>
    </property>
    <property name="styleSheet">
+    <string notr="true">background-color: rgb(227, 241, 255);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>170</y>
+     <width>61</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
     <string notr="true">
-background-image: url(:/sprites personaje/Dead (1).png);</string>
+image: url(:/escena/coin.png);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="puntaje">
+   <property name="geometry">
+    <rect>
+     <x>100</x>
+     <y>170</y>
+     <width>161</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>20</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="reanudar">
+   <property name="geometry">
+    <rect>
+     <x>270</x>
+     <y>140</y>
+     <width>93</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Cerrar</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_4">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>250</y>
+     <width>61</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>20</pointsize>
+    </font>
+   </property>
+   <property name="layoutDirection">
+    <enum>Qt::RightToLeft</enum>
+   </property>
+   <property name="text">
+    <string>LVL:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="nivel">
+   <property name="geometry">
+    <rect>
+     <x>100</x>
+     <y>250</y>
+     <width>161</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>20</pointsize>
+    </font>
    </property>
    <property name="text">
     <string/>

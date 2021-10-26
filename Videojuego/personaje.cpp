@@ -234,10 +234,7 @@ void personaje::guardar()
     QString clave,nombre,puntuacion,nivelstr,municionstr,vidastr;
     if(archivo.open(QFile::ReadOnly | QFile::Text))
     {
-        //cargamos de forma correcta el archivo por tanto vamos a habilitar la nueva ventana.
         QTextStream read(&archivo);
-
-
         nombre=read.readLine();
         clave = read.readLine();
         puntuacion=read.readLine();
@@ -252,7 +249,6 @@ void personaje::guardar()
     QFile cuenta(personaje1);
     if ( cuenta.open(QFile::WriteOnly | QFile::Text))
     {
-
         QTextStream out(&cuenta);
         out <<nombre<<endl;
         out <<clave<< endl;

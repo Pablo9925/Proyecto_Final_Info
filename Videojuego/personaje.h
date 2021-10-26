@@ -50,18 +50,11 @@ public:
     bool getMuerte() const;
     void setMuerte(bool value);
     void cargando();
-    //bool getFinalizado() const;
-    //void setFinalizado(bool value);
-
     void setPersonaje1(const QString &value);
-
     void setPersonaje2(const QString &value);
     QString recogerunalinea(int linea, QString a);
     bool getAnimadisp() const;
-
-
     int getNivel() const;
-
     void setNivel(int value);
 
 public slots:
