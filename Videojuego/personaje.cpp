@@ -220,10 +220,48 @@ void personaje::deslizar()
 
 void personaje::morir()
 {
+    guardar();
     vidas--;
     timemuer = new QTimer;
     timemuer->start(200);
     connect(timemuer,SIGNAL(timeout()),this,SLOT(muerte_anima()));
+
+}
+
+void personaje::guardar()
+{
+    QFile archivo(personaje1);
+    QString clave,nombre,puntuacion,nivelstr,municionstr,vidastr;
+    if(archivo.open(QFile::ReadOnly | QFile::Text))
+    {
+        //cargamos de forma correcta el archivo por tanto vamos a habilitar la nueva ventana.
+        QTextStream read(&archivo);
+
+
+        nombre=read.readLine();
+        clave = read.readLine();
+        puntuacion=read.readLine();
+        nivelstr=read.readLine();
+        vidastr=read.readLine();
+        municionstr=read.readLine();
+        archivo.close();
+    }
+    bool ok;
+    int puntuacionint = puntuacion.toInt(&ok);
+
+    QFile cuenta(personaje1);
+    if ( cuenta.open(QFile::WriteOnly | QFile::Text))
+    {
+
+        QTextStream out(&cuenta);
+        out <<nombre<<endl;
+        out <<clave<< endl;
+        out<<puntaje+puntuacionint<<endl;
+        out<<nivel<<endl;
+        out<<vidas<<endl;
+        out<<ammo<<endl;
+        cuenta.close();
+    }
 }
 
 void personaje::disparar()
@@ -302,11 +340,29 @@ void personaje::muerte_anima()
     }
 }
 
+void personaje::setNivel(int value)
+{
+    nivel = value;
+}
+
+int personaje::getNivel() const
+{
+    return nivel;
+}
+
 bool personaje::getAnimadisp() const
 {
     return animadisp;
 }
+void personaje::setPersonaje2(const QString &value)
+{
+    personaje2 = value;
+}
 
+void personaje::setPersonaje1(const QString &value)
+{
+    personaje1 = value;
+}
 /*
 bool personaje::getFinalizado() const
 {
@@ -328,6 +384,8 @@ void personaje::setMuerte(bool value)
     muerte = value;
 }
 
+
+
 int personaje::getPuntaje() const
 {
     return puntaje;
@@ -346,4 +404,28 @@ int personaje::getVidas() const
 void personaje::setVidas(int value)
 {
     vidas = value;
+}
+void personaje::cargando()
+{
+    QFile archivo(personaje1);
+    QString clave,nombre,puntuacion,nivelstr,municionstr,vidastr;;
+    if(archivo.open(QFile::ReadOnly | QFile::Text))
+    {
+        //cargamos de forma correcta el archivo por tanto vamos a habilitar la nueva ventana.
+        QTextStream read(&archivo);
+        nombre=read.readLine();
+        clave = read.readLine();
+        puntuacion=read.readLine();
+        nivelstr=read.readLine();
+        vidastr=read.readLine();
+        municionstr=read.readLine();
+        archivo.close();
+    }
+    bool ok;
+    int puntuacionint = puntuacion.toInt(&ok);
+    nivel = nivelstr.toInt(&ok);
+    vidas = vidastr.toInt(&ok)+1;
+    ammo = municionstr.toInt(&ok);
+
+    puntaje=puntuacionint;
 }

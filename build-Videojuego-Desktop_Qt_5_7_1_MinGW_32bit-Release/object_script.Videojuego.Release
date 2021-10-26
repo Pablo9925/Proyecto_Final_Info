@@ -1,7 +1,9 @@
 INPUT(
 ./release\bala.o
+./release\inicio.o
 ./release\main.o
 ./release\mainwindow.o
+./release\menupausa.o
 ./release\personaje.o
 ./release\logicamap.o
 ./release\map.o
@@ -13,6 +15,8 @@ INPUT(
 ./release\qrc_escena.o
 ./release\qrc_sonidos.o
 ./release\qrc_zombie.o
+./release\moc_inicio.o
 ./release\moc_mainwindow.o
+./release\moc_menupausa.o
 ./release\moc_personaje.o
 );

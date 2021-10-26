@@ -8,8 +8,9 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     setup_mainwindow();
-    generar_mapa();
     advGirl=new personaje(sizey);
+    generar_mapa();
+    //advGirl=new personaje(sizey);
     advGirl->setPos(60,sizey*7/10); //Esa posición en y por la acumulación de la posición del personaje y la posición de los bloques del mapa
     escena->addItem(advGirl);
     advGirl->setPosy(sizey*7/10);
@@ -28,8 +29,9 @@ MainWindow::MainWindow(QWidget *parent) :
     timemaz->start(10);
     connect(timemaz,SIGNAL(timeout()),this,SLOT(movimiento_maza()));
     timez=new QTimer(this);
-    timez->start(180);
+    timez->start(100);
     connect(timez,SIGNAL(timeout()),this,SLOT(movimiento_zombie()));
+    pausa=new menupausa();
 }
 
 MainWindow::~MainWindow()
@@ -54,38 +56,6 @@ MainWindow::~MainWindow()
     for (int i=0;i<cajas.length();i++) delete cajas.at(i);
     delete l_mapa;
 }
-
-/*void MainWindow::restablecer()
-{
-    for(int i=0;i<cajas.length();i++){
-        escena->removeItem(cajas.at(i));
-    }
-    for(int i=0;i<monedas.length();i++){
-        escena->removeItem(monedas.at(i));
-    }
-    for(int i=0;i<mazas.length();i++){
-        escena->removeItem(mazas.at(i));
-    }
-    for(int x=0; x<columnas; x++){
-        for(int y=0; y<filas; y++){
-            escena->removeItem(mapa[x][y]);
-            mapa[x][y]->deleteLater();
-        }
-    }
-    l_mapa->~logicamap();
-    monedas.clear();
-    mazas.clear();
-    cajas.clear();
-    if(advGirl->getVidas()>0){
-        generar_mapa();
-        advGirl->setPixmap(QPixmap(":/sprites personaje/Idle (1).png").scaled(sizey/5,sizey/5));
-        advGirl->setPos(60,sizey*7/10);
-        advGirl->setPosy(sizey*7/10);
-        advGirl->setPosx(60);
-        view->centerOn(advGirl->x(),advGirl->y());
-        advGirl->setMuerte(false);
-    }
-}*/
 
 void MainWindow::setup_mainwindow()
 {
@@ -158,15 +128,17 @@ bool MainWindow::generar_caja()
 {
     int n, x;
     n=rand();
-    x=p*(RAND_MAX+1)-1;
+    if(advGirl->getNivel()/100<0.1) x=(p-advGirl->getNivel()/100)*(RAND_MAX+1)-1;
     return n<=x;
+    x=(p)*(RAND_MAX+1)-1;
 }
 
 bool MainWindow::generar_moneda()
 {
     int n, x;
     n=rand();
-    x=(p+0.1)*(RAND_MAX+1)-1;
+    if(advGirl->getNivel()/100<0.1) x=(p+0.1-advGirl->getNivel()/100)*(RAND_MAX+1)-1;
+    else x=(p)*(RAND_MAX+1)-1;
     return n<=x;
 }
 
@@ -174,7 +146,8 @@ bool MainWindow::generar_maza()
 {
     int n, x;
     n=rand();
-    x=pm*(RAND_MAX+1)-1;
+    if(advGirl->getNivel()/100<0.1) x=(pm+advGirl->getNivel()/100)*(RAND_MAX+1)-1;
+    else x=(pm+0.1)*(RAND_MAX+1)-1;
     return n<=x;
 }
 
@@ -182,7 +155,8 @@ bool MainWindow::generar_zombie()
 {
     int n, x;
     n=rand();
-    x=pz*(RAND_MAX+1)-1;
+    if(advGirl->getNivel()/100<0.1) x=(pz+advGirl->getNivel()/100)*(RAND_MAX+1)-1;
+    else x=(pz+0.1)*(RAND_MAX+1)-1;
     return n<=x;
 }
 
@@ -195,6 +169,9 @@ void MainWindow::keyPressEvent(QKeyEvent *i)
             if(advGirl->collidesWithItem(l2)){
                 advGirl->mov_izq();
                 advGirl->setX(advGirl->x()-20);
+                advGirl->setNivel(advGirl->getNivel()+1);
+                advGirl->guardar();
+                close();
             }
             view->centerOn(advGirl->x(),504);
             if(matriz[int(advGirl->get_posx()/160)][int(advGirl->get_posy()/144)+1]==0 && (int(advGirl->get_posy()/144)+1==4 || int(advGirl->get_posy()/144)+1==2) && matriz[int((advGirl->get_posx()+sizey/7)/160)][int(advGirl->get_posy()/144)+1]==0){
@@ -246,7 +223,7 @@ void MainWindow::keyPressEvent(QKeyEvent *i)
         }
     }
     else if(i->key()==Qt::Key_P){
-        if(advGirl->getAnimadisp()==false && advGirl->get_ActAttack()==false && bulletAct==false && advGirl->get_ammo()>0 && advGirl->getParabolico()==false && advGirl->getDeslizo()==true && cae==false && advGirl->getMuerte()==false){
+         if(advGirl->getAnimadisp()==false && advGirl->get_ActAttack()==false && bulletAct==false && advGirl->get_ammo()>0 && advGirl->getParabolico()==false && advGirl->getDeslizo()==true && cae==false && advGirl->getMuerte()==false){
             if(advGirl->get_direc()==true) advGirl->setPixmap((QPixmap(":/sprites personaje/Shoot (1).png").scaled(sizey/5,sizey/5)));
             else advGirl->setPixmap((QPixmap(":/sprites personaje/ShootL (1).png").scaled(sizey/5,sizey/5)));
             advGirl->set_ammo(advGirl->get_ammo()-1);
@@ -341,7 +318,36 @@ void MainWindow::keyPressEvent(QKeyEvent *i)
             }
         }
     }
+    else if (i->key()==Qt::Key_M){
+        advGirl->setMuerte(true);
+        timemaz->stop();
+        timez->stop();
+        //times->stop();
+
+        pausa->actualizacion(advGirl->getVidas(),advGirl->get_ammo(),advGirl->getPuntaje(),advGirl->getNivel());
+        pausa->show();
+    }
+    else if(i->key()==Qt::Key_N){
+        pausa->close();
+        advGirl->setMuerte(false);
+        timemaz->start(10);
+        timez->start(100);
+        //times->start(1);
+
+    }
 }
+
+void MainWindow::setNombre(const QString &value)
+{
+    nombre = value;
+}
+
+void MainWindow::cargar()
+{
+    advGirl->setPersonaje1(nombre);
+    advGirl->cargando();
+}
+
 
 void MainWindow::saltoparabolico()
 {
@@ -472,8 +478,8 @@ void MainWindow::movimiento_maza()
               advGirl->setVidas(advGirl->getVidas()-1);
               if(advGirl->getVidas()==0){
                   advGirl->setMuerte(true);
+                  advGirl->setPersonaje1(nombre);
                   advGirl->morir();
-                  //restablecer();
               }
               else{
                   psound->setMedia(QUrl("qrc:/sonidos/herida.mp3"));
@@ -504,6 +510,7 @@ void MainWindow::movimiento_zombie()
             zombies.at(j)->setAtaque(true);
             if(advGirl->getVidas()==0){
                 advGirl->setMuerte(true);
+                advGirl->setPersonaje1(nombre);
                 advGirl->morir();
                 //restablecer();
             }
@@ -550,6 +557,11 @@ void MainWindow::movimiento_zombie()
         }
     }
 }
+
+
+
+
+
 
 void MainWindow::deslizando()
 {
@@ -647,7 +659,7 @@ void MainWindow::movimientobala()
             escena->removeItem(advGirl->getBullet());
             bulletAct=false;
         }
-    }
+
     if(advGirl->getBullet()->get_posx()>advGirl->get_posx()+sizex && direc==true){
         time->stop();
         escena->removeItem(advGirl->getBullet());
@@ -658,6 +670,7 @@ void MainWindow::movimientobala()
         escena->removeItem(advGirl->getBullet());
         bulletAct=false;
     }
+}
 }
 
 
