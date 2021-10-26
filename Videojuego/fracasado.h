@@ -18,6 +18,9 @@ public:
     QString getAuxpersonaje1() const;
     void setAuxpersonaje1(const QString &value);
 
+    QString getAuxpersonaje2() const;
+    void setAuxpersonaje2(const QString &value);
+
 private slots:
     void on_Siguiente_clicked();
 

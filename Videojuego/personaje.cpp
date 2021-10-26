@@ -220,7 +220,8 @@ void personaje::deslizar()
 
 void personaje::morir()
 {
-    guardar(multij);
+    guardar(personaje1);
+
     vidas--;
     timemuer = new QTimer;
     timemuer->start(200);
@@ -228,10 +229,10 @@ void personaje::morir()
 
 }
 
-void personaje::guardar(bool multiplayer)
+void personaje::guardar( QString persona)
 {
-    if (multiplayer==false){
-        QFile archivo(personaje1);
+
+        QFile archivo(persona);
         QString clave,nombre,puntuacion,nivelstr,municionstr,vidastr;
         if(archivo.open(QFile::ReadOnly | QFile::Text))
         {
@@ -250,7 +251,7 @@ void personaje::guardar(bool multiplayer)
         bool ok;
         int puntuacionint = puntuacion.toInt(&ok);
 
-        QFile cuenta(personaje1);
+        QFile cuenta(persona);
         if ( cuenta.open(QFile::WriteOnly | QFile::Text))
         {
 
@@ -263,41 +264,8 @@ void personaje::guardar(bool multiplayer)
             out<<ammo<<endl;
             cuenta.close();
         }
-    }
-    else{
-        QFile archivo(personaje2);
-        QString clave,nombre,puntuacion,nivelstr,municionstr,vidastr;
-        if(archivo.open(QFile::ReadOnly | QFile::Text))
-        {
-            //cargamos de forma correcta el archivo por tanto vamos a habilitar la nueva ventana.
-            QTextStream read(&archivo);
 
 
-            nombre=read.readLine();
-            clave = read.readLine();
-            puntuacion=read.readLine();
-            nivelstr=read.readLine();
-            vidastr=read.readLine();
-            municionstr=read.readLine();
-            archivo.close();
-        }
-        bool ok;
-        int puntuacionint = puntuacion.toInt(&ok);
-
-        QFile cuenta(personaje1);
-        if ( cuenta.open(QFile::WriteOnly | QFile::Text))
-        {
-
-            QTextStream out(&cuenta);
-            out <<nombre<<endl;
-            out <<clave<< endl;
-            out<<puntaje+puntuacionint<<endl;
-            out<<nivel<<endl;
-            out<<vidas<<endl;
-            out<<ammo<<endl;
-            cuenta.close();
-        }
-    }
 
 }
 
@@ -396,8 +364,10 @@ void personaje::moristesmen()
 {
     Fracasado *perder;
     perder=new Fracasado();
-    perder->show();
     perder->setAuxpersonaje1(personaje1);
+    perder->setAuxpersonaje2(personaje2);
+    perder->show();
+
 }
 
 void personaje::setMultij(bool value)

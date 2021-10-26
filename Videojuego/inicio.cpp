@@ -212,6 +212,9 @@ void inicio::on_partidamulti_clicked()
         out << usuario<<endl;
         out << password << endl;
         out << puntinicio << endl;
+        out << "1" << endl;
+        out <<"3" << endl;
+        out << "6" << endl;
         cuenta.close();
     }
 
@@ -222,13 +225,16 @@ void inicio::on_partidamulti_clicked()
         out << usuario2<<endl;
         out << password2 << endl;
         out << puntinicio << endl;
+        out << "1" << endl;
+        out <<"3" << endl;
+        out << "6" << endl;
         cuenta.close();
     }
     MainWindow *juego;
     juego=new MainWindow();
     juego->setNombre(usuario);
     juego->setNombre2(usuario2);
-    juego->setMultiplayer(true);
+
     juego->show();
 
 }

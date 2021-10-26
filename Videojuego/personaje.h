@@ -42,7 +42,7 @@ public:
     void melee();
     void deslizar();
     void morir();
-    void guardar(bool multiplayer);
+    void guardar(QString persona);
     int getVidas() const;
     void setVidas(int value);
     int getPuntaje() const;

@@ -14,6 +14,7 @@ MainWindow::MainWindow(QWidget *parent) :
     advGirl->setPos(60,sizey*7/10); //Esa posición en y por la acumulación de la posición del personaje y la posición de los bloques del mapa
     escena->addItem(advGirl);
     advGirl->setPosy(sizey*7/10);
+
     view->setScene(escena);
     view->resize(sizex,sizey);
     this->resize(sizex,sizey);
@@ -172,7 +173,7 @@ void MainWindow::keyPressEvent(QKeyEvent *i)
                 advGirl->mov_izq();
                 advGirl->setX(advGirl->x()-20);
                 advGirl->setNivel(advGirl->getNivel()+1);
-                advGirl->guardar(multiplayer);
+                //advGirl->guardar(multiplayer);
                 close();
             }
             view->centerOn(advGirl->x(),504);
@@ -435,7 +436,9 @@ void MainWindow::saltoparabolico()
     }
     if(posysalto>720){
         times->stop();
-        advGirl->guardar(multiplayer);
+        advGirl->setPersonaje1(nombre);
+        advGirl->setPersonaje2(nombre2);
+        advGirl->morir();
         advGirl->moristesmen();
 
         cerrar();
@@ -484,7 +487,8 @@ void MainWindow::caida()
         timec->stop();
         advGirl->setMuerte(true);
         advGirl->setPersonaje1(nombre);
-        advGirl->guardar(multiplayer);
+        advGirl->setPersonaje2(nombre2);
+        advGirl->morir();
         advGirl->moristesmen();
 
 
@@ -503,11 +507,16 @@ void MainWindow::movimiento_maza()
               advGirl->setVidas(advGirl->getVidas()-1);
               if(advGirl->getVidas()==0){
                   advGirl->setMuerte(true);
-                  advGirl->setPersonaje1(nombre);
+
 
                   if(multiplayer==true){
+                      advGirl->setPersonaje1(nombre2);
                       advGirl->setPersonaje2(nombre2);
                       advGirl->setMultij(true);
+                  }
+                  else{
+                      advGirl->setPersonaje1(nombre);
+                       advGirl->setPersonaje2(nombre2);
                   }
 
                   advGirl->morir();
@@ -549,10 +558,17 @@ void MainWindow::movimiento_zombie()
             if(advGirl->getVidas()==0){
                 advGirl->setMuerte(true);
                 advGirl->setPersonaje1(nombre);
+
                 if(multiplayer==true){
+                    advGirl->setPersonaje1(nombre2);
                     advGirl->setPersonaje2(nombre2);
                     advGirl->setMultij(true);
                 }
+                else{
+                    advGirl->setPersonaje1(nombre);
+                    advGirl->setPersonaje2(nombre2);
+                }
+
                 advGirl->morir();
                 /*QTimer *timemorir;
                 timemorir=new QTimer();
