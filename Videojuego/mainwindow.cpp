@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <QDebug>
+//#include <QDebug>
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
 
@@ -10,11 +10,9 @@ MainWindow::MainWindow(QWidget *parent) :
     setup_mainwindow();
     advGirl=new personaje(sizey);
     generar_mapa();
-    //advGirl=new personaje(sizey);
     advGirl->setPos(60,sizey*7/10); //Esa posición en y por la acumulación de la posición del personaje y la posición de los bloques del mapa
     escena->addItem(advGirl);
     advGirl->setPosy(sizey*7/10);
-
     view->setScene(escena);
     view->resize(sizex,sizey);
     this->resize(sizex,sizey);
@@ -33,6 +31,7 @@ MainWindow::MainWindow(QWidget *parent) :
     timez->start(100);
     connect(timez,SIGNAL(timeout()),this,SLOT(movimiento_zombie()));
     pausa=new menupausa();
+    puntos=new Puntuaje();
 }
 
 MainWindow::~MainWindow()
@@ -44,6 +43,7 @@ MainWindow::~MainWindow()
     delete timec;
     delete times;
     delete timez;
+    //delete timemorir;
     delete bsound;
     delete csound;
     delete coinsound;
@@ -56,10 +56,7 @@ MainWindow::~MainWindow()
     for(int x=0; x<columnas; x++) for(int y=0; y<filas; y++) delete mapa[x][y];
     for (int i=0;i<cajas.length();i++) delete cajas.at(i);
     delete l_mapa;
-    delete timemorir;
 }
-
-
 
 void MainWindow::setup_mainwindow()
 {
@@ -109,7 +106,7 @@ void MainWindow::generar_mapa()
             mapa[x][y] = new map(sizex,sizey);
             mapa[x][y]->setup_tipo(m_mapa[x][y]);
             mapa[x][y]->setX((sizex/columnas)*x);
-            if(m_mapa[x][y]==3) mapa[x][y]->setY(((sizey/filas)*y)+(sizey/filas));
+            if(m_mapa[x][y]==3 || m_mapa[x][y]==4) mapa[x][y]->setY(((sizey/filas)*y)+(sizey/filas));
             else mapa[x][y]->setY(((sizey/(filas))*y)+(sizey/filas)/2);
             escena->addItem(mapa[x][y]);
         }
@@ -132,9 +129,10 @@ bool MainWindow::generar_caja()
 {
     int n, x;
     n=rand();
-    x=p*(RAND_MAX+1)-1;
     if(advGirl->getNivel()/100<0.1) x=(p-advGirl->getNivel()/100)*(RAND_MAX+1)-1;
+    else x=(p-0.1)*(RAND_MAX+1)-1;
     return n<=x;
+
 }
 
 bool MainWindow::generar_moneda()
@@ -160,7 +158,7 @@ bool MainWindow::generar_zombie()
     int n, x;
     n=rand();
     if(advGirl->getNivel()/100<0.1) x=(pz+advGirl->getNivel()/100)*(RAND_MAX+1)-1;
-     else x=(pz+0.1)*(RAND_MAX+1)-1;
+    else x=(pz+0.1)*(RAND_MAX+1)-1;
     return n<=x;
 }
 
@@ -171,22 +169,25 @@ void MainWindow::keyPressEvent(QKeyEvent *i)
             advGirl->mov_der();
             advGirl->setX(advGirl->x()+20);
             if(advGirl->collidesWithItem(l2)){
+                timez->stop();
+                timemaz->stop();
                 advGirl->mov_izq();
                 advGirl->setX(advGirl->x()-20);
                 advGirl->setNivel(advGirl->getNivel()+1);
                 if(multiplayer==true){
 
-                    advGirl->setPersonaje1(nombre2);
+                    advGirl->setPersonaje1(nombre);
                     advGirl->setPersonaje2(nombre2);
                     advGirl->guardar(nombre2);
+                    multiplayer=false;
                 }
                 else{
                     advGirl->setPersonaje1(nombre);
                     advGirl->setPersonaje2(nombre2);
                     advGirl->guardar(nombre);
                 }
-                //advGirl->guardar(multiplayer);
                 advGirl->siguientee();
+                advGirl->setMultij(multiplayer);
                 close();
             }
             view->centerOn(advGirl->x(),504);
@@ -239,7 +240,7 @@ void MainWindow::keyPressEvent(QKeyEvent *i)
         }
     }
     else if(i->key()==Qt::Key_P){
-           if(advGirl->getAnimadisp()==false && advGirl->get_ActAttack()==false && bulletAct==false && advGirl->get_ammo()>0 && advGirl->getParabolico()==false && advGirl->getDeslizo()==true && cae==false && advGirl->getMuerte()==false){
+         if(advGirl->getAnimadisp()==false && advGirl->get_ActAttack()==false && bulletAct==false && advGirl->get_ammo()>0 && advGirl->getParabolico()==false && advGirl->getDeslizo()==true && cae==false && advGirl->getMuerte()==false){
             if(advGirl->get_direc()==true) advGirl->setPixmap((QPixmap(":/sprites personaje/Shoot (1).png").scaled(sizey/5,sizey/5)));
             else advGirl->setPixmap((QPixmap(":/sprites personaje/ShootL (1).png").scaled(sizey/5,sizey/5)));
             advGirl->set_ammo(advGirl->get_ammo()-1);
@@ -335,25 +336,25 @@ void MainWindow::keyPressEvent(QKeyEvent *i)
         }
     }
     else if (i->key()==Qt::Key_M){
-        advGirl->setMuerte(true);
-        timemaz->stop();
-        timez->stop();
-        if(advGirl->getParabolico()==true){
-            times->stop();
+        if(pausa->getPausa()==false){
+            pausa->setActivo(true);
+            pausa->setPausa(true);
+            advGirl->setMuerte(true);
+            timemaz->stop();
+            timez->stop();
+            if(advGirl->getParabolico()==true) times->stop();
+            if(multiplayer==false) pausa->actualizacion(nombre,advGirl->getVidas(),advGirl->get_ammo(),advGirl->getPuntaje(),advGirl->getNivel());
+            else pausa->actualizacion(nombre2,advGirl->getVidas(),advGirl->get_ammo(),advGirl->getPuntaje(),advGirl->getNivel());
+            pausa->show();
         }
-
-        pausa->actualizacion(advGirl->getVidas(),advGirl->get_ammo(),advGirl->getPuntaje(),advGirl->getNivel());
-        pausa->show();
-    }
-    else if(i->key()==Qt::Key_N){
-        pausa->close();
-        advGirl->setMuerte(false);
-        timemaz->start(10);
-        timez->start(100);
-        if(advGirl->getParabolico()==true){
-            times->start(1);
+        else{
+            if(pausa->getActivo()==true) pausa->close();
+            pausa->setPausa(false);
+            advGirl->setMuerte(false);
+            timemaz->start(10);
+            timez->start(100);
+            if(advGirl->getParabolico()==true) times->start(1);
         }
-
     }
 }
 
@@ -364,6 +365,7 @@ void MainWindow::setNombre(const QString &value)
 
 void MainWindow::cargar()
 {
+    //multiplayer=advGirl->getMultij();
     if (multiplayer==true){
          advGirl->cargando(nombre2);
     }
@@ -371,7 +373,7 @@ void MainWindow::cargar()
         advGirl->cargando(nombre);
     }
     advGirl->setPersonaje1(nombre);
-
+    advGirl->setPersonaje2(nombre2);
 }
 
 
@@ -399,6 +401,35 @@ void MainWindow::saltoparabolico()
             escena->removeItem(monedas.at(j));
             monedas.removeAt(j);
         }
+    }
+    if(posysalto>720){
+       times->stop();
+       advGirl->setVidas(0);
+       advGirl->setMuerte(true);
+       if(multiplayer==true){
+           advGirl->setPersonaje1(nombre);
+           advGirl->setPersonaje2(nombre2);
+           advGirl->guardar(nombre2);
+       }
+       else{
+           advGirl->setPersonaje1(nombre);
+           advGirl->setPersonaje2(nombre2);
+           advGirl->guardar(nombre);
+       }
+       timemaz->stop();
+       timez->stop();
+       advGirl->guardar(nombre);
+       if(multiplayer!=true) advGirl->moristesmen();
+       else{
+           advGirl->cargando1(nombre);
+           puntos1=advGirl->getPuntaje();
+           advGirl->cargando1(nombre2);
+           puntos2=advGirl->getPuntaje();
+           puntos->actualizacion(nombre,puntos1,nombre2,puntos2);
+           puntos->show();
+       }
+       if(pausa->getActivo()==true) pausa->close();
+       close();
     }
     if(n%7==0) view->centerOn(advGirl->x(),504);
     if(advGirl->get_direc()==true){
@@ -453,28 +484,6 @@ void MainWindow::saltoparabolico()
             else advGirl->setPixmap(QPixmap(":/sprites personaje/IdleL (1).png").scaled(sizey/5,sizey/5));
         }
     }
-    if(posysalto>720){
-        times->stop();
-        //timec->stop();
-            advGirl->setMuerte(true);
-            if(multiplayer==true){
-
-                advGirl->setPersonaje1(nombre2);
-                advGirl->setPersonaje2(nombre2);
-                advGirl->guardar(nombre2);
-                advGirl->setMultij(true);
-            }
-            else{
-                advGirl->setPersonaje1(nombre);
-                advGirl->setPersonaje2(nombre2);
-                advGirl->guardar(nombre);
-            }
-        timemaz->stop();
-        timez->stop();
-        advGirl->guardar(nombre);
-        advGirl->moristesmen();
-        cerrar();
-    }
 }
 
 void MainWindow::caida()
@@ -513,28 +522,32 @@ void MainWindow::caida()
             if(advGirl->get_direc()==true) advGirl->setPixmap(QPixmap(":/sprites personaje/Idle (1).png").scaled(sizey/5,sizey/5));
             else advGirl->setPixmap(QPixmap(":/sprites personaje/IdleL (1).png").scaled(sizey/5,sizey/5));
         }
-
     }
     if(sizey-posysalto>720){
         timec->stop();
+        advGirl->setVidas(0);
         advGirl->setMuerte(true);
         if(multiplayer==true){
-
             advGirl->setPersonaje1(nombre2);
             advGirl->setPersonaje2(nombre2);
             advGirl->guardar(nombre2);
-            advGirl->setMultij(true);
         }
         else{
             advGirl->setPersonaje1(nombre);
             advGirl->setPersonaje2(nombre2);
             advGirl->guardar(nombre);
         }
-        advGirl->moristesmen();
-
-
-        cerrar();
-
+        if(multiplayer!=true) advGirl->moristesmen();
+        else{
+            advGirl->cargando1(nombre);
+            puntos1=advGirl->getPuntaje();
+            advGirl->cargando1(nombre2);
+            puntos2=advGirl->getPuntaje();
+            puntos->actualizacion(nombre,puntos1,nombre2,puntos2);
+            puntos->show();
+        }
+        if(pausa->getActivo()==true) pausa->close();
+        close();
     }
 }
 
@@ -548,22 +561,26 @@ void MainWindow::movimiento_maza()
               advGirl->setVidas(advGirl->getVidas()-1);
               if(advGirl->getVidas()<=0){
                   advGirl->setMuerte(true);
-
-
                   if(multiplayer==true){
-                      advGirl->setPersonaje1(nombre2);
-                      advGirl->setPersonaje2(nombre2);
-                      advGirl->setMultij(true);
-                  }
-                  else{
-                      advGirl->setPersonaje1(nombre);
+                       advGirl->setPersonaje1(nombre2);
                        advGirl->setPersonaje2(nombre2);
-                  }
-
-                  advGirl->morir();
-                  timemorir=new QTimer;
-                  timemorir->start(1500);
-                  connect(timemorir,SIGNAL(timeout()),this,SLOT(cerrar()));
+                       advGirl->guardar(nombre2);
+                       advGirl->morir();
+                       advGirl->cargando1(nombre);
+                       puntos1=advGirl->getPuntaje();
+                       advGirl->cargando1(nombre2);
+                       puntos2=advGirl->getPuntaje();
+                       puntos->actualizacion(nombre,puntos1,nombre2,puntos2);
+                       puntos->show();
+                   }
+                   else{
+                       advGirl->setPersonaje1(nombre);
+                       advGirl->guardar(nombre);
+                       advGirl->setPersonaje2(nombre2);
+                       advGirl->morir();
+                       advGirl->moristesmen();
+                   }
+                    close();
               }
               else{
                   psound->setMedia(QUrl("qrc:/sonidos/herida.mp3"));
@@ -593,37 +610,38 @@ void MainWindow::movimiento_zombie()
             zombies.at(j)->setImpacto(true);
             zombies.at(j)->setAtaque(true);
             if(advGirl->getVidas()<=0){
-
                 advGirl->setMuerte(true);
                 advGirl->setPersonaje1(nombre);
-
                 if(multiplayer==true){
                     advGirl->setPersonaje1(nombre2);
                     advGirl->setPersonaje2(nombre2);
-                    advGirl->setMultij(true);
+                    advGirl->guardar(nombre2);
                 }
                 else{
                     advGirl->setPersonaje1(nombre);
+                    advGirl->guardar(nombre);
                     advGirl->setPersonaje2(nombre2);
                 }
-
-                advGirl->morir();
+                if(multiplayer!=true){
+                    advGirl->morir();
+                    advGirl->moristesmen();
+                }
+                else{
+                    advGirl->morir();
+                    advGirl->cargando1(nombre);
+                    puntos1=advGirl->getPuntaje();
+                    advGirl->cargando1(nombre2);
+                    puntos2=advGirl->getPuntaje();
+                    puntos->actualizacion(nombre,puntos1,nombre2,puntos2);
+                    puntos->show();
+                    close();
+                }
                 if(advGirl->getCerrarmain()==true){
                     timez->stop();
                     advGirl->setCerrarmain(false);
+                    if(pausa->getActivo()==true) pausa->close();
                     close();
-
-
-
                 }
-                /*QTimer *timemorir;
-                timemorir=new QTimer();
-
-                timemorir->start(2000);
-                connect(timemorir,SIGNAL(timeout()),this,SLOT(cerrar()));*/
-
-
-                //restablecer();
             }
         }
         if(zombies.at(j)->getAtaque()==true){
@@ -674,20 +692,15 @@ void MainWindow::setMultiplayer(bool value)
     multiplayer = value;
 }
 
-void MainWindow::cerrar()
+/*void MainWindow::cerrar()
 {
     close();
-}
+}*/
 
 void MainWindow::setNombre2(const QString &value)
 {
     nombre2 = value;
 }
-
-
-
-
-
 
 void MainWindow::deslizando()
 {
@@ -774,6 +787,7 @@ void MainWindow::movimientobala()
             time->stop();
             escena->removeItem(advGirl->getBullet());
             bulletAct=false;
+            cajas.at(j)->setItemgen(true);
         }
     }
     for (int i=0;i<zombies.size() ;i++ ) {
@@ -784,6 +798,7 @@ void MainWindow::movimientobala()
             time->stop();
             escena->removeItem(advGirl->getBullet());
             bulletAct=false;
+            advGirl->setPuntaje(advGirl->getPuntaje()+2);
         }
 
     if(advGirl->getBullet()->get_posx()>advGirl->get_posx()+sizex && direc==true){
@@ -796,7 +811,7 @@ void MainWindow::movimientobala()
         escena->removeItem(advGirl->getBullet());
         bulletAct=false;
     }
-}
+    }
 }
 
 

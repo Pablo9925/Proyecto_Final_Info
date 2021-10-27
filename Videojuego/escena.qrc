@@ -16,8 +16,13 @@
         <file>escena/maza.png</file>
         <file>escena/vida.png</file>
         <file>escena/exit.jpg</file>
-        <file>escena/fondo.jpg</file>
         <file>escena/cratedes1.png</file>
         <file>escena/cratedes2.png</file>
+        <file>escena/Menu.png</file>
+        <file>escena/menu2.png</file>
+        <file>escena/pausa.png</file>
+        <file>escena/derrota.png</file>
+        <file>escena/victoria.png</file>
+        <file>escena/puntaje.png</file>
     </qresource>
 </RCC>

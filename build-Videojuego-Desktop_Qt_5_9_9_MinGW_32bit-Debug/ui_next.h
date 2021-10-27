@@ -25,18 +25,24 @@ class Ui_next
 public:
     QLabel *label;
     QPushButton *pushButton;
+    QPushButton *salir;
 
     void setupUi(QWidget *next)
     {
         if (next->objectName().isEmpty())
             next->setObjectName(QStringLiteral("next"));
-        next->resize(480, 240);
+        next->resize(345, 240);
+        next->setStyleSheet(QStringLiteral("background-color: rgb(255, 255, 255);"));
         label = new QLabel(next);
         label->setObjectName(QStringLiteral("label"));
-        label->setGeometry(QRect(40, 80, 47, 14));
+        label->setGeometry(QRect(30, 10, 261, 81));
+        label->setStyleSheet(QStringLiteral("image: url(:/escena/victoria.png);"));
         pushButton = new QPushButton(next);
         pushButton->setObjectName(QStringLiteral("pushButton"));
-        pushButton->setGeometry(QRect(280, 150, 91, 51));
+        pushButton->setGeometry(QRect(30, 150, 91, 51));
+        salir = new QPushButton(next);
+        salir->setObjectName(QStringLiteral("salir"));
+        salir->setGeometry(QRect(210, 140, 93, 51));
 
         retranslateUi(next);
 
@@ -46,8 +52,9 @@ public:
     void retranslateUi(QWidget *next)
     {
         next->setWindowTitle(QApplication::translate("next", "Form", Q_NULLPTR));
-        label->setText(QApplication::translate("next", "TextLabel", Q_NULLPTR));
-        pushButton->setText(QApplication::translate("next", "PushButton", Q_NULLPTR));
+        label->setText(QString());
+        pushButton->setText(QApplication::translate("next", "Siguiente", Q_NULLPTR));
+        salir->setText(QApplication::translate("next", "Cerrar", Q_NULLPTR));
     } // retranslateUi
 
 };

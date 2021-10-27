@@ -20,13 +20,17 @@ public:
 
     QString getAuxpersonajee2() const;
     void setAuxpersonajee2(const QString &value);
+    bool getMultiplayer() const;
+    void setMultiplayer(bool value);
 
 private slots:
     void on_pushButton_clicked();
+    void on_salir_clicked();
 
 private:
     Ui::next *ui;
     QString auxpersonajee,auxpersonajee2;
+    bool multiplayer=false;
 };
 
 #endif // NEXT_H

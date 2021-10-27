@@ -23,6 +23,7 @@ public:
 
 private slots:
     void on_Siguiente_clicked();
+    void on_salir_clicked();
 
 private:
     Ui::Fracasado *ui;

@@ -51,27 +51,19 @@ public:
     bool getMuerte() const;
     void setMuerte(bool value);
     void cargando(QString actual);
-    //bool getFinalizado() const;
-    //void setFinalizado(bool value);
-
+    void cargando1(QString actual);
     void setPersonaje1(const QString &value);
-
     void setPersonaje2(const QString &value);
     QString recogerunalinea(int linea, QString a);
     bool getAnimadisp() const;
-
-
     int getNivel() const;
-
+    void setNivel(int value);
     void setMultij(bool value);
-
     bool getCerrarmain() const;
     void moristesmen();
-
-    void setNivel(int value);
-
     void setCerrarmain(bool value);
     void siguientee();
+    bool getMultij() const;
 
 public slots:
     void disparar();
@@ -81,6 +73,8 @@ public slots:
 
 private:
     bala *bullet;
+    Fracasado *perder;
+    next *level;
     QTimer *timeshot;
     QTimer *timesalt;
     QTimer *timepunal;
@@ -90,7 +84,6 @@ private:
     QString personaje1;
     QString personaje2;
     bool derecha=true, meleeAct=false,parabolico=false, deslizo=true,muerte=false,animadisp=false,multij=false,cerrarmain=false,cerrarfracasado=true;
-    //bool finalizado=false;
     int vidas=3, ammo=6, damage=1, puntaje=0, size, contp=30, conts=31, contb=16 ,contjump=8,contmuer=0,nivel=1;
     float posx=60, posy;
 };

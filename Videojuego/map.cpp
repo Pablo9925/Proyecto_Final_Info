@@ -9,6 +9,7 @@ map::map(int tamx, int tamy)
     mapa[1]=":/escena/Tile (15).png";
     mapa[2]=":/escena/DeadBush.png";
     mapa[3]=":/escena/TombStone (2).png";
+    mapa[4]=":/escena/ArrowSign.png";
 }
 
 void map::setup_tipo(int tipo)
@@ -19,6 +20,7 @@ void map::setup_tipo(int tipo)
     }
     else if(tipo==2) setPixmap(QPixmap(mapa[0]).scaled(sizex,sizey/2));
     else if(tipo==1) setPixmap(QPixmap(mapa[1]).scaled(sizex,sizey/2));
+    else if (tipo==4) setPixmap(QPixmap(mapa[4]).scaled(sizex/2,sizey/2));
 }
 
 bool map::aleatorio()

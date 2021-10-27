@@ -42,8 +42,22 @@ void next::on_pushButton_clicked()
     ventana->setNombre2(auxpersonajee2);
 
     ventana->cargar();
-    //ventana->close();
     ventana->show();
 
     close();
+}
+
+void next::on_salir_clicked()
+{
+    close();
+}
+
+bool next::getMultiplayer() const
+{
+    return multiplayer;
+}
+
+void next::setMultiplayer(bool value)
+{
+    multiplayer = value;
 }

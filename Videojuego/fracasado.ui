@@ -6,46 +6,56 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>506</width>
-    <height>278</height>
+    <width>369</width>
+    <height>235</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">
-background-image: url(:/escena/fondo.jpg);</string>
+   <string notr="true">background-color: rgb(255, 255, 255);</string>
   </property>
   <widget class="QPushButton" name="Siguiente">
    <property name="geometry">
     <rect>
-     <x>200</x>
-     <y>200</y>
+     <x>30</x>
+     <y>150</y>
      <width>131</width>
      <height>61</height>
     </rect>
    </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: rgb(255, 26, 10);
-alternate-background-color: rgb(143, 167, 255);
-background-image: url(:/sprites personaje/Dead (5).png);</string>
+   <property name="text">
+    <string>Siguiente</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="salir">
+   <property name="geometry">
+    <rect>
+     <x>200</x>
+     <y>150</y>
+     <width>131</width>
+     <height>61</height>
+    </rect>
    </property>
    <property name="text">
-    <string>siguiente</string>
+    <string>Salir</string>
    </property>
   </widget>
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>40</x>
-     <y>130</y>
-     <width>81</width>
-     <height>51</height>
+     <x>20</x>
+     <y>0</y>
+     <width>311</width>
+     <height>131</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">image: url(:/escena/derrota.png);</string>
+   </property>
    <property name="text">
-    <string>perdistes</string>
+    <string/>
    </property>
   </widget>
  </widget>

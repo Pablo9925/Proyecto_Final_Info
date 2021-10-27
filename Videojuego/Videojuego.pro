@@ -25,41 +25,43 @@ CONFIG += c++11
 
 SOURCES += \
     bala.cpp \
-    fracasado.cpp \
     inicio.cpp \
         main.cpp \
         mainwindow.cpp \
     menupausa.cpp \
-    next.cpp \
     personaje.cpp \
     logicamap.cpp \
     map.cpp \
     caja.cpp \
     coin.cpp \
     maza.cpp \
-    zombie.cpp
+    zombie.cpp \
+    fracasado.cpp \
+    puntuaje.cpp \
+    next.cpp
 
 HEADERS += \
     bala.h \
-    fracasado.h \
     inicio.h \
         mainwindow.h \
     menupausa.h \
-    next.h \
     personaje.h \
     logicamap.h \
     map.h \
     caja.h \
     coin.h \
     maza.h \
-    zombie.h
+    zombie.h \
+    fracasado.h \
+    puntuaje.h \
+    next.h
 
 FORMS += \
-    fracasado.ui \
     inicio.ui \
         mainwindow.ui \
-    menu.ui \
     menupausa.ui \
+    fracasado.ui \
+    puntuaje.ui \
     next.ui
 
 # Default rules for deployment.

@@ -1,20 +1,11 @@
 #include "inicio.h"
 #include "ui_inicio.h"
 
-
 inicio::inicio(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::inicio)
 {
     ui->setupUi(this);
-    /*QGraphicsScene *scene;
-    scene = new QGraphicsScene();
-    scene->setBackgroundBrush(QBrush(QImage(":/escena/fondo.jpg")));
-    scene->setSceneRect(0,0,500,280); //definimos el 0,0 de la escena
-    ui->graphicsView->setScene(scene);
-    ui->graphicsView->setFixedSize(500,280);
-    ui->graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);*/
     ui->crear->setVisible(false);
     ui->cargar->setVisible(false);
     ui->multijugador->setVisible(false);
@@ -24,13 +15,12 @@ inicio::inicio(QWidget *parent) :
     ui->nuevapartida->setVisible(false);
     ui->ingresar2->setVisible(false);
     ui->partidamulti->setVisible(false);
-
+    setWindowIcon(QIcon(":/escena/TombStone (2).png"));
 }
 
 inicio::~inicio()
 {
     delete ui;
-
 }
 
 void inicio::on_inicio_2_clicked()
@@ -74,8 +64,6 @@ void inicio::on_crear_clicked()
         ui->cargar->setVisible(true);
         ui->nuevapartida->setVisible(true);
         ui->crear->setVisible(false);
-
-        //ui->registro_2->setVisible(false);
     }
     else
     {
@@ -101,6 +89,7 @@ void inicio::on_nuevapartida_clicked()
     juego->setNombre(usuario);
     juego->setNombre2(usuario);
     juego->show();
+    close();
 }
 
 void inicio::on_ingresar_clicked()
@@ -112,7 +101,6 @@ void inicio::on_ingresar_clicked()
     QFile archivo(usuario);
     if(archivo.open(QFile::ReadOnly | QFile::Text))
     {
-        //cargamos de forma correcta el archivo por tanto vamos a habilitar la nueva ventana.
         QTextStream read(&archivo);
         QString clave;
         read.readLine();
@@ -124,8 +112,6 @@ void inicio::on_ingresar_clicked()
             read.readLine();
             read.readLine();
             read.readLine();
-           // nivel = read.readLine();
-            //qDebug()<< nivel;
             ui->uss->setVisible(false);
             ui->pass->setVisible(false);
             ui->multijugador->setVisible(true);
@@ -133,7 +119,6 @@ void inicio::on_ingresar_clicked()
             ui->nuevapartida->setVisible(true);
             ui->ingresar->setVisible(false);
             archivo.close();
-          //  music->stop();
         }
         else
         {
@@ -161,7 +146,6 @@ void inicio::on_ingresar2_clicked()
     QFile archivo(usuario2);
     if(archivo.open(QFile::ReadOnly | QFile::Text))
     {
-        //cargamos de forma correcta el archivo por tanto vamos a habilitar la nueva ventana.
         QTextStream read(&archivo);
         QString clave;
         read.readLine();
@@ -173,18 +157,14 @@ void inicio::on_ingresar2_clicked()
             read.readLine();
             read.readLine();
             read.readLine();
-           // nivel = read.readLine();
-            //qDebug()<< nivel;
             ui->uss->setVisible(false);
             ui->pass->setVisible(false);
             ui->multijugador->setVisible(false);
-           // ui->cargarPartida->setVisible(true);
             ui->nuevapartida->setVisible(false);
             ui->ingresar->setVisible(false);
             ui->ingresar2->setVisible(false);
             ui->partidamulti->setVisible(true);
             archivo.close();
-          //  music->stop();
         }
         else
         {
@@ -202,6 +182,7 @@ void inicio::on_cargar_clicked()
     juego->setNombre(usuario);
     juego->cargar();
     juego->show();
+    close();
 }
 
 void inicio::on_partidamulti_clicked()
@@ -236,8 +217,7 @@ void inicio::on_partidamulti_clicked()
     juego=new MainWindow();
     juego->setNombre(usuario);
     juego->setNombre2(usuario2);
-
-
     juego->show();
+    close();
 
 }
