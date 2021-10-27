@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <QDebug>
+//#include <QDebug>
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
 
@@ -556,6 +556,8 @@ void MainWindow::movimiento_maza()
     for(int j=0;j<mazas.length();j++){
         if(mazas.at(j)->getX()<advGirl->get_posx()+sizex && mazas.at(j)->getX()>advGirl->get_posx()-sizex) mazas.at(j)->movimiento();
           if(mazas.at(j)->collidesWithItem(advGirl) && mazas.at(j)->getImpacto()==false){
+              escena->removeItem(mazas.at(j));
+              mazas.at(j)->setImpacto(true);
               advGirl->setVidas(advGirl->getVidas()-1);
               if(advGirl->getVidas()<=0){
                   advGirl->setMuerte(true);
@@ -563,41 +565,26 @@ void MainWindow::movimiento_maza()
                        advGirl->setPersonaje1(nombre2);
                        advGirl->setPersonaje2(nombre2);
                        advGirl->guardar(nombre2);
+                       advGirl->morir();
+                       advGirl->cargando1(nombre);
+                       puntos1=advGirl->getPuntaje();
+                       advGirl->cargando1(nombre2);
+                       puntos2=advGirl->getPuntaje();
+                       puntos->actualizacion(nombre,puntos1,nombre2,puntos2);
+                       puntos->show();
                    }
                    else{
                        advGirl->setPersonaje1(nombre);
                        advGirl->guardar(nombre);
                        advGirl->setPersonaje2(nombre2);
+                       advGirl->morir();
+                       advGirl->moristesmen();
                    }
-                  if(multiplayer!=true){
-                      advGirl->morir();
-                      advGirl->moristesmen();
-                  }
-                  else{
-                      advGirl->morir();
-                      advGirl->cargando1(nombre);
-                      puntos1=advGirl->getPuntaje();
-                      advGirl->cargando1(nombre2);
-                      puntos2=advGirl->getPuntaje();
-                      puntos->actualizacion(nombre,puntos1,nombre2,puntos2);
-                      puntos->show();
-                  }
-                   /*timemorir=new QTimer;
-                   timemorir->start(150);
-                   connect(timemorir,SIGNAL(timeout()),this,SLOT(cerrar()));*/
-
-                    if(advGirl->getCerrarmain()==true){
-                        advGirl->setCerrarmain(false);
-                        if(pausa->getActivo()==true) pausa->close();
-                        close();
-
-                    }
+                    close();
               }
               else{
                   psound->setMedia(QUrl("qrc:/sonidos/herida.mp3"));
                   psound->play();
-                  escena->removeItem(mazas.at(j));
-                  mazas.at(j)->setImpacto(true);
               }
           }
     }

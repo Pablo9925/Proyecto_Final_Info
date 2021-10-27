@@ -89,6 +89,7 @@ void inicio::on_nuevapartida_clicked()
     juego->setNombre(usuario);
     juego->setNombre2(usuario);
     juego->show();
+    close();
 }
 
 void inicio::on_ingresar_clicked()
@@ -181,6 +182,7 @@ void inicio::on_cargar_clicked()
     juego->setNombre(usuario);
     juego->cargar();
     juego->show();
+    close();
 }
 
 void inicio::on_partidamulti_clicked()
@@ -216,5 +218,6 @@ void inicio::on_partidamulti_clicked()
     juego->setNombre(usuario);
     juego->setNombre2(usuario2);
     juego->show();
+    close();
 
 }

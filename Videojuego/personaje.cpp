@@ -85,6 +85,8 @@ personaje::~personaje()
     delete timesalt;
     delete timemuer;
     delete bullet;
+    delete level;
+    delete perder;
 }
 
 bala *personaje::getBullet()
@@ -361,7 +363,6 @@ void personaje::setCerrarmain(bool value)
 
 void personaje::siguientee()
 {
-    next *level;
     level=new next;
     level->setAuxpersonajee(personaje1);
     level->setAuxpersonajee2(personaje2);
@@ -382,7 +383,6 @@ bool personaje::getCerrarmain() const
 void personaje::moristesmen()
 {
     if(cerrarfracasado==true){
-    Fracasado *perder;
     perder=new Fracasado();
     perder->setAuxpersonaje1(personaje1);
     perder->setAuxpersonaje2(personaje2);

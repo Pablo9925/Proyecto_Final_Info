@@ -73,6 +73,8 @@ public slots:
 
 private:
     bala *bullet;
+    Fracasado *perder;
+    next *level;
     QTimer *timeshot;
     QTimer *timesalt;
     QTimer *timepunal;
