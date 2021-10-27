@@ -1,4 +1,5 @@
-#Instrucciones del juego:
+# Instrucciones del juego:
+
 A izquierda
 
 D derecha
