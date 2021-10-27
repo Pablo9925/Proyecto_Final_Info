@@ -258,7 +258,14 @@ void personaje::guardar( QString persona)
             QTextStream out(&cuenta);
             out <<nombre<<endl;
             out <<clave<< endl;
-            out<<puntaje+puntuacionint<<endl;
+            if(puntuacionint!=0){
+                out<<puntaje<<endl;
+
+            }
+            else{
+                out<<puntaje+puntuacionint<<endl;
+
+            }
             out<<nivel<<endl;
             out<<vidas<<endl;
             out<<ammo<<endl;
@@ -356,6 +363,23 @@ void personaje::setCerrarmain(bool value)
     cerrarmain = value;
 }
 
+void personaje::siguientee()
+{
+    next *level;
+    level=new next;
+    level->setAuxpersonajee(personaje1);
+    level->setAuxpersonajee2(personaje2);
+    level->show();
+    /*if(cerrarfracasado==true){
+    Fracasado *perder;
+
+    perder=new Fracasado();
+    perder->setAuxpersonaje1(personaje1);
+    perder->setAuxpersonaje2(personaje2);
+    perder->show();
+    cerrarfracasado=false;*/
+}
+
 void personaje::setNivel(int value)
 {
     nivel = value;
@@ -445,9 +469,9 @@ void personaje::setVidas(int value)
 {
     vidas = value;
 }
-void personaje::cargando()
+void personaje::cargando(QString actual)
 {
-    QFile archivo(personaje1);
+    QFile archivo(actual);
     QString clave,nombre,puntuacion,nivelstr,municionstr,vidastr;;
     if(archivo.open(QFile::ReadOnly | QFile::Text))
     {
@@ -465,8 +489,8 @@ void personaje::cargando()
     }
     bool ok;
     int puntuacionint = puntuacion.toInt(&ok);
-    nivel = nivelstr.toInt(&ok)+1;
-    vidas = vidastr.toInt(&ok)+1;
+    nivel = nivelstr.toInt(&ok);
+    vidas = vidastr.toInt(&ok);
     ammo = municionstr.toInt(&ok);
 
     puntaje=puntuacionint;

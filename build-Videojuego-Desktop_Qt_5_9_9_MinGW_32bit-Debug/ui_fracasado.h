@@ -30,13 +30,18 @@ public:
     {
         if (Fracasado->objectName().isEmpty())
             Fracasado->setObjectName(QStringLiteral("Fracasado"));
-        Fracasado->resize(480, 640);
+        Fracasado->resize(506, 278);
+        Fracasado->setStyleSheet(QLatin1String("\n"
+"background-image: url(:/escena/fondo.jpg);"));
         Siguiente = new QPushButton(Fracasado);
         Siguiente->setObjectName(QStringLiteral("Siguiente"));
         Siguiente->setGeometry(QRect(200, 200, 131, 61));
+        Siguiente->setStyleSheet(QLatin1String("background-color: rgb(255, 26, 10);\n"
+"alternate-background-color: rgb(143, 167, 255);\n"
+"background-image: url(:/sprites personaje/Dead (5).png);"));
         label = new QLabel(Fracasado);
         label->setObjectName(QStringLiteral("label"));
-        label->setGeometry(QRect(60, 50, 81, 81));
+        label->setGeometry(QRect(40, 130, 81, 51));
 
         retranslateUi(Fracasado);
 
@@ -46,7 +51,7 @@ public:
     void retranslateUi(QWidget *Fracasado)
     {
         Fracasado->setWindowTitle(QApplication::translate("Fracasado", "Form", Q_NULLPTR));
-        Siguiente->setText(QApplication::translate("Fracasado", "PushButton", Q_NULLPTR));
+        Siguiente->setText(QApplication::translate("Fracasado", "siguiente", Q_NULLPTR));
         label->setText(QApplication::translate("Fracasado", "perdistes", Q_NULLPTR));
     } // retranslateUi
 

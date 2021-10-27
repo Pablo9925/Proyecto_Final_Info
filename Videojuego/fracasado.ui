@@ -6,12 +6,16 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>480</width>
-    <height>640</height>
+    <width>506</width>
+    <height>278</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">
+background-image: url(:/escena/fondo.jpg);</string>
   </property>
   <widget class="QPushButton" name="Siguiente">
    <property name="geometry">
@@ -22,17 +26,22 @@
      <height>61</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(255, 26, 10);
+alternate-background-color: rgb(143, 167, 255);
+background-image: url(:/sprites personaje/Dead (5).png);</string>
+   </property>
    <property name="text">
-    <string>PushButton</string>
+    <string>siguiente</string>
    </property>
   </widget>
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>60</x>
-     <y>50</y>
+     <x>40</x>
+     <y>130</y>
      <width>81</width>
-     <height>81</height>
+     <height>51</height>
     </rect>
    </property>
    <property name="text">

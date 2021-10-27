@@ -68,7 +68,7 @@ private:
     QTimer *timec;
     QTimer *times;
     QTimer *timez;
-
+    QTimer *timemorir;
     QMediaPlayer * bsound;
     QMediaPlayer * csound;
     QMediaPlayer * coinsound;

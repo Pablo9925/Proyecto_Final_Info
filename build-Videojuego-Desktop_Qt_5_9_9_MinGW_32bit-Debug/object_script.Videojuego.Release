@@ -5,6 +5,7 @@ INPUT(
 ./release\main.o
 ./release\mainwindow.o
 ./release\menupausa.o
+./release\next.o
 ./release\personaje.o
 ./release\logicamap.o
 ./release\map.o
@@ -20,5 +21,6 @@ INPUT(
 ./release\moc_inicio.o
 ./release\moc_mainwindow.o
 ./release\moc_menupausa.o
+./release\moc_next.o
 ./release\moc_personaje.o
 );

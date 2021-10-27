@@ -56,6 +56,7 @@ MainWindow::~MainWindow()
     for(int x=0; x<columnas; x++) for(int y=0; y<filas; y++) delete mapa[x][y];
     for (int i=0;i<cajas.length();i++) delete cajas.at(i);
     delete l_mapa;
+    delete timemorir;
 }
 
 
@@ -173,7 +174,19 @@ void MainWindow::keyPressEvent(QKeyEvent *i)
                 advGirl->mov_izq();
                 advGirl->setX(advGirl->x()-20);
                 advGirl->setNivel(advGirl->getNivel()+1);
+                if(multiplayer==true){
+
+                    advGirl->setPersonaje1(nombre2);
+                    advGirl->setPersonaje2(nombre2);
+                    advGirl->guardar(nombre2);
+                }
+                else{
+                    advGirl->setPersonaje1(nombre);
+                    advGirl->setPersonaje2(nombre2);
+                    advGirl->guardar(nombre);
+                }
                 //advGirl->guardar(multiplayer);
+                advGirl->siguientee();
                 close();
             }
             view->centerOn(advGirl->x(),504);
@@ -351,8 +364,14 @@ void MainWindow::setNombre(const QString &value)
 
 void MainWindow::cargar()
 {
+    if (multiplayer==true){
+         advGirl->cargando(nombre2);
+    }
+    else{
+        advGirl->cargando(nombre);
+    }
     advGirl->setPersonaje1(nombre);
-    advGirl->cargando();
+
 }
 
 
@@ -542,12 +561,9 @@ void MainWindow::movimiento_maza()
                   }
 
                   advGirl->morir();
-
-                  if(advGirl->getCerrarmain()==true){
-                      advGirl->setCerrarmain(false);
-                      close();
-
-                  }
+                  timemorir=new QTimer;
+                  timemorir->start(1500);
+                  connect(timemorir,SIGNAL(timeout()),this,SLOT(cerrar()));
               }
               else{
                   psound->setMedia(QUrl("qrc:/sonidos/herida.mp3"));

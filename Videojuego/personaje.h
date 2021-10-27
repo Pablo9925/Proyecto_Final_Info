@@ -13,6 +13,7 @@
 #include <QFile>
 #include <QTextStream>
 #include "fracasado.h"
+#include "next.h"
 class personaje : public QObject, public QGraphicsPixmapItem
 {
     Q_OBJECT
@@ -49,7 +50,7 @@ public:
     void setPuntaje(int value);
     bool getMuerte() const;
     void setMuerte(bool value);
-    void cargando();
+    void cargando(QString actual);
     //bool getFinalizado() const;
     //void setFinalizado(bool value);
 
@@ -70,6 +71,7 @@ public:
     void setNivel(int value);
 
     void setCerrarmain(bool value);
+    void siguientee();
 
 public slots:
     void disparar();

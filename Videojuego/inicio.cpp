@@ -99,6 +99,7 @@ void inicio::on_nuevapartida_clicked()
     MainWindow *juego;
     juego=new MainWindow();
     juego->setNombre(usuario);
+    juego->setNombre2(usuario);
     juego->show();
 }
 
