@@ -1,5 +1,6 @@
 # Instrucciones del juego:
-A izquierda
+A izquierda //
+
 D derecha
 W salto
 S deslizamiento (para evitar que los zombies te ataquen)
