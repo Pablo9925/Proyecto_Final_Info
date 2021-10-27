@@ -40,7 +40,7 @@ void next::on_pushButton_clicked()
     ventana=new MainWindow();
     ventana->setNombre(auxpersonajee);
     ventana->setNombre2(auxpersonajee2);
-    ventana->setMultiplayer(true);
+
     ventana->cargar();
     //ventana->close();
     ventana->show();
