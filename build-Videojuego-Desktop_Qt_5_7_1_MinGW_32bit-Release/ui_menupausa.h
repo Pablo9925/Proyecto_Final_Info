@@ -32,51 +32,52 @@ public:
     QPushButton *reanudar;
     QLabel *label_4;
     QLabel *nivel;
+    QLabel *label_5;
 
     void setupUi(QWidget *menupausa)
     {
         if (menupausa->objectName().isEmpty())
             menupausa->setObjectName(QStringLiteral("menupausa"));
-        menupausa->resize(371, 320);
-        menupausa->setStyleSheet(QLatin1String("background-color: rgb(227, 241, 255);\n"
+        menupausa->resize(371, 425);
+        menupausa->setStyleSheet(QLatin1String("background-color: rgb(255, 255, 255);\n"
 "border-color: rgb(0, 0, 0);"));
         label = new QLabel(menupausa);
         label->setObjectName(QStringLiteral("label"));
-        label->setGeometry(QRect(10, 10, 61, 61));
+        label->setGeometry(QRect(10, 100, 61, 61));
         label->setStyleSheet(QLatin1String("\n"
 "image: url(:/escena/vida.png);"));
         vida = new QLabel(menupausa);
         vida->setObjectName(QStringLiteral("vida"));
-        vida->setGeometry(QRect(100, 10, 161, 61));
+        vida->setGeometry(QRect(100, 100, 161, 61));
         QFont font;
         font.setPointSize(16);
         vida->setFont(font);
-        vida->setStyleSheet(QStringLiteral("background-color: rgb(227, 241, 255);"));
+        vida->setStyleSheet(QStringLiteral("background-color: rgb(255, 255, 255);"));
         label_3 = new QLabel(menupausa);
         label_3->setObjectName(QStringLiteral("label_3"));
-        label_3->setGeometry(QRect(10, 90, 61, 61));
+        label_3->setGeometry(QRect(10, 180, 61, 61));
         label_3->setStyleSheet(QStringLiteral("image: url(:/escena/ammo.png);"));
         municion = new QLabel(menupausa);
         municion->setObjectName(QStringLiteral("municion"));
-        municion->setGeometry(QRect(100, 90, 161, 61));
+        municion->setGeometry(QRect(100, 180, 161, 61));
         municion->setFont(font);
-        municion->setStyleSheet(QStringLiteral("background-color: rgb(227, 241, 255);"));
+        municion->setStyleSheet(QStringLiteral("background-color: rgb(255, 255, 255);"));
         label_2 = new QLabel(menupausa);
         label_2->setObjectName(QStringLiteral("label_2"));
-        label_2->setGeometry(QRect(10, 170, 61, 61));
+        label_2->setGeometry(QRect(10, 260, 61, 61));
         label_2->setStyleSheet(QLatin1String("\n"
 "image: url(:/escena/coin.png);"));
         puntaje = new QLabel(menupausa);
         puntaje->setObjectName(QStringLiteral("puntaje"));
-        puntaje->setGeometry(QRect(100, 170, 161, 61));
+        puntaje->setGeometry(QRect(100, 260, 161, 61));
         puntaje->setFont(font);
         reanudar = new QPushButton(menupausa);
         reanudar->setObjectName(QStringLiteral("reanudar"));
-        reanudar->setGeometry(QRect(270, 140, 93, 28));
+        reanudar->setGeometry(QRect(270, 390, 93, 28));
         reanudar->setStyleSheet(QStringLiteral(""));
         label_4 = new QLabel(menupausa);
         label_4->setObjectName(QStringLiteral("label_4"));
-        label_4->setGeometry(QRect(10, 250, 61, 61));
+        label_4->setGeometry(QRect(10, 340, 61, 61));
         QFont font1;
         font1.setPointSize(20);
         label_4->setFont(font1);
@@ -84,8 +85,12 @@ public:
         label_4->setStyleSheet(QStringLiteral("background-image: url(:/sprites personaje/Dead (1).png);"));
         nivel = new QLabel(menupausa);
         nivel->setObjectName(QStringLiteral("nivel"));
-        nivel->setGeometry(QRect(100, 250, 161, 61));
+        nivel->setGeometry(QRect(100, 340, 161, 61));
         nivel->setFont(font);
+        label_5 = new QLabel(menupausa);
+        label_5->setObjectName(QStringLiteral("label_5"));
+        label_5->setGeometry(QRect(70, 10, 221, 71));
+        label_5->setStyleSheet(QStringLiteral("image: url(:/escena/pausa.png);"));
 
         retranslateUi(menupausa);
 
@@ -104,6 +109,7 @@ public:
         reanudar->setText(QApplication::translate("menupausa", "Cerrar", Q_NULLPTR));
         label_4->setText(QApplication::translate("menupausa", "LVL:", Q_NULLPTR));
         nivel->setText(QString());
+        label_5->setText(QString());
     } // retranslateUi
 
 };

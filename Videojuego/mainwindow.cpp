@@ -379,6 +379,29 @@ void MainWindow::saltoparabolico()
             monedas.removeAt(j);
         }
     }
+    if(posysalto>720){
+       times->stop();
+       advGirl->setVidas(0);
+       advGirl->setMuerte(true);
+       if(multiplayer==true){
+
+           advGirl->setPersonaje1(nombre2);
+           advGirl->setPersonaje2(nombre2);
+           advGirl->guardar(nombre2);
+           advGirl->setMultij(true);
+       }
+       else{
+           advGirl->setPersonaje1(nombre);
+           advGirl->setPersonaje2(nombre2);
+           advGirl->guardar(nombre);
+       }
+       timemaz->stop();
+       timez->stop();
+       advGirl->guardar(nombre);
+       advGirl->moristesmen();
+       if(pausa->getActivo()==true) pausa->close();
+       close();
+    }
     if(n%7==0) view->centerOn(advGirl->x(),504);
     if(advGirl->get_direc()==true){
         if(posysalto>=216 && posysalto>posysaltoant && (matriz[int(posxsalto/160)][int(posysalto/144)+1]!=0 || matriz[int((posxsalto+(sizey/10))/160)][int(posysalto/144)+1]!=0) && int(posysalto/144)+1==2){
@@ -430,29 +453,6 @@ void MainWindow::saltoparabolico()
             times->stop();
             if(advGirl->get_direc()==true) advGirl->setPixmap(QPixmap(":/sprites personaje/Idle (1).png").scaled(sizey/5,sizey/5));
             else advGirl->setPixmap(QPixmap(":/sprites personaje/IdleL (1).png").scaled(sizey/5,sizey/5));
-        }
-        if(posysalto>720){
-           times->stop();
-           advGirl->setVidas(0);
-           advGirl->setMuerte(true);
-           if(multiplayer==true){
-
-               advGirl->setPersonaje1(nombre2);
-               advGirl->setPersonaje2(nombre2);
-               advGirl->guardar(nombre2);
-               advGirl->setMultij(true);
-           }
-           else{
-               advGirl->setPersonaje1(nombre);
-               advGirl->setPersonaje2(nombre2);
-               advGirl->guardar(nombre);
-           }
-           timemaz->stop();
-           timez->stop();
-           advGirl->guardar(nombre);
-           advGirl->moristesmen();
-           if(pausa->getActivo()==true) pausa->close();
-           close();
         }
     }
 }
