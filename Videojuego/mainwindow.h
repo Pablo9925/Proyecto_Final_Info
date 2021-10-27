@@ -40,7 +40,7 @@ public:
     void setNombre2(const QString &value);
     void setMultiplayer(bool value);
 public slots:
-    void cerrar();
+    //void cerrar();
     void deslizando();
     void movimientobala();
     void saltoparabolico();
@@ -60,7 +60,7 @@ private:
     QTimer *timec;
     QTimer *times;
     QTimer *timez;
-    QTimer *timemorir;
+    //QTimer *timemorir;
     QMediaPlayer * bsound;
     QMediaPlayer * csound;
     QMediaPlayer * coinsound;

@@ -43,7 +43,7 @@ MainWindow::~MainWindow()
     delete timec;
     delete times;
     delete timez;
-    delete timemorir;
+    //delete timemorir;
     delete bsound;
     delete csound;
     delete coinsound;
@@ -169,6 +169,8 @@ void MainWindow::keyPressEvent(QKeyEvent *i)
             advGirl->mov_der();
             advGirl->setX(advGirl->x()+20);
             if(advGirl->collidesWithItem(l2)){
+                timez->stop();
+                timemaz->stop();
                 advGirl->mov_izq();
                 advGirl->setX(advGirl->x()-20);
                 advGirl->setNivel(advGirl->getNivel()+1);
@@ -554,8 +556,6 @@ void MainWindow::movimiento_maza()
     for(int j=0;j<mazas.length();j++){
         if(mazas.at(j)->getX()<advGirl->get_posx()+sizex && mazas.at(j)->getX()>advGirl->get_posx()-sizex) mazas.at(j)->movimiento();
           if(mazas.at(j)->collidesWithItem(advGirl) && mazas.at(j)->getImpacto()==false){
-              escena->removeItem(mazas.at(j));
-              mazas.at(j)->setImpacto(true);
               advGirl->setVidas(advGirl->getVidas()-1);
               if(advGirl->getVidas()<=0){
                   advGirl->setMuerte(true);
@@ -582,9 +582,9 @@ void MainWindow::movimiento_maza()
                       puntos->actualizacion(nombre,puntos1,nombre2,puntos2);
                       puntos->show();
                   }
-                   timemorir=new QTimer;
-                   timemorir->start(1500);
-                   connect(timemorir,SIGNAL(timeout()),this,SLOT(cerrar()));
+                   /*timemorir=new QTimer;
+                   timemorir->start(150);
+                   connect(timemorir,SIGNAL(timeout()),this,SLOT(cerrar()));*/
 
                     if(advGirl->getCerrarmain()==true){
                         advGirl->setCerrarmain(false);
@@ -596,6 +596,8 @@ void MainWindow::movimiento_maza()
               else{
                   psound->setMedia(QUrl("qrc:/sonidos/herida.mp3"));
                   psound->play();
+                  escena->removeItem(mazas.at(j));
+                  mazas.at(j)->setImpacto(true);
               }
           }
     }
@@ -645,6 +647,7 @@ void MainWindow::movimiento_zombie()
                     puntos2=advGirl->getPuntaje();
                     puntos->actualizacion(nombre,puntos1,nombre2,puntos2);
                     puntos->show();
+                    close();
                 }
                 if(advGirl->getCerrarmain()==true){
                     timez->stop();
@@ -702,10 +705,10 @@ void MainWindow::setMultiplayer(bool value)
     multiplayer = value;
 }
 
-void MainWindow::cerrar()
+/*void MainWindow::cerrar()
 {
     close();
-}
+}*/
 
 void MainWindow::setNombre2(const QString &value)
 {
