@@ -220,17 +220,16 @@ void personaje::deslizar()
 
 void personaje::morir()
 {
-    guardar();
+    guardar(personaje1);
     vidas--;
     timemuer = new QTimer;
     timemuer->start(200);
     connect(timemuer,SIGNAL(timeout()),this,SLOT(muerte_anima()));
-
 }
 
-void personaje::guardar()
+void personaje::guardar( QString persona)
 {
-    QFile archivo(personaje1);
+    QFile archivo(persona);
     QString clave,nombre,puntuacion,nivelstr,municionstr,vidastr;
     if(archivo.open(QFile::ReadOnly | QFile::Text))
     {
@@ -246,7 +245,7 @@ void personaje::guardar()
     bool ok;
     int puntuacionint = puntuacion.toInt(&ok);
 
-    QFile cuenta(personaje1);
+    QFile cuenta(persona);
     if ( cuenta.open(QFile::WriteOnly | QFile::Text))
     {
         QTextStream out(&cuenta);
@@ -317,7 +316,9 @@ void personaje::muerte_anima()
     if(derecha==true){
         if(contmuer==6){
             timemuer->stop();
-            //finalizado=true;
+            cerrarmain=true;
+
+            moristesmen();
         }
         setPixmap(QPixmap(spriPers[contmuer]).scaled(size/5,size/5));
         if(contmuer<6){
@@ -327,7 +328,8 @@ void personaje::muerte_anima()
     else{
         if(contmuer==6){
             timemuer->stop();
-            //finalizado=true;
+            cerrarmain=true;
+            moristesmen();
         }
         setPixmap(QPixmap(spriPersL[contmuer]).scaled(size/5,size/5));
         if(contmuer<6){
@@ -336,9 +338,36 @@ void personaje::muerte_anima()
     }
 }
 
+void personaje::setCerrarmain(bool value)
+{
+    cerrarmain = value;
+}
+
 void personaje::setNivel(int value)
 {
     nivel = value;
+}
+
+bool personaje::getCerrarmain() const
+{
+    return cerrarmain;
+}
+
+void personaje::moristesmen()
+{
+    if(cerrarfracasado==true){
+    Fracasado *perder;
+    perder=new Fracasado();
+    perder->setAuxpersonaje1(personaje1);
+    perder->setAuxpersonaje2(personaje2);
+    perder->show();
+    cerrarfracasado=false;
+    }
+}
+
+void personaje::setMultij(bool value)
+{
+    multij = value;
 }
 
 int personaje::getNivel() const
@@ -359,17 +388,7 @@ void personaje::setPersonaje1(const QString &value)
 {
     personaje1 = value;
 }
-/*
-bool personaje::getFinalizado() const
-{
-    return finalizado;
-}
 
-void personaje::setFinalizado(bool value)
-{
-    finalizado = value;
-}
-*/
 bool personaje::getMuerte() const
 {
     return muerte;
@@ -379,8 +398,6 @@ void personaje::setMuerte(bool value)
 {
     muerte = value;
 }
-
-
 
 int personaje::getPuntaje() const
 {
@@ -401,6 +418,7 @@ void personaje::setVidas(int value)
 {
     vidas = value;
 }
+
 void personaje::cargando()
 {
     QFile archivo(personaje1);
@@ -420,8 +438,13 @@ void personaje::cargando()
     bool ok;
     int puntuacionint = puntuacion.toInt(&ok);
     nivel = nivelstr.toInt(&ok);
-    vidas = vidastr.toInt(&ok)+1;
+    vidas = vidastr.toInt(&ok);
     ammo = municionstr.toInt(&ok);
-
     puntaje=puntuacionint;
+    if(vidas<=0){
+        nivel=1;
+        vidas=3;
+        ammo=6;
+        puntaje=0;
+    }
 }

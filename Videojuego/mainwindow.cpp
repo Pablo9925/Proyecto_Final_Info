@@ -42,6 +42,7 @@ MainWindow::~MainWindow()
     delete timec;
     delete times;
     delete timez;
+    delete timemorir;
     delete bsound;
     delete csound;
     delete coinsound;
@@ -104,7 +105,7 @@ void MainWindow::generar_mapa()
             mapa[x][y] = new map(sizex,sizey);
             mapa[x][y]->setup_tipo(m_mapa[x][y]);
             mapa[x][y]->setX((sizex/columnas)*x);
-            if(m_mapa[x][y]==3) mapa[x][y]->setY(((sizey/filas)*y)+(sizey/filas));
+            if(m_mapa[x][y]==3 || m_mapa[x][y]==4) mapa[x][y]->setY(((sizey/filas)*y)+(sizey/filas));
             else mapa[x][y]->setY(((sizey/(filas))*y)+(sizey/filas)/2);
             escena->addItem(mapa[x][y]);
         }
@@ -171,7 +172,7 @@ void MainWindow::keyPressEvent(QKeyEvent *i)
                 advGirl->setX(advGirl->x()-20);
                 advGirl->setNivel(advGirl->getNivel()+1);
                 advGirl->setPersonaje1(nombre);
-                advGirl->guardar();
+                advGirl->guardar(nombre);
                 close();
             }
             view->centerOn(advGirl->x(),504);
@@ -430,6 +431,29 @@ void MainWindow::saltoparabolico()
             if(advGirl->get_direc()==true) advGirl->setPixmap(QPixmap(":/sprites personaje/Idle (1).png").scaled(sizey/5,sizey/5));
             else advGirl->setPixmap(QPixmap(":/sprites personaje/IdleL (1).png").scaled(sizey/5,sizey/5));
         }
+        if(posysalto>720){
+           times->stop();
+           advGirl->setVidas(0);
+           advGirl->setMuerte(true);
+           if(multiplayer==true){
+
+               advGirl->setPersonaje1(nombre2);
+               advGirl->setPersonaje2(nombre2);
+               advGirl->guardar(nombre2);
+               advGirl->setMultij(true);
+           }
+           else{
+               advGirl->setPersonaje1(nombre);
+               advGirl->setPersonaje2(nombre2);
+               advGirl->guardar(nombre);
+           }
+           timemaz->stop();
+           timez->stop();
+           advGirl->guardar(nombre);
+           advGirl->moristesmen();
+           if(pausa->getActivo()==true) pausa->close();
+           close();
+        }
     }
 }
 
@@ -470,6 +494,25 @@ void MainWindow::caida()
             else advGirl->setPixmap(QPixmap(":/sprites personaje/IdleL (1).png").scaled(sizey/5,sizey/5));
         }
     }
+    if(sizey-posysalto>720){
+        timec->stop();
+        advGirl->setVidas(0);
+        advGirl->setMuerte(true);
+        if(multiplayer==true){
+            advGirl->setPersonaje1(nombre2);
+            advGirl->setPersonaje2(nombre2);
+            advGirl->guardar(nombre2);
+            advGirl->setMultij(true);
+        }
+        else{
+            advGirl->setPersonaje1(nombre);
+            advGirl->setPersonaje2(nombre2);
+            advGirl->guardar(nombre);
+        }
+        advGirl->moristesmen();
+        if(pausa->getActivo()==true) pausa->close();
+        close();
+    }
 }
 
 void MainWindow::movimiento_maza()
@@ -480,10 +523,29 @@ void MainWindow::movimiento_maza()
               escena->removeItem(mazas.at(j));
               mazas.at(j)->setImpacto(true);
               advGirl->setVidas(advGirl->getVidas()-1);
-              if(advGirl->getVidas()==0){
+              if(advGirl->getVidas()<=0){
                   advGirl->setMuerte(true);
-                  advGirl->setPersonaje1(nombre);
-                  advGirl->morir();
+                  if(multiplayer==true){
+                       advGirl->setPersonaje1(nombre2);
+                       advGirl->setPersonaje2(nombre2);
+                       advGirl->setMultij(true);
+                   }
+                   else{
+                       advGirl->setPersonaje1(nombre);
+                        advGirl->setPersonaje2(nombre2);
+                   }
+
+                   advGirl->morir();
+                   timemorir=new QTimer;
+                   timemorir->start(1500);
+                   connect(timemorir,SIGNAL(timeout()),this,SLOT(cerrar()));
+
+                    if(advGirl->getCerrarmain()==true){
+                        advGirl->setCerrarmain(false);
+                        if(pausa->getActivo()==true) pausa->close();
+                        close();
+
+                    }
               }
               else{
                   psound->setMedia(QUrl("qrc:/sonidos/herida.mp3"));
@@ -512,10 +574,25 @@ void MainWindow::movimiento_zombie()
             zombies.at(j)->setMov(false);
             zombies.at(j)->setImpacto(true);
             zombies.at(j)->setAtaque(true);
-            if(advGirl->getVidas()==0){
+            if(advGirl->getVidas()<=0){
                 advGirl->setMuerte(true);
                 advGirl->setPersonaje1(nombre);
+                if(multiplayer==true){
+                    advGirl->setPersonaje1(nombre2);
+                    advGirl->setPersonaje2(nombre2);
+                    advGirl->setMultij(true);
+                }
+                else{
+                    advGirl->setPersonaje1(nombre);
+                    advGirl->setPersonaje2(nombre2);
+                }
                 advGirl->morir();
+                if(advGirl->getCerrarmain()==true){
+                    timez->stop();
+                    advGirl->setCerrarmain(false);
+                    if(pausa->getActivo()==true) pausa->close();
+                    close();
+                }
             }
         }
         if(zombies.at(j)->getAtaque()==true){
@@ -561,10 +638,20 @@ void MainWindow::movimiento_zombie()
     }
 }
 
+void MainWindow::setMultiplayer(bool value)
+{
+    multiplayer = value;
+}
 
+void MainWindow::cerrar()
+{
+    close();
+}
 
-
-
+void MainWindow::setNombre2(const QString &value)
+{
+    nombre2 = value;
+}
 
 void MainWindow::deslizando()
 {
@@ -662,7 +749,7 @@ void MainWindow::movimientobala()
             time->stop();
             escena->removeItem(advGirl->getBullet());
             bulletAct=false;
-            advGirl->setPuntaje(advGirl->getPuntaje()+20);
+            advGirl->setPuntaje(advGirl->getPuntaje()+2);
         }
 
     if(advGirl->getBullet()->get_posx()>advGirl->get_posx()+sizex && direc==true){
@@ -675,7 +762,7 @@ void MainWindow::movimientobala()
         escena->removeItem(advGirl->getBullet());
         bulletAct=false;
     }
-}
+    }
 }
 
 

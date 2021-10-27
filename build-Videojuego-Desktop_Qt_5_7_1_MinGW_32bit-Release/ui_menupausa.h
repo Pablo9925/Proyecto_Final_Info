@@ -38,17 +38,18 @@ public:
         if (menupausa->objectName().isEmpty())
             menupausa->setObjectName(QStringLiteral("menupausa"));
         menupausa->resize(371, 320);
-        menupausa->setStyleSheet(QStringLiteral("background-color: rgb(227, 241, 255);"));
+        menupausa->setStyleSheet(QLatin1String("background-color: rgb(227, 241, 255);\n"
+"border-color: rgb(0, 0, 0);"));
         label = new QLabel(menupausa);
         label->setObjectName(QStringLiteral("label"));
-        label->setGeometry(QRect(10, 0, 61, 61));
+        label->setGeometry(QRect(10, 10, 61, 61));
         label->setStyleSheet(QLatin1String("\n"
 "image: url(:/escena/vida.png);"));
         vida = new QLabel(menupausa);
         vida->setObjectName(QStringLiteral("vida"));
-        vida->setGeometry(QRect(100, 0, 161, 61));
+        vida->setGeometry(QRect(100, 10, 161, 61));
         QFont font;
-        font.setPointSize(20);
+        font.setPointSize(16);
         vida->setFont(font);
         vida->setStyleSheet(QStringLiteral("background-color: rgb(227, 241, 255);"));
         label_3 = new QLabel(menupausa);
@@ -72,14 +73,18 @@ public:
         reanudar = new QPushButton(menupausa);
         reanudar->setObjectName(QStringLiteral("reanudar"));
         reanudar->setGeometry(QRect(270, 140, 93, 28));
+        reanudar->setStyleSheet(QStringLiteral(""));
         label_4 = new QLabel(menupausa);
         label_4->setObjectName(QStringLiteral("label_4"));
         label_4->setGeometry(QRect(10, 250, 61, 61));
-        label_4->setFont(font);
+        QFont font1;
+        font1.setPointSize(20);
+        label_4->setFont(font1);
         label_4->setLayoutDirection(Qt::RightToLeft);
+        label_4->setStyleSheet(QStringLiteral("background-image: url(:/sprites personaje/Dead (1).png);"));
         nivel = new QLabel(menupausa);
         nivel->setObjectName(QStringLiteral("nivel"));
-        nivel->setGeometry(QRect(100, 250, 161, 51));
+        nivel->setGeometry(QRect(100, 250, 161, 61));
         nivel->setFont(font);
 
         retranslateUi(menupausa);

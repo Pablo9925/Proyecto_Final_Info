@@ -11,6 +11,7 @@ INPUT(
 ./release\coin.o
 ./release\maza.o
 ./release\zombie.o
+./release\fracasado.o
 ./release\qrc_sprites.o
 ./release\qrc_escena.o
 ./release\qrc_sonidos.o
@@ -19,4 +20,5 @@ INPUT(
 ./release\moc_mainwindow.o
 ./release\moc_menupausa.o
 ./release\moc_personaje.o
+./release\moc_fracasado.o
 );

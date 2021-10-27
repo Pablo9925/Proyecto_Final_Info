@@ -6,6 +6,7 @@ menupausa::menupausa(QWidget *parent) :
     ui(new Ui::menupausa)
 {
     ui->setupUi(this);
+    setWindowIcon(QIcon(":/escena/TombStone (2).png"));
 }
 
 void menupausa::actualizacion(int vid, int muni, int puntaje, int nivel)

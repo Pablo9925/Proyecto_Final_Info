@@ -13,7 +13,7 @@ public:
     void setMonedada(bool value);
 
 private:
-    int size=0,puntos=50;
+    int size=0,puntos=10;
     bool monedada=false;
 };
 

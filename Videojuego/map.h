@@ -17,7 +17,7 @@ public:
     float p=0.5;
 private:
     bool aleatorio();
-    QString mapa[4];
+    QString mapa[5];
     int sizex,sizey,contm=1;
 };
 

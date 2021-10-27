@@ -14,7 +14,8 @@ inicio::inicio(QWidget *parent) :
     ui->ingresar->setVisible(false);
     ui->nuevapartida->setVisible(false);
     ui->ingresar2->setVisible(false);
-
+    ui->partidamulti->setVisible(false);
+    setWindowIcon(QIcon(":/escena/TombStone (2).png"));
 }
 
 inicio::~inicio()
@@ -67,7 +68,7 @@ void inicio::on_crear_clicked()
     }
     else
     {
-        QMessageBox::information(this,"Menú","Error, por favor vuelva a intentarlo.");
+        QMessageBox::critical(this,"Menú","Error, por favor vuelva a intentarlo.");
     }
 
 }
@@ -87,6 +88,7 @@ void inicio::on_nuevapartida_clicked()
     MainWindow *juego;
     juego=new MainWindow();
     juego->setNombre(usuario);
+    juego->setNombre2(usuario);
     juego->show();
 }
 
@@ -121,7 +123,7 @@ void inicio::on_ingresar_clicked()
         }
         else
         {
-            QMessageBox::information(this,"Menú","Error, revise bien los campos.");
+            QMessageBox::critical(this,"Menú","Error, revise bien los campos.");
         }
     }
 }
@@ -138,13 +140,11 @@ void inicio::on_multijugador_clicked()
 
 void inicio::on_ingresar2_clicked()
 {
-
     usuario2=ui->uss->text();
     password2=ui->pass->text();
     QFile archivo(usuario2);
     if(archivo.open(QFile::ReadOnly | QFile::Text))
     {
-        //cargamos de forma correcta el archivo por tanto vamos a habilitar la nueva ventana.
         QTextStream read(&archivo);
         QString clave;
         read.readLine();
@@ -165,12 +165,10 @@ void inicio::on_ingresar2_clicked()
         }
         else
         {
-            QMessageBox::information(this,"Menú","Error, revise bien los campos.");
+            QMessageBox::critical(this,"Menú","Error, revise bien los campos.");
         }
     }
 }
-
-
 
 void inicio::on_cargar_clicked()
 {
@@ -178,5 +176,40 @@ void inicio::on_cargar_clicked()
     juego=new MainWindow();
     juego->setNombre(usuario);
     juego->cargar();
+    juego->show();
+}
+
+void inicio::on_partidamulti_clicked()
+{
+    QString puntinicio="0";
+    QFile cuenta(usuario);
+    if ( cuenta.open(QFile::WriteOnly | QFile::Text))
+    {
+        QTextStream out(&cuenta);
+        out << usuario<<endl;
+        out << password << endl;
+        out << puntinicio << endl;
+        out << "1" << endl;
+        out <<"3" << endl;
+        out << "6" << endl;
+        cuenta.close();
+    }
+
+    QFile cuenta2(usuario2);
+    if ( cuenta2.open(QFile::WriteOnly | QFile::Text))
+    {
+        QTextStream out(&cuenta2);
+        out << usuario2<<endl;
+        out << password2 << endl;
+        out << puntinicio << endl;
+        out << "1" << endl;
+        out <<"3" << endl;
+        out << "6" << endl;
+        cuenta.close();
+    }
+    MainWindow *juego;
+    juego=new MainWindow();
+    juego->setNombre(usuario);
+    juego->setNombre2(usuario2);
     juego->show();
 }

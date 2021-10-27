@@ -22,6 +22,8 @@ int **logicamap::generar_mapa()
                 if (aleatorioItem()) matriz[col][3]=3;
             }
             else matriz[col][fil]=0;
+
+            if(fil==4 && col==x-1) matriz[col][3]=4;
         }
     }
     return matriz;

@@ -38,6 +38,8 @@ private slots:
 
     void on_cargar_clicked();
 
+    void on_partidamulti_clicked();
+
 private:
     Ui::inicio *ui;
     QString usuario;
