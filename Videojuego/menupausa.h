@@ -13,7 +13,7 @@ class menupausa : public QWidget
 
 public:
     explicit menupausa(QWidget *parent = nullptr);
-    void actualizacion(int vid,int muni,int puntaje,int nivel);
+    void actualizacion(QString nombre,int vid,int muni,int puntaje,int nivel);
     ~menupausa();
     bool getPausa() const;
     void setPausa(bool value);

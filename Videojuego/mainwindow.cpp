@@ -31,6 +31,7 @@ MainWindow::MainWindow(QWidget *parent) :
     timez->start(100);
     connect(timez,SIGNAL(timeout()),this,SLOT(movimiento_zombie()));
     pausa=new menupausa();
+    puntos=new Puntuaje();
 }
 
 MainWindow::~MainWindow()
@@ -171,8 +172,20 @@ void MainWindow::keyPressEvent(QKeyEvent *i)
                 advGirl->mov_izq();
                 advGirl->setX(advGirl->x()-20);
                 advGirl->setNivel(advGirl->getNivel()+1);
-                advGirl->setPersonaje1(nombre);
-                advGirl->guardar(nombre);
+                if(multiplayer==true){
+
+                    advGirl->setPersonaje1(nombre);
+                    advGirl->setPersonaje2(nombre2);
+                    advGirl->guardar(nombre2);
+                    multiplayer=false;
+                }
+                else{
+                    advGirl->setPersonaje1(nombre);
+                    advGirl->setPersonaje2(nombre2);
+                    advGirl->guardar(nombre);
+                }
+                advGirl->siguientee();
+                advGirl->setMultij(multiplayer);
                 close();
             }
             view->centerOn(advGirl->x(),504);
@@ -328,7 +341,8 @@ void MainWindow::keyPressEvent(QKeyEvent *i)
             timemaz->stop();
             timez->stop();
             if(advGirl->getParabolico()==true) times->stop();
-            pausa->actualizacion(advGirl->getVidas(),advGirl->get_ammo(),advGirl->getPuntaje(),advGirl->getNivel());
+            if(multiplayer==false) pausa->actualizacion(nombre,advGirl->getVidas(),advGirl->get_ammo(),advGirl->getPuntaje(),advGirl->getNivel());
+            else pausa->actualizacion(nombre2,advGirl->getVidas(),advGirl->get_ammo(),advGirl->getPuntaje(),advGirl->getNivel());
             pausa->show();
         }
         else{
@@ -349,8 +363,15 @@ void MainWindow::setNombre(const QString &value)
 
 void MainWindow::cargar()
 {
+    //multiplayer=advGirl->getMultij();
+    if (multiplayer==true){
+         advGirl->cargando(nombre2);
+    }
+    else{
+        advGirl->cargando(nombre);
+    }
     advGirl->setPersonaje1(nombre);
-    advGirl->cargando();
+    advGirl->setPersonaje2(nombre2);
 }
 
 
@@ -384,11 +405,9 @@ void MainWindow::saltoparabolico()
        advGirl->setVidas(0);
        advGirl->setMuerte(true);
        if(multiplayer==true){
-
-           advGirl->setPersonaje1(nombre2);
+           advGirl->setPersonaje1(nombre);
            advGirl->setPersonaje2(nombre2);
            advGirl->guardar(nombre2);
-           advGirl->setMultij(true);
        }
        else{
            advGirl->setPersonaje1(nombre);
@@ -398,7 +417,15 @@ void MainWindow::saltoparabolico()
        timemaz->stop();
        timez->stop();
        advGirl->guardar(nombre);
-       advGirl->moristesmen();
+       if(multiplayer!=true) advGirl->moristesmen();
+       else{
+           advGirl->cargando1(nombre);
+           puntos1=advGirl->getPuntaje();
+           advGirl->cargando1(nombre2);
+           puntos2=advGirl->getPuntaje();
+           puntos->actualizacion(nombre,puntos1,nombre2,puntos2);
+           puntos->show();
+       }
        if(pausa->getActivo()==true) pausa->close();
        close();
     }
@@ -502,14 +529,21 @@ void MainWindow::caida()
             advGirl->setPersonaje1(nombre2);
             advGirl->setPersonaje2(nombre2);
             advGirl->guardar(nombre2);
-            advGirl->setMultij(true);
         }
         else{
             advGirl->setPersonaje1(nombre);
             advGirl->setPersonaje2(nombre2);
             advGirl->guardar(nombre);
         }
-        advGirl->moristesmen();
+        if(multiplayer!=true) advGirl->moristesmen();
+        else{
+            advGirl->cargando1(nombre);
+            puntos1=advGirl->getPuntaje();
+            advGirl->cargando1(nombre2);
+            puntos2=advGirl->getPuntaje();
+            puntos->actualizacion(nombre,puntos1,nombre2,puntos2);
+            puntos->show();
+        }
         if(pausa->getActivo()==true) pausa->close();
         close();
     }
@@ -528,14 +562,26 @@ void MainWindow::movimiento_maza()
                   if(multiplayer==true){
                        advGirl->setPersonaje1(nombre2);
                        advGirl->setPersonaje2(nombre2);
-                       advGirl->setMultij(true);
+                       advGirl->guardar(nombre2);
                    }
                    else{
                        advGirl->setPersonaje1(nombre);
-                        advGirl->setPersonaje2(nombre2);
+                       advGirl->guardar(nombre);
+                       advGirl->setPersonaje2(nombre2);
                    }
-
-                   advGirl->morir();
+                  if(multiplayer!=true){
+                      advGirl->morir();
+                      advGirl->moristesmen();
+                  }
+                  else{
+                      advGirl->morir();
+                      advGirl->cargando1(nombre);
+                      puntos1=advGirl->getPuntaje();
+                      advGirl->cargando1(nombre2);
+                      puntos2=advGirl->getPuntaje();
+                      puntos->actualizacion(nombre,puntos1,nombre2,puntos2);
+                      puntos->show();
+                  }
                    timemorir=new QTimer;
                    timemorir->start(1500);
                    connect(timemorir,SIGNAL(timeout()),this,SLOT(cerrar()));
@@ -580,13 +626,26 @@ void MainWindow::movimiento_zombie()
                 if(multiplayer==true){
                     advGirl->setPersonaje1(nombre2);
                     advGirl->setPersonaje2(nombre2);
-                    advGirl->setMultij(true);
+                    advGirl->guardar(nombre2);
                 }
                 else{
                     advGirl->setPersonaje1(nombre);
+                    advGirl->guardar(nombre);
                     advGirl->setPersonaje2(nombre2);
                 }
-                advGirl->morir();
+                if(multiplayer!=true){
+                    advGirl->morir();
+                    advGirl->moristesmen();
+                }
+                else{
+                    advGirl->morir();
+                    advGirl->cargando1(nombre);
+                    puntos1=advGirl->getPuntaje();
+                    advGirl->cargando1(nombre2);
+                    puntos2=advGirl->getPuntaje();
+                    puntos->actualizacion(nombre,puntos1,nombre2,puntos2);
+                    puntos->show();
+                }
                 if(advGirl->getCerrarmain()==true){
                     timez->stop();
                     advGirl->setCerrarmain(false);

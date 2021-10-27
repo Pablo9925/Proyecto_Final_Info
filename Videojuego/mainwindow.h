@@ -16,6 +16,7 @@
 #include "zombie.h"
 #include <string>
 #include <menupausa.h>
+#include "puntuaje.h"
 namespace Ui {
 class MainWindow;
 }
@@ -47,7 +48,7 @@ public slots:
     void movimiento_maza();
     void movimiento_zombie();
 private:
-    int sizex=0,sizey=0,n=1,nc=0,nf=0,contatt=0,contmue=14;
+    int sizex=0,sizey=0,n=1,nc=0,nf=0,contatt=0,contmue=14,puntos1=0,puntos2=0;
     int matriz[columnas*15][filas];
     bool bulletAct=false, direc, cae=false,salto=false,multiplayer=false;
     Ui::MainWindow *ui;
@@ -70,6 +71,7 @@ private:
     QGraphicsLineItem *l1, *l2;
     map *mapa[columnas*15][filas];
     menupausa *pausa;
+    Puntuaje *puntos;
     logicamap *l_mapa;
     QList <caja*> cajas;
     QList <coin*> monedas;

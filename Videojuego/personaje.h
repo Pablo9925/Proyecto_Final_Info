@@ -13,6 +13,7 @@
 #include <QFile>
 #include <QTextStream>
 #include "fracasado.h"
+#include "next.h"
 class personaje : public QObject, public QGraphicsPixmapItem
 {
     Q_OBJECT
@@ -49,7 +50,8 @@ public:
     void setPuntaje(int value);
     bool getMuerte() const;
     void setMuerte(bool value);
-    void cargando();
+    void cargando(QString actual);
+    void cargando1(QString actual);
     void setPersonaje1(const QString &value);
     void setPersonaje2(const QString &value);
     QString recogerunalinea(int linea, QString a);
@@ -60,6 +62,8 @@ public:
     bool getCerrarmain() const;
     void moristesmen();
     void setCerrarmain(bool value);
+    void siguientee();
+    bool getMultij() const;
 
 public slots:
     void disparar();

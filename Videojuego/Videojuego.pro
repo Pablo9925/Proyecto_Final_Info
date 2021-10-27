@@ -36,7 +36,9 @@ SOURCES += \
     coin.cpp \
     maza.cpp \
     zombie.cpp \
-    fracasado.cpp
+    fracasado.cpp \
+    puntuaje.cpp \
+    next.cpp
 
 HEADERS += \
     bala.h \
@@ -50,13 +52,17 @@ HEADERS += \
     coin.h \
     maza.h \
     zombie.h \
-    fracasado.h
+    fracasado.h \
+    puntuaje.h \
+    next.h
 
 FORMS += \
     inicio.ui \
         mainwindow.ui \
     menupausa.ui \
-    fracasado.ui
+    fracasado.ui \
+    puntuaje.ui \
+    next.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

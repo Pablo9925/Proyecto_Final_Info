@@ -20,9 +20,10 @@ void Fracasado::on_Siguiente_clicked()
 {
     MainWindow *ventana;
     ventana=new MainWindow();
-
+    ventana->setNombre(auxpersonaje1);
     ventana->setNombre2(auxpersonaje2);
-    ventana->setMultiplayer(true);
+    if(auxpersonaje1.length()>0 && auxpersonaje2.length()>0 && auxpersonaje1!=auxpersonaje2) ventana->setMultiplayer(true);
+    else ventana->setMultiplayer(false);
     //ventana->close();
     ventana->show();
 

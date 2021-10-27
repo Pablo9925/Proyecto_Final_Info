@@ -21,7 +21,6 @@ inicio::inicio(QWidget *parent) :
 inicio::~inicio()
 {
     delete ui;
-
 }
 
 void inicio::on_inicio_2_clicked()
@@ -68,7 +67,7 @@ void inicio::on_crear_clicked()
     }
     else
     {
-        QMessageBox::critical(this,"Menú","Error, por favor vuelva a intentarlo.");
+        QMessageBox::information(this,"Menú","Error, por favor vuelva a intentarlo.");
     }
 
 }
@@ -101,7 +100,6 @@ void inicio::on_ingresar_clicked()
     QFile archivo(usuario);
     if(archivo.open(QFile::ReadOnly | QFile::Text))
     {
-        //cargamos de forma correcta el archivo por tanto vamos a habilitar la nueva ventana.
         QTextStream read(&archivo);
         QString clave;
         read.readLine();
@@ -123,7 +121,7 @@ void inicio::on_ingresar_clicked()
         }
         else
         {
-            QMessageBox::critical(this,"Menú","Error, revise bien los campos.");
+            QMessageBox::information(this,"Menú","Error, revise bien los campos.");
         }
     }
 }
@@ -134,12 +132,14 @@ void inicio::on_multijugador_clicked()
     ui->pass->setVisible(true);
     ui->multijugador->setVisible(false);
     ui->nuevapartida->setVisible(false);
+    ui->cargar->setVisible(false);
     ui->ingresar2->setVisible(true);
 
 }
 
 void inicio::on_ingresar2_clicked()
 {
+
     usuario2=ui->uss->text();
     password2=ui->pass->text();
     QFile archivo(usuario2);
@@ -159,16 +159,20 @@ void inicio::on_ingresar2_clicked()
             ui->uss->setVisible(false);
             ui->pass->setVisible(false);
             ui->multijugador->setVisible(false);
-            ui->nuevapartida->setVisible(true);
+            ui->nuevapartida->setVisible(false);
             ui->ingresar->setVisible(false);
+            ui->ingresar2->setVisible(false);
+            ui->partidamulti->setVisible(true);
             archivo.close();
         }
         else
         {
-            QMessageBox::critical(this,"Menú","Error, revise bien los campos.");
+            QMessageBox::information(this,"Menú","Error, revise bien los campos.");
         }
     }
 }
+
+
 
 void inicio::on_cargar_clicked()
 {
@@ -212,4 +216,5 @@ void inicio::on_partidamulti_clicked()
     juego->setNombre(usuario);
     juego->setNombre2(usuario2);
     juego->show();
+
 }

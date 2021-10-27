@@ -220,7 +220,7 @@ void personaje::deslizar()
 
 void personaje::morir()
 {
-    guardar(personaje1);
+    //guardar(personaje1);
     vidas--;
     timemuer = new QTimer;
     timemuer->start(200);
@@ -233,7 +233,10 @@ void personaje::guardar( QString persona)
     QString clave,nombre,puntuacion,nivelstr,municionstr,vidastr;
     if(archivo.open(QFile::ReadOnly | QFile::Text))
     {
+        //cargamos de forma correcta el archivo por tanto vamos a habilitar la nueva ventana.
         QTextStream read(&archivo);
+
+
         nombre=read.readLine();
         clave = read.readLine();
         puntuacion=read.readLine();
@@ -248,10 +251,18 @@ void personaje::guardar( QString persona)
     QFile cuenta(persona);
     if ( cuenta.open(QFile::WriteOnly | QFile::Text))
     {
+
         QTextStream out(&cuenta);
         out <<nombre<<endl;
         out <<clave<< endl;
-        out<<puntaje+puntuacionint<<endl;
+        if(puntuacionint!=0){
+            out<<puntaje<<endl;
+
+        }
+        else{
+            out<<puntaje+puntuacionint<<endl;
+
+        }
         out<<nivel<<endl;
         out<<vidas<<endl;
         out<<ammo<<endl;
@@ -318,7 +329,7 @@ void personaje::muerte_anima()
             timemuer->stop();
             cerrarmain=true;
 
-            moristesmen();
+            //moristesmen();
         }
         setPixmap(QPixmap(spriPers[contmuer]).scaled(size/5,size/5));
         if(contmuer<6){
@@ -329,7 +340,7 @@ void personaje::muerte_anima()
         if(contmuer==6){
             timemuer->stop();
             cerrarmain=true;
-            moristesmen();
+            //moristesmen();
         }
         setPixmap(QPixmap(spriPersL[contmuer]).scaled(size/5,size/5));
         if(contmuer<6){
@@ -338,9 +349,24 @@ void personaje::muerte_anima()
     }
 }
 
+bool personaje::getMultij() const
+{
+    return multij;
+}
+
 void personaje::setCerrarmain(bool value)
 {
     cerrarmain = value;
+}
+
+void personaje::siguientee()
+{
+    next *level;
+    level=new next;
+    level->setAuxpersonajee(personaje1);
+    level->setAuxpersonajee2(personaje2);
+    level->setMultiplayer(multij);
+    level->show();
 }
 
 void personaje::setNivel(int value)
@@ -419,9 +445,9 @@ void personaje::setVidas(int value)
     vidas = value;
 }
 
-void personaje::cargando()
+void personaje::cargando(QString actual)
 {
-    QFile archivo(personaje1);
+    QFile archivo(actual);
     QString clave,nombre,puntuacion,nivelstr,municionstr,vidastr;;
     if(archivo.open(QFile::ReadOnly | QFile::Text))
     {
@@ -442,9 +468,33 @@ void personaje::cargando()
     ammo = municionstr.toInt(&ok);
     puntaje=puntuacionint;
     if(vidas<=0){
-        nivel=1;
         vidas=3;
         ammo=6;
         puntaje=0;
+        nivel=1;
     }
+}
+
+void personaje::cargando1(QString actual)
+{
+    QFile archivo(actual);
+    QString clave,nombre,puntuacion,nivelstr,municionstr,vidastr;;
+    if(archivo.open(QFile::ReadOnly | QFile::Text))
+    {
+        //cargamos de forma correcta el archivo por tanto vamos a habilitar la nueva ventana.
+        QTextStream read(&archivo);
+        nombre=read.readLine();
+        clave = read.readLine();
+        puntuacion=read.readLine();
+        nivelstr=read.readLine();
+        vidastr=read.readLine();
+        municionstr=read.readLine();
+        archivo.close();
+    }
+    bool ok;
+    int puntuacionint = puntuacion.toInt(&ok);
+    nivel = nivelstr.toInt(&ok);
+    vidas = vidastr.toInt(&ok);
+    ammo = municionstr.toInt(&ok);
+    puntaje=puntuacionint;
 }

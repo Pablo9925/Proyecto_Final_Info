@@ -9,7 +9,7 @@ menupausa::menupausa(QWidget *parent) :
     setWindowIcon(QIcon(":/escena/TombStone (2).png"));
 }
 
-void menupausa::actualizacion(int vid, int muni, int puntaje, int nivel)
+void menupausa::actualizacion(QString nombre,int vid, int muni, int puntaje, int nivel)
 {
     vida=vid;
     municion=muni;
@@ -19,6 +19,7 @@ void menupausa::actualizacion(int vid, int muni, int puntaje, int nivel)
     ui->vida->setNum(vida);
     ui->puntaje->setNum(puntaje);
     ui->nivel->setNum(nivel);
+    ui->nombre->setText(nombre);
 }
 
 menupausa::~menupausa()

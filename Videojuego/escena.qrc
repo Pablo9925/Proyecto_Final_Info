@@ -22,5 +22,7 @@
         <file>escena/menu2.png</file>
         <file>escena/pausa.png</file>
         <file>escena/derrota.png</file>
+        <file>escena/victoria.png</file>
+        <file>escena/puntaje.png</file>
     </qresource>
 </RCC>

@@ -186,6 +186,7 @@ Makefile: ../Videojuego/Videojuego.pro C:/Qt/5.7/mingw53_32/mkspecs/win32-g++/qm
 		C:/Qt/5.7/mingw53_32/mkspecs/features/win32/qt_config.prf \
 		C:/Qt/5.7/mingw53_32/mkspecs/win32-g++/qmake.conf \
 		C:/Qt/5.7/mingw53_32/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		C:/Qt/5.7/mingw53_32/mkspecs/features/exclusive_builds.prf \
 		C:/Qt/5.7/mingw53_32/mkspecs/features/toolchain.prf \
 		C:/Qt/5.7/mingw53_32/mkspecs/features/default_pre.prf \
@@ -343,6 +344,7 @@ C:/Qt/5.7/mingw53_32/mkspecs/features/qt_config.prf:
 C:/Qt/5.7/mingw53_32/mkspecs/features/win32/qt_config.prf:
 C:/Qt/5.7/mingw53_32/mkspecs/win32-g++/qmake.conf:
 C:/Qt/5.7/mingw53_32/mkspecs/features/spec_post.prf:
+.qmake.stash:
 C:/Qt/5.7/mingw53_32/mkspecs/features/exclusive_builds.prf:
 C:/Qt/5.7/mingw53_32/mkspecs/features/toolchain.prf:
 C:/Qt/5.7/mingw53_32/mkspecs/features/default_pre.prf:
