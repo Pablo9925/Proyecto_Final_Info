@@ -1,16 +1,17 @@
 # Instrucciones del juego:
-A izquierda 
 
-D derecha
+A: izquierda
 
-W salto
+D: derecha
 
-S deslizamiento (para evitar que los zombies te ataquen)
+W: salto
 
-O cuchillo (solo afecta a las cajas)
+S: deslizamiento (para evitar que los zombies te ataquen)
 
-P disparo
+O: cuchillo (solo afecta a las cajas)
 
-I coger objetos
+P: disparo
 
-M pausa
+I: coger objetos
+
+M: pausa (para ver puntuación, munición, vidas y nivel)
